@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { AtSign, Lock, User } from 'lucide-react'
@@ -10,6 +11,12 @@ import { AuthInput } from './auth-input'
 import { AuthDivider, GoogleButton } from './auth-social'
 
 export function RegisterForm() {
+  const router = useRouter()
+
+  const handleSignUp = () => {
+    // logic for sign-up
+    router.push('/library')
+  }
   return (
     <AuthCard
       title="Create Account"
@@ -75,7 +82,10 @@ export function RegisterForm() {
         whileTap={{ scale: 0.96 }}
         transition={{ type: 'spring', stiffness: 400, damping: 15 }}
       >
-        <Button className="btn-modern shadow-soft-lg w-full text-lg tracking-wide h-15 active:bg-blue/90">
+        <Button
+          onClick={handleSignUp}
+          className="btn-modern shadow-soft-lg w-full text-lg tracking-wide h-15 active:bg-blue/90"
+        >
           Create Account
         </Button>
       </motion.div>

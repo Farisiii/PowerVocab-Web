@@ -1,7 +1,10 @@
+import { IMAGES_MANIFEST } from 'next/dist/shared/lib/constants'
+
 export const MOCK_USER = {
   name: 'Alex Morgan',
   email: 'alex.morgan@student.itb.ac.id',
   avatar: '/avatar.png', // opsional
+  image: '', // opsional
   isPremium: true,
   lastOpenedDeckId: '3', // Merujuk ke Travel & Leisure
   weeklyGoal: {

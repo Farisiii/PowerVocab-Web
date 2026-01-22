@@ -9,7 +9,8 @@ export function ProgressCard() {
   const activeDeck =
     MOCK_DECKS.find((d) => d.id === MOCK_USER.lastOpenedDeckId) || MOCK_DECKS[0]
 
-  const radius = 70
+  // Radius lingkaran disesuaikan agar proporsional
+  const radius = 50
   const circumference = 2 * Math.PI * radius
   const strokeDashoffset =
     circumference - (activeDeck.progress / 100) * circumference
@@ -18,84 +19,91 @@ export function ProgressCard() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-[2.5rem] lg:rounded-[3rem] bg-linear-to-br from-navy via-[#1a2b4b] to-blue p-7 lg:p-12 text-white shadow-soft-xl group w-full"
+      whileHover={{ y: -2 }}
+      className="relative overflow-hidden rounded-4xl lg:rounded-[2.5rem] bg-linear-to-br from-navy via-[#1a2b4b] to-blue p-5 sm:p-8 lg:p-10 text-white shadow-xl group w-full"
     >
-      {/* Glow background */}
-      <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Glow - Ukuran dinamis sesuai layar */}
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+        transition={{ duration: 8, repeat: Infinity }}
+        className="absolute -top-12 -right-12 w-48 h-48 lg:w-64 lg:h-64 bg-cyan/20 rounded-full blur-[60px] lg:blur-[80px] pointer-events-none"
+      />
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-12">
-        {/* LEFT CONTENT */}
-        <div className="flex-1 text-center lg:text-left min-w-0 order-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-[0.3em] mb-4 lg:mb-6 text-cyan/80">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-12">
+        {/* KONTEN TEKS */}
+        <div className="flex-1 text-center md:text-left min-w-0 w-full">
+          {/* Badge Session - Lebih mungil */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[8px] lg:text-[9px] font-bold uppercase tracking-[0.2em] mb-3 lg:mb-4 text-cyan">
+            <span className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-cyan animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
             Active Session
           </div>
 
-          <h2 className="text-3xl lg:text-5xl font-black mb-3 lg:mb-4 tracking-tighter leading-tight lg:leading-[1.1]">
+          {/* Judul: Responsif (text-xl di mobile, text-4xl di desktop) */}
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black mb-2 tracking-tighter leading-tight wrap-break-word line-clamp-2 md:mb-8 lg:mb-2">
             {activeDeck.title}
           </h2>
 
-          <p className="text-white/50 text-xs lg:text-base font-medium mb-8 italic max-w-xl mx-auto lg:mx-0 line-clamp-2">
+          {/* Deskripsi: Hanya muncul di layar Desktop (lg ke atas) */}
+          <p className="hidden lg:block text-white/50 text-sm font-medium mb-8 italic max-w-lg line-clamp-2">
             "{activeDeck.description}"
           </p>
 
-          {/* Desktop Button */}
+          {/* Tombol Start: Desktop & Tablet (md ke atas) */}
           <Button
-            size="lg"
-            className="hidden lg:flex bg-white text-navy hover:bg-cyan font-black text-xs tracking-widest rounded-2xl px-10 h-14"
+            size="sm"
+            className="hidden md:flex bg-cyan text-navy hover:bg-white hover:scale-105 transition-all font-black text-[10px] tracking-widest rounded-xl px-8 h-8 lg:h-12 shadow-md shadow-cyan/10"
           >
             START SESSION
-            <Play size={16} fill="currentColor" className="ml-2" />
+            <Play size={14} fill="currentColor" className="ml-2" />
           </Button>
         </div>
 
-        {/* RIGHT PROGRESS */}
-        <div className="relative shrink-0 flex flex-col items-center order-2">
-          <div className="relative w-36 h-36 lg:w-48 lg:h-48 flex items-center justify-center">
+        {/* LINGKARAN PROGRESS */}
+        <div className="relative shrink-0">
+          {/* Ukuran dinamis: w-28 di mobile, w-40 di desktop */}
+          <div className="relative w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 flex items-center justify-center">
             <svg
-              viewBox="0 0 160 160"
-              className="w-full h-full -rotate-90 drop-shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+              viewBox="0 0 120 120"
+              className="w-full h-full -rotate-90 drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]"
             >
               <circle
-                cx="80"
-                cy="80"
+                cx="60"
+                cy="60"
                 r={radius}
                 stroke="currentColor"
-                strokeWidth="12"
+                strokeWidth="10"
                 fill="transparent"
                 className="text-white/5"
               />
               <motion.circle
-                cx="80"
-                cy="80"
+                cx="60"
+                cy="60"
                 r={radius}
                 stroke="currentColor"
-                strokeWidth="12"
+                strokeWidth="10"
                 fill="transparent"
                 className="text-cyan"
-                initial={{ strokeDashoffset: circumference }}
-                animate={{ strokeDashoffset: strokeDashoffset }}
-                transition={{ duration: 1.5, ease: 'easeOut' }}
                 strokeDasharray={circumference}
+                initial={{ strokeDashoffset: circumference }}
+                animate={{ strokeDashoffset }}
+                transition={{ duration: 1.5, delay: 0.2, ease: 'circOut' }}
                 strokeLinecap="round"
               />
             </svg>
-
             <div className="absolute text-center">
-              <span className="block text-3xl lg:text-4xl font-black tracking-tighter">
+              <span className="block text-xl sm:text-2xl lg:text-3xl font-black tracking-tighter">
                 {activeDeck.progress}%
               </span>
-              <span className="text-[8px] uppercase font-black opacity-40 tracking-[0.2em]">
+              <span className="text-[7px] lg:text-[8px] uppercase font-bold opacity-40 tracking-widest">
                 Mastery
               </span>
             </div>
           </div>
         </div>
 
-        {/* Mobile + Tablet Button */}
-        <Button className="w-full lg:hidden order-3 bg-white text-navy hover:bg-cyan font-black text-xs tracking-widest rounded-2xl shadow-lg h-12">
-          START SESSION
-          <Play size={16} fill="currentColor" className="ml-2" />
+        {/* Tombol Start: Khusus Mobile (di bawah md) */}
+        <Button className="w-full md:hidden bg-cyan text-navy hover:bg-white font-black text-[10px] tracking-widest rounded-xl h-11 shadow-lg active:scale-95 transition-all">
+          START SESSION <Play size={14} fill="currentColor" className="ml-2" />
         </Button>
       </div>
     </motion.div>

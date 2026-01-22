@@ -1,156 +1,126 @@
 'use client'
 
-import { Edit3, Trash2, Layers, Play } from 'lucide-react'
+import { Edit3, Trash2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 
 export function DeckCard({ title, words, progress, description }: any) {
-  const radius = 28
+  const radius = 24
   const circumference = 2 * Math.PI * radius
-  const strokeDashoffset = circumference - (progress / 100) * circumference
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+      whileHover={{ y: -5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       className="h-full"
     >
       <Card
         className="
-          relative overflow-hidden group
-          rounded-[2.25rem]
-          border border-white/40
-          bg-white/60 backdrop-blur-xl
-          shadow-[0_20px_50px_rgba(15,40,84,0.08)]
-          hover:shadow-[0_30px_70px_rgba(15,40,84,0.15)]
-          transition-all duration-500
-          p-6 lg:p-7
-          flex flex-col justify-between gap-6
-          h-full
-        "
+        relative h-full overflow-hidden group
+        rounded-3xl lg:rounded-4xl border-0
+        bg-white shadow-[0_4px_20px_rgba(15,23,42,0.03)]
+        hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)]
+        transition-all duration-500
+      "
       >
-        {/* Soft glow background */}
-        <div className="absolute -top-16 -right-16 w-40 h-40 bg-cyan/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="p-6 lg:p-7 flex flex-col h-full justify-between gap-5">
+          {/* HEADER: TITLE & PROGRESS */}
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-2 flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[8px] font-black text-blue uppercase tracking-widest border border-blue/10">
+                  {words} Words
+                </div>
+                {progress === 100 && (
+                  <div className="px-2 py-0.5 rounded-md bg-emerald-50 text-[8px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
+                    Done
+                  </div>
+                )}
+              </div>
 
-        {/* TOP CONTENT */}
-        <div className="flex items-start gap-5 relative z-10">
-          {/* DONUT PROGRESS */}
-          <div className="relative shrink-0 flex items-center justify-center">
-            <div className="relative w-16 h-16 lg:w-20 lg:h-20">
-              <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
+              <h4 className="text-lg lg:text-xl font-black text-navy leading-tight tracking-tight wrap-break-word line-clamp-2 group-hover:text-blue transition-colors">
+                {title}
+              </h4>
+            </div>
+
+            {/* Circular Progress Chart */}
+            <div className="relative w-14 h-14 shrink-0 flex items-center justify-center bg-slate-50 rounded-full">
+              <svg className="w-full h-full -rotate-90">
                 <circle
-                  cx="32"
-                  cy="32"
+                  cx="28"
+                  cy="28"
                   r={radius}
-                  stroke="currentColor"
-                  strokeWidth="5"
                   fill="transparent"
-                  className="text-navy/10"
+                  stroke="currentColor"
+                  strokeWidth="3.5"
+                  className="text-slate-100"
                 />
                 <motion.circle
-                  cx="32"
-                  cy="32"
+                  cx="28"
+                  cy="28"
                   r={radius}
-                  stroke="currentColor"
-                  strokeWidth="5"
                   fill="transparent"
+                  stroke="currentColor"
+                  strokeWidth="3.5"
                   className="text-blue"
                   strokeDasharray={circumference}
                   initial={{ strokeDashoffset: circumference }}
-                  animate={{ strokeDashoffset }}
-                  transition={{ duration: 1.4, ease: 'easeOut' }}
+                  animate={{
+                    strokeDashoffset:
+                      circumference - (circumference * progress) / 100,
+                  }}
+                  transition={{ duration: 1.5, ease: 'easeOut' }}
                   strokeLinecap="round"
                 />
               </svg>
-
-              {/* Percentage */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-xs lg:text-sm font-black text-navy leading-none">
-                  {progress}%
-                </span>
-                <span className="text-[8px] lg:text-[9px] uppercase tracking-widest opacity-40">
-                  Done
-                </span>
-              </div>
+              <span className="absolute text-[9px] font-black text-navy">
+                {progress}%
+              </span>
             </div>
           </div>
 
-          {/* TEXT CONTENT */}
-          <div className="min-w-0 flex-1 space-y-2">
-            {/* Title */}
-            <div className="flex items-center gap-2">
-              <h4 className="font-black text-[15px] lg:text-base text-navy truncate tracking-tight">
-                {title}
-              </h4>
+          {/* DESCRIPTION */}
+          <p className="text-slate-400 text-[13px] font-medium italic leading-snug line-clamp-2">
+            “{description}”
+          </p>
 
-              {progress === 100 && (
-                <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-widest rounded-full bg-cyan/20 text-cyan">
-                  Done
+          {/* ACTIONS: Adaptive Buttons with Defined Borders */}
+          <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
+            {/* Main Study Button */}
+            <Button
+              className="
+              flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] 
+              uppercase tracking-widest hover:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5
+            "
+            >
+              Study <Play size={12} className="ml-1.5 fill-current" />
+            </Button>
+
+            <div className="flex items-center gap-2 w-full xl:w-auto">
+              {/* Edit Button: With Border */}
+              <Button
+                variant="outline"
+                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-navy/60 hover:text-navy transition-all flex items-center justify-center gap-2"
+              >
+                <Edit3 size={14} />
+                <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">
+                  Edit
                 </span>
-              )}
-            </div>
+              </Button>
 
-            {/* Meta */}
-            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-sky/10 border border-sky/10">
-              <Layers size={11} className="text-sky" />
-              <p className="text-[9px] font-black text-sky uppercase tracking-widest">
-                {words} WORDS
-              </p>
+              {/* Delete Button: With Border */}
+              <Button
+                variant="outline"
+                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-red-50 hover:border-red-200 text-navy/60 hover:text-red-600 transition-all flex items-center justify-center gap-2"
+              >
+                <Trash2 size={14} />
+                <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">
+                  Delete
+                </span>
+              </Button>
             </div>
-
-            {/* Description */}
-            <p className="text-[11px] lg:text-[12px] text-slate-500 line-clamp-2 italic leading-relaxed opacity-80">
-              “{description}”
-            </p>
           </div>
-        </div>
-
-        {/* ACTION AREA */}
-        <div className="flex gap-3 relative z-10">
-          {/* MAIN ACTION */}
-          <Button
-            className="
-              flex-1 h-11 lg:h-12
-              text-[10px] font-black uppercase tracking-widest
-              rounded-2xl gap-2
-              bg-navy text-white
-              hover:bg-blue
-              shadow-md hover:shadow-lg
-              transition-all duration-300
-            "
-          >
-            <Play size={14} />
-            Study
-          </Button>
-
-          {/* EDIT */}
-          <Button
-            variant="secondary"
-            className="
-              h-11 lg:h-12 px-4
-              rounded-2xl
-              bg-white/70 border border-white/30
-              hover:bg-white hover:shadow-sm
-              transition-all duration-300
-            "
-          >
-            <Edit3 size={14} className="text-navy/70" />
-          </Button>
-
-          {/* DELETE */}
-          <Button
-            variant="secondary"
-            className="
-              h-11 lg:h-12 px-4
-              rounded-2xl
-              bg-white/70 border border-white/30
-              hover:bg-red-50 hover:text-red-500 hover:border-red-200
-              transition-all duration-300
-            "
-          >
-            <Trash2 size={14} />
-          </Button>
         </div>
       </Card>
     </motion.div>

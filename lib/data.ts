@@ -26,7 +26,7 @@ export const MOCK_DECKS = [
     id: '2',
     title: 'Academic Writing',
     totalWords: 85,
-    progress: 88,
+    progress: 100,
     description:
       'Advanced formal structures for thesis, journals, and essay writing with academic vocabulary.',
   },

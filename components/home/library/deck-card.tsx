@@ -22,7 +22,7 @@ export function DeckCard({ title, words, progress, description }: any) {
             <div className="space-y-2 flex-1 min-w-0">
               {/* Badge & Status */}
               <div className="flex flex-wrap items-center gap-2">
-                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[8px] font-black text-blue uppercase tracking-widest border border-blue/10">
+                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[9px] font-black text-blue uppercase tracking-widest border border-blue/10">
                   {words} Words
                 </div>
                 {progress === 100 && (
@@ -69,7 +69,7 @@ export function DeckCard({ title, words, progress, description }: any) {
                   strokeLinecap="round"
                 />
               </svg>
-              <span className="absolute text-[9px] font-black text-navy">
+              <span className="absolute text-[12px] font-black text-navy">
                 {progress}%
               </span>
             </div>

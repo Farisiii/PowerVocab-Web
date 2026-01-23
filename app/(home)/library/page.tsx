@@ -103,7 +103,7 @@ export default function LibraryPage() {
                     />
                   </div>
 
-                  <Button className="hidden lg:flex items-center gap-3 bg-navy text-white px-10 h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full sm:w-auto">
+                  <Button className="hidden lg:flex items-center gap-3 bg-navy text-white px-10! h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full sm:w-auto">
                     <Plus size={18} strokeWidth={3} /> CREATE NEW
                   </Button>
                 </div>

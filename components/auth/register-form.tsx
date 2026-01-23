@@ -74,7 +74,7 @@ export function RegisterForm() {
       >
         <Checkbox
           id="terms"
-          className="mt-0.5 border-navy/20 data-[state=checked]:bg-navy rounded-md transition-all active:scale-90"
+          className="mt-0.5 border-navy/20 data-[state=checked]:bg-navy text-white rounded-md transition-all active:scale-90"
         />
         <label
           htmlFor="terms"

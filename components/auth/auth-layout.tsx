@@ -113,6 +113,8 @@ export function AuthLayout({
                       src="/logo.webp"
                       alt="Logo"
                       fill
+                      priority
+                      loading="eager"
                       className="object-contain"
                       sizes="(max-width: 640px) 64px, 80px"
                     />
@@ -132,17 +134,28 @@ export function AuthLayout({
           </div>
 
           {/* Form Wrapper */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="flex flex-col items-center justify-center grow py-8 lg:py-12"
-          >
+          <div className="flex flex-col items-center justify-center grow py-8 lg:py-12">
             <div className="max-w-[90%] sm:max-w-md mx-auto lg:max-w-lg w-full relative">
-              <div className="absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
-              {children}
+              <div className="hidden lg:block absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
+
+              {/* VERSI MOBILE */}
+              <div className="block lg:hidden">{children}</div>
+
+              {/* VERSI DESKTOP */}
+              <motion.div
+                initial={{ opacity: 0, x: 30, scale: 0.98 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{
+                  duration: 0.9,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.15,
+                }}
+                className="hidden lg:block"
+              >
+                {children}
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </main>

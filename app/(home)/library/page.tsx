@@ -47,7 +47,7 @@ export default function LibraryPage() {
             variants={itemVariants}
             className="hidden md:block mb-14"
           >
-            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
               Library
             </h1>
             <p className="text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
@@ -75,14 +75,14 @@ export default function LibraryPage() {
               variants={itemVariants}
               className="contents md:flex md:flex-row md:items-center justify-between gap-6"
             >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-navy uppercase tracking-tighter mb-5 md:mb-10">
-                Your Decks
+              <h2 className="text-2xl md:text-3xl xl:text-4xl font-black text-navy uppercase tracking-tighter mb-5 md:mb-10 whitespace-nowrap">
+                All Decks
               </h2>
 
               {/* Sticky Search & Actions */}
               <div
                 className="
-                w-auto
+                w-full lg:w-auto
                 sticky top-18 z-30 
                 bg-[#f8fafc]/95 backdrop-blur-md supports-backdrop-filter:bg-[#f8fafc]/80
                 -mx-5 px-5 py-3 mb-6
@@ -92,7 +92,7 @@ export default function LibraryPage() {
                 "
               >
                 <div className="flex flex-col lg:flex-row items-center gap-3 md:gap-4 w-full sm:w-auto">
-                  <div className="relative w-full sm:w-72 lg:w-96 group order-2 sm:order-1">
+                  <div className="relative w-full lg:w-96 group order-2 sm:order-1">
                     <Search
                       className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue transition-colors"
                       size={18}
@@ -103,7 +103,7 @@ export default function LibraryPage() {
                     />
                   </div>
 
-                  <Button className="hidden lg:flex items-center gap-3 bg-navy text-white px-10! h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full sm:w-auto">
+                  <Button className="hidden xl:flex items-center gap-3 bg-navy text-white px-10! h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto">
                     <Plus size={18} strokeWidth={3} /> CREATE NEW
                   </Button>
                 </div>

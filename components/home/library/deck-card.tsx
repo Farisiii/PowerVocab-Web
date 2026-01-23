@@ -22,11 +22,11 @@ export function DeckCard({ title, words, progress, description }: any) {
             <div className="space-y-2 flex-1 min-w-0">
               {/* Badge & Status */}
               <div className="flex flex-wrap items-center gap-2">
-                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[9px] font-black text-blue uppercase tracking-widest border border-blue/10">
+                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[9px] xl:text-[10px] font-black text-blue uppercase tracking-widest border border-blue/10">
                   {words} Words
                 </div>
                 {progress === 100 && (
-                  <div className="px-2 py-0.5 rounded-md bg-emerald-50 text-[8px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
+                  <div className="px-2 py-0.5 rounded-md bg-emerald-50 text-[9px] xl:text-[10px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
                     Done
                   </div>
                 )}

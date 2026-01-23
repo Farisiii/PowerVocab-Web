@@ -2,6 +2,7 @@
 
 import { motion, Variants } from 'framer-motion'
 import { ReactNode } from 'react'
+import Image from 'next/image'
 
 interface AuthLayoutProps {
   title: ReactNode
@@ -12,20 +13,20 @@ interface AuthLayoutProps {
   children: ReactNode
 }
 
-const containerVariants: Variants = {
+const leftContainerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 }
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+const leftItemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { type: 'spring', stiffness: 50, damping: 20 },
   },
 }
 
@@ -38,63 +39,57 @@ export function AuthLayout({
   children,
 }: AuthLayoutProps) {
   return (
-    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-x-hidden lg:overflow-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan no-scrollbar overflow-hidden">
-      {/* Background Orbs */}
+    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-x-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
+      {/* Background Decor */}
       <div
         className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
         aria-hidden="true"
       >
         <motion.div
-          animate={{ x: [0, 60, 0], y: [0, -40, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          className="absolute -top-[15%] -right-[5%] w-120 h-120 bg-sky-400/40 blur-[120px] rounded-full opacity-80 will-change-transform"
-        />
-
-        <motion.div
-          animate={{ x: [0, -50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-          className="absolute -bottom-[10%] -left-[5%] w-100 h-100 bg-blue-500/30 blur-[120px] rounded-full opacity-80 will-change-transform"
+          className="absolute -top-[15%] -right-[5%] w-120 h-120 bg-sky-400/30 blur-[120px] rounded-full opacity-60"
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 10, repeat: Infinity }}
         />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 max-w-7xl w-full relative px-6 md:px-12">
-        {/* LEFT SIDE – Desktop */}
-        <div className="hidden lg:flex flex-col justify-center h-full sticky top-0">
+      <div className="grid lg:grid-cols-2 gap-8 xl:gap-24 max-w-7xl w-full relative px-4 sm:px-6 md:px-12">
+        {/* Left Side: Desktop Info */}
+        <div className="hidden lg:flex flex-col justify-center h-full sticky top-0 z-10 py-12">
           <motion.div
-            variants={containerVariants}
+            variants={leftContainerVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col space-y-8"
+            className="flex flex-col space-y-6 xl:space-y-8"
           >
-            <div className="absolute inset-0 bg-white/20 blur-3xl -z-10 rounded-full opacity-50" />
-
             <motion.h1
-              variants={itemVariants}
-              className="text-7xl xl:text-8xl text-gradient"
+              variants={leftItemVariants}
+              className="text-6xl xl:text-8xl 2xl:text-9xl text-gradient leading-[0.9] font-black"
             >
               {title}
             </motion.h1>
 
-            <motion.div variants={itemVariants} className="space-y-4">
-              <span className="bg-blue/10 text-blue px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest inline-block backdrop-blur-sm border border-blue/5">
+            <motion.div
+              variants={leftItemVariants}
+              className="space-y-4 xl:space-y-6"
+            >
+              <span className="bg-blue/10 text-blue px-4 py-2 rounded-full text-xs xl:text-sm font-bold uppercase tracking-widest inline-block backdrop-blur-sm border border-blue/5">
                 {badge}
               </span>
-
-              <p className="text-lg xl:text-xl text-navy/60 leading-relaxed max-w-md font-medium">
+              <p className="text-lg xl:text-2xl text-navy/60 leading-relaxed max-w-lg font-medium">
                 {description}
               </p>
             </motion.div>
 
             <motion.div
-              variants={itemVariants}
-              className="flex gap-12 pt-8 border-t-2 border-navy"
+              variants={leftItemVariants}
+              className="flex gap-12 xl:gap-16 pt-8 xl:pt-10 border-t-2 border-navy/5"
             >
               {stats.map((s, i) => (
-                <div key={i} className="group">
-                  <p className="text-3xl font-black text-navy group-hover:text-blue transition-colors">
+                <div key={i} className="group cursor-default">
+                  <p className="text-3xl xl:text-5xl font-black text-navy group-hover:text-blue transition-colors duration-300">
                     {s.value}
                   </p>
-                  <p className="text-[10px] opacity-40 font-bold uppercase tracking-widest">
+                  <p className="text-[10px] xl:text-xs opacity-50 font-bold uppercase tracking-widest mt-1 xl:mt-2">
                     {s.label}
                   </p>
                 </div>
@@ -103,25 +98,48 @@ export function AuthLayout({
           </motion.div>
         </div>
 
-        {/* RIGHT SIDE – Form */}
-        <div className="w-full lg:h-full lg:overflow-y-auto no-scrollbar">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="flex flex-col items-center justify-start lg:justify-center min-h-full py-12 lg:py-24"
-          >
-            <div className="max-w-md mx-auto lg:max-w-120 w-full relative">
-              <div className="absolute inset-0 bg-white/40 blur-[100px] -z-10 opacity-50" />
-
-              {/* Mobile Header */}
-              <div className="lg:hidden text-center mb-10 space-y-2">
-                <h1 className="text-5xl text-gradient px-2">PowerVocab</h1>
-                <p className="text-[10px] font-bold opacity-30 tracking-[0.3em] uppercase">
-                  {mobileSubtitle}
-                </p>
+        {/* Right Side: Form Content */}
+        <div className="w-full h-full lg:overflow-y-auto no-scrollbar z-20 relative flex flex-col">
+          {/* Mobile Header */}
+          <div className="lg:hidden w-full relative z-30 pt-8 sm:pt-12 pb-4 px-6">
+            <div className="flex flex-col items-center justify-center gap-5 text-center">
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-linear-to-tr from-cyan/40 via-blue/30 to-purple/20 rounded-full blur-2xl opacity-60" />
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-[20px] sm:rounded-3xl overflow-hidden bg-linear-to-br from-white/80 via-white/20 to-white/5 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-white/40 flex items-center justify-center transition-all duration-300">
+                  <div className="absolute inset-0 bg-linear-to-br from-white/90 via-transparent to-transparent opacity-70 z-10 pointer-events-none mix-blend-overlay" />
+                  <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.5)] z-10 pointer-events-none rounded-[20px] sm:rounded-3xl" />
+                  <div className="relative z-20 h-full w-full p-3 sm:p-4 drop-shadow-md">
+                    <Image
+                      src="/logo.webp"
+                      alt="Logo"
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 640px) 64px, 80px"
+                    />
+                  </div>
+                </div>
               </div>
 
+              <div className="flex flex-col items-center leading-none gap-2">
+                <span className="text-xl sm:text-2xl font-black text-navy tracking-tight uppercase">
+                  PowerVocab
+                </span>
+                <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-navy/40">
+                  {mobileSubtitle}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Form Wrapper */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="flex flex-col items-center justify-center grow py-8 lg:py-12"
+          >
+            <div className="max-w-[90%] sm:max-w-md mx-auto lg:max-w-lg w-full relative">
+              <div className="absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
               {children}
             </div>
           </motion.div>

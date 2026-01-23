@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Menu, Plus, User } from 'lucide-react'
 import { MOCK_USER } from '@/lib/data'
 import { Sidebar } from '../sidebar'
@@ -20,8 +20,10 @@ export function MobileNav() {
 
   return (
     <>
-      <header className="md:hidden flex justify-between items-center px-6 py-4 bg-[#f8fafc]/80 backdrop-blur-xl sticky top-0 z-40 border-b border-cyan/5">
+      {/* Mobile Sticky Header */}
+      <header className="md:hidden flex justify-between items-center px-6 py-4 bg-[#f8fafc]/80 backdrop-blur-xl sticky top-0 z-50 border-b border-cyan/5">
         <div className="flex items-center gap-4">
+          {/* Navigation Drawer */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button
@@ -39,11 +41,13 @@ export function MobileNav() {
               <Sidebar isMobile onClose={() => setOpen(false)} />
             </SheetContent>
           </Sheet>
+          {/* Page Title */}
           <h1 className="text-xl font-black text-navy uppercase tracking-tighter">
             Library
           </h1>
         </div>
 
+        {/* User Profile Thumbnail */}
         <motion.div
           whileTap={{ scale: 0.9 }}
           className="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg ring-2 ring-white border border-cyan/10"
@@ -64,7 +68,7 @@ export function MobileNav() {
         </motion.div>
       </header>
 
-      {/* FLOATING ACTION BUTTON */}
+      {/* Mobile Floating Action Button */}
       <motion.div
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}

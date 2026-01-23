@@ -28,7 +28,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased page-transition`}
       >
-        {/* Bungkus children di sini agar React Query bisa diakses di semua halaman */}
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

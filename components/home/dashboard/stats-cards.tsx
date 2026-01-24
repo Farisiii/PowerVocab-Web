@@ -1,17 +1,18 @@
 'use client'
-import { Flame, Target, Zap, Trophy, TrendingUp } from 'lucide-react'
+import { Flame, Zap, Trophy, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function StatsCards({ accuracy = 94, streak = 12, best = 15 }) {
   return (
-    <div className="flex flex-col lg:flex-row xl:flex-col gap-6 w-full">
-      <div className="order-2 md:order-1 xl:order-2 flex-1 rounded-[2.5rem] p-6 sm:p-8 xl:p-10 relative overflow-hidden border border-white/60 shadow-soft-lg bg-linear-to-br from-white via-[#F1F9FD] to-[#D9F2FD]">
-        <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan/40 rounded-full blur-3xl opacity-70" />
+    <div className="flex flex-col sm:flex-row xl:flex-col gap-6 w-full">
+      <div className="order-2 md:order-1 xl:order-2 flex-1 rounded-[2.5rem] p-6 sm:p-8 xl:p-10 relative overflow-hidden border border-slate-200/60 shadow-soft-lg bg-white">
+        {/* Soft Accent */}
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-sky/20 rounded-full blur-3xl opacity-60" />
 
         <div className="relative z-10 flex flex-col gap-8">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 px-3 py-1 bg-white/70 rounded-lg border border-navy/20">
+            <div className="flex items-center gap-2 px-3 py-1 bg-sky/10 rounded-lg border border-sky/20">
               <TrendingUp size={14} className="text-blue" />
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em]">
                 Accuracy
@@ -21,20 +22,20 @@ export function StatsCards({ accuracy = 94, streak = 12, best = 15 }) {
 
           {/* Main Value */}
           <div className="flex items-end justify-center gap-3">
-            <h2 className="text-7xl sm:text-8xl font-black text-navy tracking-tighter leading-none">
+            <h2 className="text-7xl sm:text-8xl font-black tracking-tighter leading-none text-navy">
               {accuracy}
             </h2>
             <span className="text-3xl font-black text-blue mb-2">%</span>
           </div>
 
-          {/* Progress Bar */}
+          {/* Progress */}
           <div className="space-y-3">
-            <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${accuracy}%` }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
-                className="h-full bg-linear-to-r from-navy via-blue to-sky rounded-full"
+                className="h-full bg-linear-to-r from-blue via-sky to-cyan rounded-full"
               />
             </div>
 

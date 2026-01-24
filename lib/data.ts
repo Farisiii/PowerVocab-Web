@@ -46,4 +46,36 @@ export const MOCK_DECKS = [
     description:
       'Focusing on complex action words to make your English sound more natural and sophisticated.',
   },
+  {
+    id: '5',
+    title: 'IELTS Band 8+ Vocabulary',
+    totalWords: 350,
+    progress: 25,
+    description:
+      'High-level synonyms and idiomatic expressions specifically curated for the IELTS Speaking and Writing sections.',
+  },
+  {
+    id: '6',
+    title: 'Medical Terminology',
+    totalWords: 150,
+    progress: 0,
+    description:
+      'Foundational medical terms, anatomy, and healthcare jargon for professionals and students.',
+  },
+  {
+    id: '7',
+    title: 'Daily Phrasal Verbs',
+    totalWords: 90,
+    progress: 85,
+    description:
+      'Common phrasal verbs used in casual conversations to help you sound like a native speaker.',
+  },
+  {
+    id: '8',
+    title: 'Technology & Startup Jargon',
+    totalWords: 110,
+    progress: 55,
+    description:
+      'Latest terms from the tech industry, software development, and the venture capital ecosystem.',
+  },
 ]

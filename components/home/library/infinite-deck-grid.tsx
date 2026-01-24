@@ -53,7 +53,7 @@ export function InfiniteDeckGrid() {
   /* Loading State */
   if (status === 'pending') {
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
@@ -76,7 +76,7 @@ export function InfiniteDeckGrid() {
         variants={gridVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
       >
         <AnimatePresence mode="popLayout">
           {data?.pages.map((page) =>

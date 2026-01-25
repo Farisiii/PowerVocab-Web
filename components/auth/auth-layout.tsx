@@ -39,7 +39,7 @@ export function AuthLayout({
   children,
 }: AuthLayoutProps) {
   return (
-    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-x-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
+    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-hidden overflow-x-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
       {/* Background Decor */}
       <div
         className="fixed inset-0 z-0 overflow-hidden pointer-events-none"

@@ -7,6 +7,7 @@ import { LearningActivity } from '@/components/home/dashboard/learning-activity'
 import { StatsCards } from '@/components/home/dashboard/stats-cards'
 import { LastSessionCard } from '@/components/home/dashboard/last-session-card'
 import { VocabGrowthChart } from '@/components/home/dashboard/vocab-growth-chart'
+import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -23,6 +24,7 @@ const itemVariants: Variants = {
 }
 
 export default function DashboardPage() {
+  useScrollbarGutterStable()
   return (
     <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30">
       {/* Sidebar desktop */}

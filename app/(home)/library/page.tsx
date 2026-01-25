@@ -8,6 +8,7 @@ import { InfiniteDeckGrid } from '@/components/home/library/infinite-deck-grid'
 import { Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,6 +28,7 @@ const itemVariants: Variants = {
 }
 
 export default function LibraryPage() {
+  useScrollbarGutterStable()
   const handleAdd = () => console.log('Add new item')
   return (
     <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30">

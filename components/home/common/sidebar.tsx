@@ -2,7 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutGrid, BookOpen, Settings, LogOut, Zap, X } from 'lucide-react'
+import {
+  LayoutGrid,
+  BookOpen,
+  Settings,
+  LogOut,
+  Gamepad2,
+  X,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { motion, Variants } from 'framer-motion'
@@ -18,9 +25,9 @@ export function Sidebar({
   const router = useRouter()
 
   const MENU_ITEMS = [
-    { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
     { icon: BookOpen, label: 'Library', href: '/library' },
-    { icon: Zap, label: 'Flashcards', href: '/flashcards' },
+    { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
+    { icon: Gamepad2, label: 'Games', href: '/games' },
     { icon: Settings, label: 'Settings', href: '/settings' },
   ]
 

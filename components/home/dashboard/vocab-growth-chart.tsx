@@ -1,6 +1,5 @@
 'use client'
 
-import { useMemo } from 'react'
 import {
   Area,
   AreaChart,
@@ -10,15 +9,11 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts'
+import { MOCK_CHART_DATA } from '@/lib/data'
 
 export function VocabGrowthChart() {
-  const data = useMemo(() => {
-    let total = 40
-    return Array.from({ length: 24 }, (_, i) => ({
-      day: i + 1,
-      words: (total += Math.floor(Math.random() * 8) + 2),
-    }))
-  }, [])
+  // Langsung gunakan data dari lib/data.ts
+  const data = MOCK_CHART_DATA
 
   return (
     <div className="bg-white rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-white">
@@ -33,13 +28,24 @@ export function VocabGrowthChart() {
           </p>
         </div>
 
-        <div className="flex items-start gap-3">
-          <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy leading-none tracking-tighter">
-            {data[23].words}
+        <div className="flex items-center gap-4 sm:gap-6">
+          {/* Angka Utama */}
+          <span className="text-5xl sm:text-6xl lg:text-7xl font-black text-navy leading-none tracking-tighter">
+            {data[data.length - 1].words}
           </span>
-          <div className="flex flex-col">
-            <span className="text-emerald-500 font-black text-xs">+12%</span>
-            <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
+
+          {/* Kontainer Info Samping */}
+          <div className="flex flex-col justify-center border-l-2 border-slate-100 pl-4 py-1">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="bg-emerald-500/10 text-emerald-600 px-2 py-0.5 rounded-full font-black text-[10px] md:text-xs">
+                +12%
+              </span>
+              <span className="text-[9px] font-bold text-navy uppercase tracking-widest whitespace-nowrap">
+                vs last month
+              </span>
+            </div>
+
+            <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">
               Total Words
             </span>
           </div>
@@ -82,7 +88,7 @@ export function VocabGrowthChart() {
                 active &&
                 payload?.[0] && (
                   <div className="bg-navy p-4 rounded-2xl shadow-2xl border border-white/10 text-white">
-                    <p className="text-[8px] font-black uppercase text-sky tracking-widest mb-1">
+                    <p className="text-[8px] md:text-[10px] font-black uppercase text-sky tracking-widest mb-1">
                       Day {payload[0].payload.day}
                     </p>
                     <p className="text-lg sm:text-xl font-black">

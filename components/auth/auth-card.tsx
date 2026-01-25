@@ -74,7 +74,7 @@ export function AuthCard({
         <div className="absolute inset-0 bg-linear-to-tr from-white/40 to-transparent pointer-events-none" />
 
         {/* Card Header */}
-        <CardHeader className="text-center sm:space-y-4 p-0 lg:mb-10 relative z-10 pt-6 sm:pt-8 px-5 sm:px-8">
+        <CardHeader className="text-center lg:space-y-4 p-0 lg:mb-10 relative z-10 pt-6 sm:pt-8 px-5 sm:px-8">
           <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-navy">
             {title}
           </CardTitle>

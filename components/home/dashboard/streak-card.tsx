@@ -1,0 +1,67 @@
+import { Flame, Zap, Trophy } from 'lucide-react'
+import { motion } from 'framer-motion'
+
+export function StreakCard({
+  streak = 12,
+  best = 15,
+}: {
+  streak?: number
+  best?: number
+}) {
+  return (
+    <div className="flex-1 rounded-[2.5rem] p-8 text-white shadow-soft-lg relative overflow-hidden bg-linear-to-br from-navy via-blue to-sky">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_70%)]" />
+
+      <div className="relative z-10 flex flex-col justify-between h-full gap-8">
+        {/* Top */}
+        <div className="flex justify-between items-start">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-white/20 rounded-xl">
+                <Zap size={16} fill="currentColor" />
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50">
+                Streak
+              </p>
+            </div>
+
+            <div className="flex items-baseline gap-2">
+              <span className="text-6xl xl:text-7xl font-black tracking-tighter leading-none">
+                {streak}
+              </span>
+              <span className="text-2xl font-black text-cyan uppercase italic">
+                Days
+              </span>
+            </div>
+          </div>
+
+          <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+            <Flame fill="white" size={28} />
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="space-y-5">
+          <div className="flex justify-between items-center bg-white/10 rounded-2xl px-5 py-4 border border-white/10 backdrop-blur-md">
+            <div className="flex items-center gap-3">
+              <Trophy size={20} className="text-cyan" />
+              <span className="text-[12px] md:text-[16px] font-black text-white/60 uppercase tracking-widest">
+                Best
+              </span>
+            </div>
+            <span className="text-base font-black text-white">{best} Days</span>
+          </div>
+
+          <div className="h-2.5 w-full bg-white/20 rounded-full overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${(streak / best) * 100}%` }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+              className="h-full bg-linear-to-r from-cyan via-sky to-white rounded-full"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

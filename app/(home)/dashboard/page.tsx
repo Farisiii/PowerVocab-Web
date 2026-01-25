@@ -47,36 +47,38 @@ export default function DashboardPage() {
               variants={itemVariants}
               className="hidden lg:block mb-14"
             >
-              <h1 className="text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
+              <h1 className="flex justify-center text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
                 Dashboard
               </h1>
-              <p className="text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
+              <p className="flex justify-center text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
                 Instant Insights
               </p>
             </motion.header>
 
             {/* MAIN GRID */}
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-10">
+            <div className="grid grid-cols-12 gap-6 xl:gap-10">
               {/* Left: Activity */}
-              <div className="xl:col-span-8 order-1">
+              <div className="col-span-12 xl:col-span-6 order-1">
                 <motion.div variants={itemVariants}>
                   <LearningActivity />
                 </motion.div>
               </div>
 
               {/* Right: Stats + Session */}
-              <div className="xl:col-span-4 flex flex-col gap-6 xl:gap-10 order-2">
+              <div className="col-span-12 xl:col-span-4 flex flex-col gap-6 xl:gap-10 order-2 xl:order-3">
                 <motion.div variants={itemVariants}>
                   <StatsCards />
                 </motion.div>
+              </div>
 
+              <div className="col-span-12 xl:col-span-6 order-3 xl:order-2">
                 <motion.div variants={itemVariants}>
                   <LastSessionCard />
                 </motion.div>
               </div>
 
               {/* Bottom: Chart */}
-              <div className="xl:col-span-12 order-3">
+              <div className="col-span-12 xl:col-span-8 order-4">
                 <motion.div variants={itemVariants}>
                   <VocabGrowthChart />
                 </motion.div>

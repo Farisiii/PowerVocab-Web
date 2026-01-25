@@ -105,7 +105,7 @@ export function AuthLayout({
             <div className="flex flex-col items-center justify-center gap-5 text-center">
               <div className="relative group">
                 <div className="absolute -inset-4 bg-linear-to-tr from-cyan/40 via-blue/30 to-purple/20 rounded-full blur-2xl opacity-60" />
-                <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-[20px] sm:rounded-3xl overflow-hidden bg-linear-to-br from-white/80 via-white/20 to-white/5 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-white/40 flex items-center justify-center transition-all duration-300">
+                <div className="relative h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 shrink-0 rounded-[20px] sm:rounded-3xl overflow-hidden bg-linear-to-br from-white/80 via-white/20 to-white/5 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-white/40 flex items-center justify-center transition-all duration-300">
                   <div className="absolute inset-0 bg-linear-to-br from-white/90 via-transparent to-transparent opacity-70 z-10 pointer-events-none mix-blend-overlay" />
                   <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.5)] z-10 pointer-events-none rounded-[20px] sm:rounded-3xl" />
                   <div className="relative z-20 h-full w-full p-3 sm:p-4 drop-shadow-md">
@@ -116,17 +116,17 @@ export function AuthLayout({
                       priority
                       loading="eager"
                       className="object-contain"
-                      sizes="(max-width: 640px) 64px, 80px"
+                      sizes="(max-width: 640px) 80px, 96px"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-col items-center leading-none gap-2">
-                <span className="text-xl sm:text-2xl font-black text-navy tracking-tight uppercase">
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-navy tracking-tight uppercase">
                   PowerVocab
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-navy/40">
+                <span className="text-[11px] sm:text-[12px] md:text-[13px] font-bold tracking-[0.3em] uppercase text-navy/40">
                   {mobileSubtitle}
                 </span>
               </div>
@@ -134,8 +134,8 @@ export function AuthLayout({
           </div>
 
           {/* Form Wrapper */}
-          <div className="flex flex-col items-center justify-center grow py-8 lg:py-12">
-            <div className="max-w-[90%] sm:max-w-md mx-auto lg:max-w-lg w-full relative">
+          <div className="flex flex-col items-center justify-start lg:justify-center grow py-8 lg:py-12">
+            <div className="max-w-[90%] md:max-w-[85%] w-full lg:max-w-lg relative">
               <div className="hidden lg:block absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
 
               {/* VERSI MOBILE */}

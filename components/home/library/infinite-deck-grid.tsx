@@ -9,9 +9,10 @@ import { Loader2 } from 'lucide-react'
 import { MOCK_DECKS } from '@/lib/data'
 
 /* Fetch Logic */
+const ITEMS_PER_PAGE = 6
 const fetchDecks = async ({ pageParam = 1 }) => {
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  const ITEMS_PER_PAGE = 3
+  const ITEMS_PER_PAGE = 6
   const start = (pageParam - 1) * ITEMS_PER_PAGE
   const end = start + ITEMS_PER_PAGE
   const items = MOCK_DECKS.slice(start, end)
@@ -54,7 +55,7 @@ export function InfiniteDeckGrid() {
   if (status === 'pending') {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(ITEMS_PER_PAGE)].map((_, i) => (
           <div
             key={i}
             className="h-65 w-full bg-slate-50 border border-slate-100 rounded-3xl animate-pulse"

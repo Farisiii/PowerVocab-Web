@@ -1,12 +1,10 @@
-import { IMAGES_MANIFEST } from 'next/dist/shared/lib/constants'
-
 export const MOCK_USER = {
   name: 'Alex Morgan',
   email: 'alex.morgan@student.itb.ac.id',
-  avatar: '/avatar.png', // opsional
-  image: '', // opsional
+  avatar: '/avatar.png',
+  image: '',
   isPremium: true,
-  lastOpenedDeckId: '3', // Merujuk ke Travel & Leisure
+  lastOpenedDeckId: '3',
   weeklyGoal: {
     current: 750,
     target: 1000,
@@ -78,4 +76,111 @@ export const MOCK_DECKS = [
     description:
       'Latest terms from the tech industry, software development, and the venture capital ecosystem.',
   },
+  {
+    id: '9',
+    title: 'Legal English Basics',
+    totalWords: 140,
+    progress: 0,
+    description:
+      'Essential legal vocabulary and formal expressions used in contracts and court documents.',
+  },
+  {
+    id: '10',
+    title: 'Interview Preparation',
+    totalWords: 75,
+    progress: 40,
+    description:
+      'Common interview questions, professional answers, and confidence-building phrases.',
+  },
+  {
+    id: '11',
+    title: 'Everyday Small Talk',
+    totalWords: 60,
+    progress: 90,
+    description:
+      'Light conversation starters and casual responses for daily social interactions.',
+  },
+  {
+    id: '12',
+    title: 'Finance & Banking Terms',
+    totalWords: 130,
+    progress: 0,
+    description:
+      'Key vocabulary for personal finance, investments, loans, and banking services.',
+  },
+  {
+    id: '13',
+    title: 'Customer Service English',
+    totalWords: 95,
+    progress: 70,
+    description:
+      'Polite and effective expressions for handling customers, complaints, and support calls.',
+  },
+  {
+    id: '14',
+    title: 'Presentation Skills',
+    totalWords: 80,
+    progress: 35,
+    description:
+      'Phrases and structures to deliver clear and persuasive presentations in English.',
+  },
+  {
+    id: '15',
+    title: 'Engineering Vocabulary',
+    totalWords: 200,
+    progress: 0,
+    description:
+      'Technical terms commonly used in mechanical, electrical, and software engineering.',
+  },
+  {
+    id: '16',
+    title: 'Hospitality & Hotel English',
+    totalWords: 105,
+    progress: 65,
+    description:
+      'Useful expressions for front desk staff, reservations, and guest services.',
+  },
+  {
+    id: '17',
+    title: 'Negotiation & Persuasion',
+    totalWords: 115,
+    progress: 30,
+    description:
+      'Strategic language for bargaining, persuading, and reaching professional agreements.',
+  },
+  {
+    id: '18',
+    title: 'Slang & Informal English',
+    totalWords: 70,
+    progress: 0,
+    description:
+      'Modern slang and informal expressions used by native speakers in daily life.',
+  },
+]
+
+export const MOCK_CHART_DATA = [
+  { day: 1, words: 42 },
+  { day: 2, words: 42 },
+  { day: 3, words: 55 },
+  { day: 4, words: 63 },
+  { day: 5, words: 63 },
+  { day: 6, words: 72 },
+  { day: 7, words: 80 },
+  { day: 8, words: 80 },
+  { day: 9, words: 80 },
+  { day: 10, words: 102 },
+  { day: 11, words: 110 },
+  { day: 12, words: 112 },
+  { day: 13, words: 120 },
+  { day: 14, words: 120 },
+  { day: 15, words: 135 },
+  { day: 16, words: 142 },
+  { day: 17, words: 150 },
+  { day: 18, words: 158 },
+  { day: 19, words: 158 },
+  { day: 20, words: 168 },
+  { day: 21, words: 175 },
+  { day: 22, words: 182 },
+  { day: 23, words: 190 },
+  { day: 24, words: 190 },
 ]

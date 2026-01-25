@@ -50,10 +50,10 @@ export default function LibraryPage() {
               variants={itemVariants}
               className="hidden lg:block mb-14"
             >
-              <h1 className="text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
+              <h1 className="flex justify-center text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
                 Library
               </h1>
-              <p className="text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
+              <p className="flex justify-center text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
                 Advanced Vocabulary Hub
               </p>
             </motion.header>

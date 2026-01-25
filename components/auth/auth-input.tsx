@@ -39,7 +39,7 @@ export function AuthInput({
       {/* Label & Extra Actions */}
       <div className="flex justify-between items-center ml-1">
         {label && (
-          <Label className="font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-navy/60">
+          <Label className="font-bold text-[12px] sm:text-xs uppercase tracking-[0.2em] text-navy/60">
             {label}
           </Label>
         )}

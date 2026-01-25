@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 
 export function LearningActivity() {
   const [] = useState(new Date(2026, 0, 24))
-  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
   const activity: Record<number, number> = {
     5: 1,
@@ -40,7 +40,7 @@ export function LearningActivity() {
       {/* HEADER */}
       <div className="flex flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <div>
-          <h3 className="text-xl sm:text-2xl font-black text-navy uppercase tracking-tighter italic">
+          <h3 className="text-xl sm:text-2xl font-black text-navy uppercase tracking-tighter">
             Activity
           </h3>
           <p className="text-[9px] sm:text-[10px] font-bold text-sky tracking-[0.3em] uppercase">
@@ -66,7 +66,7 @@ export function LearningActivity() {
         {days.map((d) => (
           <div
             key={d}
-            className="text-center text-[9px] sm:text-[10px] font-black text-slate-300 tracking-[0.2em]"
+            className="text-center text-[9px] sm:text-[10px] font-black text-navy tracking-[0.2em]"
           >
             {d}
           </div>

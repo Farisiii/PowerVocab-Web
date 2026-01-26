@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, Variants } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { GameCard } from '@/components/home/games/game-card'
@@ -8,11 +9,11 @@ import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 
 const GAMES = [
   {
-    title: 'Flashcards',
+    title: 'Flashcard',
     description:
       'Master new words through spaced repetition and visual memory cues.',
     image: '/flashcard.webp',
-    slug: 'flashcards',
+    slug: 'flashcard',
   },
   {
     title: 'Fill in the Blanks',
@@ -56,6 +57,7 @@ const itemVariants: Variants = {
 
 export default function GamesPage() {
   useScrollbarGutterStable()
+  const router = useRouter()
 
   return (
     <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30">
@@ -72,8 +74,7 @@ export default function GamesPage() {
           animate="visible"
           className="w-full lg:pl-72 relative min-w-0"
         >
-          <div className="px-5 sm:px-8 md:px-12 lg:px-16 py-6 md:py-14 pb-32 md:pb-14">
-            {/* Header: Disamakan dengan Library (Center & Large) */}
+          <div className="px-5 sm:px-8 md:px-12 lg:px-16 py-6 md:py-12 pb-12 md:pb-12">
             <motion.header
               variants={itemVariants}
               className="hidden lg:block mb-14"
@@ -86,7 +87,6 @@ export default function GamesPage() {
               </p>
             </motion.header>
 
-            {/* Section Label: Disamakan dengan gaya "Continue Learning" di Library */}
             <motion.section variants={itemVariants} className="mb-8 md:mb-12">
               <div className="flex items-center gap-3 md:gap-4 mb-8">
                 <div className="w-1.5 md:w-3 h-6 md:h-10 bg-blue rounded-full shadow-lg shadow-blue/20" />
@@ -94,8 +94,6 @@ export default function GamesPage() {
                   Select Game Challenge
                 </h3>
               </div>
-
-              {/* Grid List: Responsive 1, 2, hingga 4 kolom */}
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6 md:gap-8">
                 {GAMES.map((game) => (
                   <GameCard
@@ -103,9 +101,7 @@ export default function GamesPage() {
                     title={game.title}
                     description={game.description}
                     image={game.image}
-                    onPlay={() =>
-                      console.log(`Navigating to /games/${game.slug}`)
-                    }
+                    onPlay={() => router.push(`/${game.slug}`)}
                   />
                 ))}
               </div>

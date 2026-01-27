@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { MOCK_DECKS } from '@/lib/data'
-import { FlashcardHeader } from '@/components/games/flashcard/flashcard-header'
+import { FlashcardHeader } from '@/components/games/common/flashcard-header'
 import { FlashcardCard } from '@/components/games/flashcard/flashcard-card'
 import { FlashcardControls } from '@/components/games/flashcard/flashcard-controls'
 
@@ -34,7 +34,7 @@ export default function FlashcardPage() {
         <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-sky/5 blur-[120px] rounded-full" />
       </div>
 
-      <div className="w-full max-w-5xl h-full flex flex-col px-5 xl:px-8 py-6 xl:py-10">
+      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-5 xl:px-8 py-6 xl:py-10">
         {/* Header */}
         <div className="shrink-0">
           <FlashcardHeader

@@ -21,7 +21,7 @@ export function FlashcardHeader({
 
   return (
     <header className="w-full flex items-center justify-between gap-3 md:gap-8">
-      {/* Back Button: Responsive sizing & adaptive hover */}
+      {/* Back Button*/}
       <motion.button
         whileTap={{ scale: 0.92 }}
         whileHover={{ scale: 1.05 }}
@@ -47,7 +47,7 @@ export function FlashcardHeader({
           </span>
         </div>
 
-        {/* Progress bar yang mengecil tingginya di mobile agar tidak makan tempat */}
+        {/* Progress bar */}
         <Progress
           value={progressValue}
           className="h-1.5 md:h-2.5 bg-slate-200/50"

@@ -38,7 +38,7 @@ export function FlashcardCard({
         className="w-full h-full relative cursor-pointer shadow-2xl rounded-[2.5rem]"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* FRONT — English (Dibalik jadi sisi depan) */}
+        {/* FRONT — English */}
         <div className="absolute inset-0 backface-hidden rounded-[2.5rem] bg-linear-to-br from-navy via-blue to-sky flex flex-col items-center justify-center border-4 border-white/10 p-8 shadow-glass">
           <span className="absolute top-8 px-5 py-1.5 rounded-full bg-white/20 text-[10px] font-black tracking-[0.2em] text-white uppercase">
             English
@@ -69,7 +69,7 @@ export function FlashcardCard({
           </div>
         </div>
 
-        {/* BACK — Indonesian (Dibalik jadi sisi belakang) */}
+        {/* BACK — Indonesian */}
         <div
           className="absolute inset-0 backface-hidden rounded-[2.5rem] glass-card flex flex-col items-center justify-center border border-white bg-white shadow-soft-lg p-8"
           style={{ transform: 'rotateY(180deg)' }}

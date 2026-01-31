@@ -31,19 +31,17 @@ export function RegisterForm() {
       title="Create Account"
       description="Start your ultra-modern learning path today"
       footer={
-        /* Sign In Redirect */
         <p className="text-xs sm:text-sm text-navy/50 font-medium text-center">
           Already have an account?{' '}
           <Link
             href="/sign-in"
-            className="text-navy font-bold hover:text-blue transition-colors underline decoration-transparent hover:decoration-blue underline-offset-4"
+            className="text-navy font-bold md:hover:text-blue transition-colors underline decoration-transparent md:hover:decoration-blue underline-offset-4"
           >
             Sign In
           </Link>
         </p>
       }
     >
-      {/* Name Field */}
       <AuthInput
         label="Full Name"
         type="text"
@@ -51,7 +49,6 @@ export function RegisterForm() {
         icon={User}
       />
 
-      {/* Email Field */}
       <AuthInput
         label="Email Address"
         type="email"
@@ -59,7 +56,6 @@ export function RegisterForm() {
         icon={AtSign}
       />
 
-      {/* Password Field */}
       <AuthInput
         label="Password"
         type="password"
@@ -67,7 +63,6 @@ export function RegisterForm() {
         icon={Lock}
       />
 
-      {/* Terms Agreement */}
       <motion.div
         variants={itemVariants}
         className="flex items-start space-x-3 py-2 px-1"
@@ -81,20 +76,18 @@ export function RegisterForm() {
           className="text-xs sm:text-sm font-medium leading-snug text-navy/60 select-none cursor-pointer"
         >
           I agree to the{' '}
-          <Link href="#" className="text-blue font-bold hover:underline">
+          <Link href="#" className="text-blue font-bold md:hover:underline">
             Terms
           </Link>{' '}
           and{' '}
-          <Link href="#" className="text-blue font-bold hover:underline">
+          <Link href="#" className="text-blue font-bold md:hover:underline">
             Privacy Policy
           </Link>
         </label>
       </motion.div>
 
-      {/* Submit Action */}
       <AuthButton onClick={handleSignUp}>Create Account</AuthButton>
 
-      {/* Social Login */}
       <AuthDivider />
       <GoogleButton />
     </AuthCard>

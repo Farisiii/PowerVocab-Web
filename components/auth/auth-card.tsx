@@ -9,8 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { motion, Variants } from 'framer-motion'
-import { ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 interface AuthCardProps {
   title: string
@@ -36,44 +35,32 @@ const cardContainerVariants: Variants = {
   },
 }
 
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const media = window.matchMedia('(min-width: 1024px)') // lg
-    const update = () => setIsDesktop(media.matches)
-
-    update()
-    media.addEventListener('change', update)
-    return () => media.removeEventListener('change', update)
-  }, [])
-
-  return isDesktop
-}
-
 export function AuthCard({
   title,
   description,
   footer,
   children,
 }: AuthCardProps) {
-  const isDesktop = useIsDesktop()
+  const [isDesktop, setIsDesktop] = useState(false)
 
-  const Wrapper = isDesktop ? motion.div : 'div'
-  const wrapperProps = isDesktop
-    ? {
-        initial: 'hidden',
-        animate: 'visible',
-        variants: cardContainerVariants,
-      }
-    : {}
+  useEffect(() => {
+    const checkDesktop = () =>
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
 
   return (
-    <Wrapper {...wrapperProps} className="relative w-full">
+    <motion.div
+      initial={isDesktop ? 'hidden' : 'visible'}
+      animate="visible"
+      variants={cardContainerVariants}
+      className="relative w-full"
+    >
       <Card className="glass-card relative z-10 overflow-hidden rounded-[2.5rem] border-white/50 shadow-xl shadow-blue/5">
         <div className="absolute inset-0 bg-linear-to-tr from-white/40 to-transparent pointer-events-none" />
 
-        {/* Card Header */}
         <CardHeader className="text-center lg:space-y-4 p-0 lg:mb-10 relative z-10 pt-6 sm:pt-8 px-5 sm:px-8">
           <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-navy">
             {title}
@@ -84,16 +71,14 @@ export function AuthCard({
           </CardDescription>
         </CardHeader>
 
-        {/* Card Content */}
-        <CardContent className="grid gap-6 p-0 relative z-10">
+        <CardContent className="grid gap-6 p-0 relative z-10 px-5 sm:px-8">
           {children}
         </CardContent>
 
-        {/* Card Footer */}
         <CardFooter className="justify-center p-0 relative z-10 pb-8 px-8 pt-6">
           {footer}
         </CardFooter>
       </Card>
-    </Wrapper>
+    </motion.div>
   )
 }

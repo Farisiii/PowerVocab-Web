@@ -1,11 +1,24 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Play } from 'lucide-react'
 import { MOCK_DECKS, MOCK_USER } from '@/lib/data'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 
 export function ProgressCard() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    }
+
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
+
   const activeDeck =
     MOCK_DECKS.find((d) => d.id === MOCK_USER.lastOpenedDeckId) || MOCK_DECKS[0]
   const radius = 50
@@ -15,7 +28,7 @@ export function ProgressCard() {
 
   return (
     <motion.div
-      whileHover={{ y: -2, scale: 1.005 }}
+      whileHover={isDesktop ? { y: -2, scale: 1.005 } : {}}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="relative overflow-hidden rounded-4xl lg:rounded-[2.5rem] bg-linear-to-br from-navy via-[#1a2b4b] to-blue p-5 sm:p-8 lg:p-10 text-white shadow-xl group w-full"
     >
@@ -100,7 +113,7 @@ export function ProgressCard() {
               <span className="block text-xl sm:text-2xl lg:text-3xl font-black tracking-tighter">
                 {activeDeck.progress}%
               </span>
-              <span className="text-[7px] lg:text-[8px] uppercase font-bold opacity-40 tracking-widest">
+              <span className="text-[8px] uppercase font-bold opacity-40 tracking-widest">
                 Mastery
               </span>
             </motion.div>
@@ -108,7 +121,7 @@ export function ProgressCard() {
         </div>
 
         {/* Mobile Action */}
-        <Button className="w-full md:hidden bg-white text-navy hover:bg-cyan font-black text-[10px] tracking-widest rounded-xl h-11 shadow-lg active:scale-95 transition-all">
+        <Button className="w-full md:hidden bg-white text-navy active:bg-cyan font-black text-[10px] tracking-widest rounded-xl h-11 shadow-lg active:scale-95 transition-all">
           START SESSION <Play size={14} fill="currentColor" className="ml-2" />
         </Button>
       </div>

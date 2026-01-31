@@ -30,6 +30,7 @@ const itemVariants: Variants = {
 export default function LibraryPage() {
   useScrollbarGutterStable()
   const handleAdd = () => console.log('Add new item')
+
   return (
     <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30">
       <div className="hidden lg:block">
@@ -45,7 +46,6 @@ export default function LibraryPage() {
           className="w-full lg:pl-72 relative min-w-0"
         >
           <div className="px-5 sm:px-8 md:px-12 lg:px-16 py-6 md:py-14 pb-32 md:pb-14">
-            {/* Main Header */}
             <motion.header
               variants={itemVariants}
               className="hidden lg:block mb-14"
@@ -58,7 +58,6 @@ export default function LibraryPage() {
               </p>
             </motion.header>
 
-            {/* Section: Progress Learning */}
             <motion.section
               variants={itemVariants}
               className="mb-10 md:mb-14 lg:mb-20"
@@ -72,7 +71,6 @@ export default function LibraryPage() {
               <ProgressCard />
             </motion.section>
 
-            {/* Section: Deck Collection */}
             <section className="relative">
               <motion.div
                 variants={itemVariants}
@@ -82,11 +80,7 @@ export default function LibraryPage() {
                   All Decks
                 </h2>
 
-                {/* Sticky Search & Actions */}
-                <div
-                  className="w-auto sticky top-16 z-30 bg-white/90 backdrop-blur-xl supports-backdrop-filter:bg-[#f8fafc]/80
-                -mx-5 px-5 py-3 mb-6 sm:-mx-8 md:-mx-12 border-b border-cyan/5 shadow-sm lg:static lg:bg-transparent lg:mx-0 lg:px-0 lg:py-0 lg:mb-10 lg:border-none lg:shadow-none transition-all duration-300"
-                >
+                <div className="w-auto sticky top-16 z-30 bg-white/90 backdrop-blur-xl supports-backdrop-filter:bg-[#f8fafc]/80 -mx-5 px-5 py-3 mb-6 sm:-mx-8 md:-mx-12 border-b border-cyan/5 shadow-sm lg:static lg:bg-transparent lg:mx-0 lg:px-0 lg:py-0 lg:mb-10 lg:border-none lg:shadow-none transition-all duration-300">
                   <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4 w-full lg:w-auto">
                     <div className="relative w-full lg:w-96 group order-2 sm:order-1">
                       <Search
@@ -99,14 +93,13 @@ export default function LibraryPage() {
                       />
                     </div>
 
-                    <Button className="hidden xl:flex items-center gap-3 bg-navy text-white px-10! h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto">
+                    <Button className="hidden lg:flex items-center gap-3 bg-navy text-white px-10 h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl md:hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto">
                       <Plus size={18} strokeWidth={3} /> CREATE NEW
                     </Button>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Grid List */}
               <motion.div variants={itemVariants}>
                 <InfiniteDeckGrid />
               </motion.div>

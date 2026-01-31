@@ -23,9 +23,7 @@ export function FillBlankControls({
         onClick={onCheck}
         disabled={disabled}
         className={cn(
-          'btn-modern w-full shadow-soft-lg transition-all duration-300',
-          'h-14 text-lg rounded-2xl',
-          'md:w-80 lg:w-96 lg:h-16 lg:text-xl lg:rounded-full',
+          'btn-modern w-full shadow-soft-lg transition-all duration-300 h-14 text-lg rounded-2xl md:w-80 lg:w-96 lg:h-16 lg:text-xl lg:rounded-full active:scale-95',
           disabled && 'opacity-50 cursor-not-allowed grayscale-[0.5]',
         )}
       >

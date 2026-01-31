@@ -2,14 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import {
-  LayoutGrid,
-  BookOpen,
-  Settings,
-  LogOut,
-  Gamepad2,
-  X,
-} from 'lucide-react'
+import { LayoutGrid, BookOpen, Settings, LogOut, Gamepad2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { motion, Variants } from 'framer-motion'
@@ -52,7 +45,6 @@ export function Sidebar({
     <aside
       className={`flex flex-col bg-white h-full ${isMobile ? 'w-full' : 'hidden md:flex w-64 lg:w-72 fixed left-0 top-0 border-r border-cyan/10'} overflow-y-auto no-scrollbar z-12`}
     >
-      {/* Sidebar Branding */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,7 +69,6 @@ export function Sidebar({
         </div>
       </motion.div>
 
-      {/* Main Navigation */}
       <motion.nav
         variants={containerVariants}
         initial="hidden"
@@ -112,7 +103,6 @@ export function Sidebar({
         })}
       </motion.nav>
 
-      {/* Footer Actions */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -125,7 +115,7 @@ export function Sidebar({
           onClick={() => router.push('/sign-in')}
         >
           <LogOut size={18} />
-          <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest">
+          <span className="text-[12px] lg:text-xs font-black uppercase tracking-widest">
             Logout
           </span>
         </Button>

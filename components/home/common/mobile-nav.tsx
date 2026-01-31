@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sidebar } from './sidebar'
@@ -51,6 +51,16 @@ interface MobileNavProps {
 
 export function MobileNav({ title, primaryAction }: MobileNavProps) {
   const [open, setOpen] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    }
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
 
   const toggleMenu = () => setOpen((prev) => !prev)
 
@@ -69,7 +79,7 @@ export function MobileNav({ title, primaryAction }: MobileNavProps) {
 
       <motion.div
         className="lg:hidden fixed top-3 right-4 sm:right-6 z-60"
-        whileHover={{ scale: 1.05 }}
+        whileHover={isDesktop ? { scale: 1.05 } : {}}
         whileTap={{ scale: 0.95 }}
       >
         <motion.div
@@ -86,7 +96,7 @@ export function MobileNav({ title, primaryAction }: MobileNavProps) {
             variant="ghost"
             size="icon"
             onClick={toggleMenu}
-            className="w-10 h-10 rounded-xl hover:bg-slate-100 transition-all active:scale-90 flex relative bg-transparent"
+            className="w-10 h-10 rounded-xl md:hover:bg-slate-100 transition-all active:scale-90 flex relative bg-transparent"
             aria-label="Toggle Menu"
           >
             <motion.div
@@ -129,16 +139,15 @@ export function MobileNav({ title, primaryAction }: MobileNavProps) {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, rotate: -180 }}
-            whileHover={{ scale: 1.1 }}
+            whileHover={isDesktop ? { scale: 1.1 } : {}}
             whileTap={{ scale: 0.9 }}
             className="xl:hidden fixed bottom-8 right-6 z-10"
           >
             <Button
               onClick={primaryAction}
-              size="icon"
-              className="w-12 h-12 bg-navy text-white rounded-2xl shadow-[0_15px_30px_rgba(15,23,42,0.3)] hover:bg-blue border-2 border-white/10"
+              className="w-16 h-16 bg-navy text-white rounded-2xl shadow-[0_15px_30px_rgba(15,23,42,0.3)] md:hover:bg-blue border-2 border-white/10 flex items-center justify-center p-0"
             >
-              <Plus size={32} />
+              <Plus size={40} strokeWidth={2.5} />
             </Button>
           </motion.div>
         )}

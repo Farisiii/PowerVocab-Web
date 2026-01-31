@@ -35,11 +35,10 @@ export function FlashcardCard({
         initial={false}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-        className="w-full h-full relative cursor-pointer shadow-2xl rounded-[2.5rem]"
+        className="w-full h-full relative cursor-pointer rounded-[2.5rem]"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* FRONT — English */}
-        <div className="absolute inset-0 backface-hidden rounded-[2.5rem] bg-linear-to-br from-navy via-blue to-sky flex flex-col items-center justify-center border-4 border-white/10 p-8 shadow-glass">
+        <div className="absolute inset-0 backface-hidden rounded-[2.5rem] bg-linear-to-br from-navy via-blue to-sky flex flex-col items-center justify-center border-4 border-white/10 p-8">
           <span className="absolute top-8 px-5 py-1.5 rounded-full bg-white/20 text-[10px] font-black tracking-[0.2em] text-white uppercase">
             English
           </span>
@@ -51,7 +50,7 @@ export function FlashcardCard({
 
             <Button
               size="icon"
-              className="rounded-full w-14 h-14 bg-white text-navy hover:bg-cyan hover:scale-110 shadow-xl transition-all cursor-pointer"
+              className="rounded-full w-14 h-14 bg-white text-navy md:hover:bg-cyan md:hover:scale-110 active:scale-95 transition-all cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation()
                 speak(translation)
@@ -69,9 +68,8 @@ export function FlashcardCard({
           </div>
         </div>
 
-        {/* BACK — Indonesian */}
         <div
-          className="absolute inset-0 backface-hidden rounded-[2.5rem] glass-card flex flex-col items-center justify-center border border-white bg-white shadow-soft-lg p-8"
+          className="absolute inset-0 backface-hidden rounded-[2.5rem] glass-card flex flex-col items-center justify-center border border-white bg-white p-8"
           style={{ transform: 'rotateY(180deg)' }}
         >
           <span className="absolute top-8 px-5 py-1.5 rounded-full bg-navy/5 text-[10px] font-black tracking-[0.2em] text-navy/40 uppercase">
@@ -85,7 +83,7 @@ export function FlashcardCard({
           <div className="absolute bottom-8 flex flex-col items-center gap-2 opacity-50">
             <RotateCw className="w-5 h-5 text-blue" />
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-              Back to Front
+              Tap to Reveal
             </span>
           </div>
         </div>

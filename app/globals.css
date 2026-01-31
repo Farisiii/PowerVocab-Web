@@ -91,8 +91,35 @@
   .backface-hidden {
     backface-visibility: hidden;
   }
+
+  .recharts-wrapper,
+  .recharts-surface {
+    outline: none !important;
+  }
+
+  .recharts-wrapper:focus,
+  .recharts-surface:focus {
+    outline: none !important;
+  }
+
+  .recharts-wrapper *:focus,
+  .recharts-surface *:focus {
+    outline: none !important;
+  }
 }
 
 body[data-scroll-locked] {
   margin-right: 0 !important;
+}
+
+svg:focus {
+  outline: none !important;
+}
+
+svg *:focus {
+  outline: none !important;
+}
+
+.recharts-wrapper svg {
+  outline: none !important;
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { motion, Variants } from 'framer-motion'
@@ -15,7 +16,6 @@ const itemVariants: Variants = {
 
 export function AuthDivider() {
   return (
-    /* Auth Divider */
     <motion.div
       variants={itemVariants}
       className="flex items-center gap-4 py-2"
@@ -30,12 +30,25 @@ export function AuthDivider() {
 }
 
 export function GoogleButton() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkDesktop = () =>
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
+
   return (
-    /* Google Auth Button */
-    <motion.div variants={itemVariants} whileTap={{ scale: 0.98 }}>
+    <motion.div
+      variants={itemVariants}
+      whileHover={isDesktop ? { scale: 1.01 } : {}}
+      whileTap={{ scale: 0.98 }}
+    >
       <Button
         variant="outline"
-        className="h-11 sm:h-12 md:h-14 w-full text-sm sm:text-base rounded-xl sm:rounded-2xl border-2 border-navy/5 bg-white/40 hover:bg-white hover:border-navy/10 font-bold text-navy/80 transition-all flex items-center justify-center gap-3 cursor-pointer shadow-sm"
+        className="h-11 sm:h-12 md:h-14 w-full text-sm sm:text-base rounded-xl sm:rounded-2xl border-2 border-navy/5 bg-white/40 md:hover:bg-white md:hover:border-navy/10 font-bold text-navy/80 transition-all flex items-center justify-center gap-3 cursor-pointer shadow-sm"
       >
         <Image
           src="/google.svg"

@@ -5,7 +5,6 @@ import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { LearningActivity } from '@/components/home/dashboard/learning-activity'
 import { StatsCards } from '@/components/home/dashboard/stats-cards'
-import { LastSessionCard } from '@/components/home/dashboard/last-session-card'
 import { VocabGrowthChart } from '@/components/home/dashboard/vocab-growth-chart'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 
@@ -58,7 +57,7 @@ export default function DashboardPage() {
             {/* MAIN GRID */}
             <div className="grid grid-cols-12 gap-6 xl:gap-10">
               {/* Left: Activity */}
-              <div className="col-span-12 xl:col-span-6 order-1">
+              <div className="col-span-12 xl:col-span-8 order-1">
                 <motion.div variants={itemVariants}>
                   <LearningActivity />
                 </motion.div>
@@ -71,14 +70,8 @@ export default function DashboardPage() {
                 </motion.div>
               </div>
 
-              <div className="col-span-12 xl:col-span-6 order-3 xl:order-2">
-                <motion.div variants={itemVariants}>
-                  <LastSessionCard />
-                </motion.div>
-              </div>
-
               {/* Bottom: Chart */}
-              <div className="col-span-12 xl:col-span-8 order-4">
+              <div className="col-span-12 xl:col-span-12 order-4">
                 <motion.div variants={itemVariants}>
                   <VocabGrowthChart />
                 </motion.div>

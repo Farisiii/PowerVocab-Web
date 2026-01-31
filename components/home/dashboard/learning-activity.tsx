@@ -1,11 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function LearningActivity() {
-  const [] = useState(new Date(2026, 0, 24))
+  const [isDesktop, setIsDesktop] = useState(false)
+  const [currentDate] = useState(new Date(2026, 0, 1))
+
+  const daysInMonth = 31
+  const startDayIndex = currentDate.getDay()
+
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
   const activity: Record<number, number> = {
@@ -35,6 +40,15 @@ export function LearningActivity() {
     24: 3,
   }
 
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    }
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
+
   return (
     <div className="bg-white rounded-[2.5rem] sm:rounded-[3rem] p-5 sm:p-8 lg:p-10 shadow-2xl shadow-navy/5 border border-white h-full">
       {/* HEADER */}
@@ -63,34 +77,41 @@ export function LearningActivity() {
 
       {/* GRID */}
       <div className="grid grid-cols-7 gap-2 sm:gap-3 md:gap-4">
+        {/* Day Headers */}
         {days.map((d) => (
           <div
             key={d}
-            className="text-center text-[9px] sm:text-[10px] font-black text-navy tracking-[0.2em]"
+            className="text-center text-[9px] sm:text-[10px] md:text-xs font-black text-navy tracking-[0.2em]"
           >
             {d}
           </div>
         ))}
 
-        {Array.from({ length: 31 }, (_, i) => i + 1).map((date) => {
+        {Array.from({ length: startDayIndex }).map((_, i) => (
+          <div key={`empty-${i}`} />
+        ))}
+
+        {/* Date Slots */}
+        {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((date) => {
           const type = activity[date]
+
+          let bgClass = 'border-transparent text-slate-300'
+          if (type === 1) bgClass = 'bg-red-50 border-red-100 text-red-500'
+          if (type === 2) bgClass = 'bg-sky/10 border-sky/20 text-sky'
+          if (type === 3) bgClass = 'bg-navy border-navy text-white scale-110'
+
           return (
             <div
               key={date}
               className="aspect-square flex items-center justify-center"
             >
               <motion.div
-                whileHover={{ scale: 1.1 }}
+                whileHover={isDesktop ? { scale: 1.1 } : {}}
                 className={`
                   w-full max-w-10 sm:max-w-12 aspect-square rounded-xl sm:rounded-2xl
                   flex items-center justify-center text-xs sm:text-sm font-black transition-all border-2
-                  ${type === 1 ? 'bg-red-50 border-red-100 text-red-500' : ''}
-                  ${type === 2 ? 'bg-sky/10 border-sky/20 text-sky' : ''}
-                  ${
-                    type === 3
-                      ? 'bg-navy border-navy text-white shadow-xl shadow-navy/30 rounded-full scale-110'
-                      : 'border-transparent text-slate-300'
-                  }
+                  ${bgClass}
+                  ${type === 3 ? 'rounded-full' : ''} 
                 `}
               >
                 {date}

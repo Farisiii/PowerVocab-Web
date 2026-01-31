@@ -1,26 +1,58 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Edit3, Trash2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 
-export function DeckCard({ title, words, progress, description }: any) {
+interface DeckCardProps {
+  title: string
+  words: number
+  progress: number
+  description: string
+  onEdit?: () => void
+  onDelete?: () => void
+  onPlay?: () => void
+}
+
+export function DeckCard({
+  title,
+  words,
+  progress,
+  description,
+  onEdit,
+  onDelete,
+  onPlay,
+}: DeckCardProps) {
+  const [isDesktop, setIsDesktop] = useState(false)
   const radius = 24
   const circumference = 2 * Math.PI * radius
 
+  useEffect(() => {
+    // Cek apakah layar >= 768px (md breakpoint)
+    const checkScreen = () => {
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
+    }
+
+    checkScreen()
+    window.addEventListener('resize', checkScreen)
+    return () => window.removeEventListener('resize', checkScreen)
+  }, [])
+
   return (
     <motion.div
-      whileHover={{ y: -8 }}
+      // Logic: Hover cuma aktif kalau di desktop
+      whileHover={isDesktop ? { y: -8 } : {}}
+      whileTap={{ scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
       className="h-full"
     >
-      <Card className="relative h-full overflow-hidden group rounded-3xl lg:rounded-4xl border-0 bg-white shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)] transition-all duration-500">
+      {/* Tambahkan prefix 'md:' pada semua class hover agar tidak nyangkut di mobile */}
+      <Card className="relative h-full overflow-hidden group rounded-3xl lg:rounded-4xl border-0 bg-white shadow-[0_4px_20px_rgba(15,23,42,0.03)] md:hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)] active:shadow-[0_20px_40px_rgba(15,23,42,0.08)] transition-all duration-500">
         <div className="p-6 lg:p-7 flex flex-col h-full justify-between gap-5">
-          {/* Card Header */}
           <div className="flex justify-between items-start gap-4">
             <div className="space-y-2 flex-1 min-w-0">
-              {/* Badge & Status */}
               <div className="flex flex-wrap items-center gap-2">
                 <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[9px] xl:text-[10px] font-black text-blue uppercase tracking-widest border border-blue/10">
                   {words} Words
@@ -32,13 +64,12 @@ export function DeckCard({ title, words, progress, description }: any) {
                 )}
               </div>
 
-              {/* Deck Title */}
-              <h4 className="text-lg lg:text-xl font-black text-navy leading-tight tracking-tight wrap-break-word line-clamp-2 group-hover:text-blue transition-colors">
+              {/* md:group-hover:text-blue */}
+              <h4 className="text-lg lg:text-xl font-black text-navy leading-tight tracking-tight wrap-break-word line-clamp-2 md:group-hover:text-blue group-active:text-blue transition-colors">
                 {title}
               </h4>
             </div>
 
-            {/* Progress Circle */}
             <div className="relative w-14 h-14 shrink-0 flex items-center justify-center bg-slate-50 rounded-full">
               <svg className="w-full h-full -rotate-90">
                 <circle
@@ -75,23 +106,23 @@ export function DeckCard({ title, words, progress, description }: any) {
             </div>
           </div>
 
-          {/* Description */}
           <p className="text-slate-400 text-[13px] font-medium italic leading-snug line-clamp-2">
-            “{description}”
+            "{description}"
           </p>
 
-          {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
-            {/* Flashcard Action */}
-            <Button className="flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5">
+            <Button
+              onClick={onPlay}
+              className="flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] uppercase tracking-widest md:hover:bg-blue active:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5"
+            >
               Flashcard <Play size={12} className="ml-1.5 fill-current" />
             </Button>
 
             <div className="flex items-center gap-2 w-full xl:w-auto">
-              {/* Edit Action */}
               <Button
+                onClick={onEdit}
                 variant="outline"
-                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-green-50 hover:border-green-200 text-navy/60 hover:text-green-600 transition-all flex items-center justify-center gap-2"
+                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 md:hover:bg-green-50 md:hover:border-green-200 active:bg-green-50 active:border-green-200 text-navy/60 md:hover:text-green-600 active:text-green-600 transition-all flex items-center justify-center gap-2 active:scale-95"
               >
                 <Edit3 size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">
@@ -99,10 +130,10 @@ export function DeckCard({ title, words, progress, description }: any) {
                 </span>
               </Button>
 
-              {/* Delete Action */}
               <Button
+                onClick={onDelete}
                 variant="outline"
-                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-red-50 hover:border-red-200 text-navy/60 hover:text-red-600 transition-all flex items-center justify-center gap-2"
+                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 md:hover:bg-red-50 md:hover:border-red-200 active:bg-red-50 active:border-red-200 text-navy/60 md:hover:text-red-600 active:text-red-600 transition-all flex items-center justify-center gap-2 active:scale-95"
               >
                 <Trash2 size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">

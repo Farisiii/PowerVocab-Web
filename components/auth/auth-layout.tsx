@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, Variants } from 'framer-motion'
-import { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import Image from 'next/image'
 
 interface AuthLayoutProps {
@@ -30,6 +30,20 @@ const leftItemVariants: Variants = {
   },
 }
 
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkDesktop = () =>
+      setIsDesktop(window.matchMedia('(min-width: 1024px)').matches)
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
+
+  return isDesktop
+}
+
 export function AuthLayout({
   title,
   badge,
@@ -38,6 +52,8 @@ export function AuthLayout({
   mobileSubtitle,
   children,
 }: AuthLayoutProps) {
+  const isDesktop = useIsDesktop()
+
   return (
     <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-hidden overflow-x-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
       {/* Background Decor */}
@@ -86,7 +102,7 @@ export function AuthLayout({
             >
               {stats.map((s, i) => (
                 <div key={i} className="group cursor-default">
-                  <p className="text-3xl xl:text-5xl font-black text-navy group-hover:text-blue transition-colors duration-300">
+                  <p className="text-3xl xl:text-5xl font-black text-navy lg:group-hover:text-blue transition-colors duration-300">
                     {s.value}
                   </p>
                   <p className="text-[10px] xl:text-xs opacity-50 font-bold uppercase tracking-widest mt-1 xl:mt-2">
@@ -138,19 +154,18 @@ export function AuthLayout({
             <div className="max-w-[90%] md:max-w-[85%] w-full lg:max-w-lg relative">
               <div className="hidden lg:block absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
 
-              {/* VERSI MOBILE */}
-              <div className="block lg:hidden">{children}</div>
-
-              {/* VERSI DESKTOP */}
               <motion.div
-                initial={{ opacity: 0, x: 30, scale: 0.98 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
+                initial={
+                  isDesktop
+                    ? { opacity: 0, x: 30, scale: 0.98 }
+                    : { opacity: 0, y: 20, scale: 0.98 }
+                }
+                animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 transition={{
                   duration: 0.9,
                   ease: [0.22, 1, 0.36, 1],
                   delay: 0.15,
                 }}
-                className="hidden lg:block"
               >
                 {children}
               </motion.div>

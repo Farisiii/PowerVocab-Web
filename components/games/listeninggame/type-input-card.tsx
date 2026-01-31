@@ -31,7 +31,6 @@ export function TypeInputCard({
   const [isPlaying, setIsPlaying] = useState(false)
   const [isDesktop, setIsDesktop] = useState(false)
 
-  // Responsive check
   useEffect(() => {
     const checkDesktop = () =>
       setIsDesktop(window.matchMedia('(min-width: 1024px)').matches)
@@ -40,20 +39,17 @@ export function TypeInputCard({
     return () => window.removeEventListener('resize', checkDesktop)
   }, [])
 
-  // Stop audio on unmount or text change
   useEffect(() => {
     return () => {
       window.speechSynthesis?.cancel()
     }
   }, [correctText])
 
-  // Handle Playback Speed Change while playing
   useEffect(() => {
     if (isPlaying && window.speechSynthesis) {
       window.speechSynthesis.cancel()
       speak(correctText, playbackRate)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playbackRate])
 
   const speak = (text: string, rate: number) => {
@@ -93,33 +89,27 @@ export function TypeInputCard({
         transition={{ delay: 0.2 }}
         className={cn(
           'glass-card relative overflow-visible',
-          'rounded-2xl sm:rounded-3xl lg:rounded-[2rem] xl:rounded-[2.5rem]',
+          'rounded-2xl sm:rounded-3xl lg:rounded-4xl xl:rounded-[2.5rem]',
           'p-5 sm:p-6 md:p-8 lg:p-10 xl:p-12',
         )}
       >
-        {/* Audio Controls Box - Top Right Corner with Cutout Effect */}
+        {/* Audio Controls Box */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 0.3, type: 'spring', bounce: 0.3 }}
           className={cn(
-            // Positioning - responsive untuk semua device
             'absolute z-20',
             '-top-2.5 right-3',
             'sm:-top-3 sm:right-4',
             'md:-top-4 md:right-6',
             'lg:-top-5 lg:right-8',
             'xl:-top-6 xl:right-10',
-            // Background gradient - menggunakan color palette
-            'bg-gradient-to-br from-navy via-blue to-sky',
-            // Border radius
+            'bg-linear-to-br from-navy via-blue to-sky',
             'rounded-xl sm:rounded-2xl md:rounded-2xl lg:rounded-3xl',
-            // Shadow & Border
             'shadow-[0_10px_40px_rgba(15,40,84,0.25)]',
             'border-2 border-white/35',
-            // Padding
             'p-2.5 sm:p-3 md:p-4 lg:p-4 xl:p-5',
-            // Layout
             'flex items-center gap-2 sm:gap-2.5 md:gap-3 lg:gap-3.5',
           )}
         >
@@ -144,19 +134,15 @@ export function TypeInputCard({
                 onClick={handlePlayAudio}
                 className={cn(
                   'rounded-full transition-all duration-300',
-                  // Size responsive
                   'w-10 h-10',
                   'sm:w-11 sm:h-11',
                   'md:w-12 md:h-12',
                   'lg:w-13 lg:h-13',
                   'xl:w-14 xl:h-14',
-                  // Colors - menggunakan color palette
                   'bg-white text-navy',
                   'border-2 border-white/40',
                   'shadow-lg',
-                  // Hover states
                   'hover:bg-white hover:text-blue hover:shadow-xl hover:border-white/60 hover:scale-105',
-                  // Playing state
                   isPlaying &&
                     'bg-cyan text-navy shadow-[0_0_24px_rgba(189,232,245,0.7)] ring-3 ring-white/50 border-white/60',
                 )}
@@ -180,12 +166,10 @@ export function TypeInputCard({
                   onClick={() => onPlaybackRateChange(option.value)}
                   className={cn(
                     'relative rounded-md sm:rounded-lg transition-all cursor-pointer overflow-hidden',
-                    // Padding responsive
                     'px-2 py-1',
                     'sm:px-2.5 sm:py-1.5',
                     'md:px-3 md:py-2',
                     'lg:px-4 lg:py-2',
-                    // Text size
                     'text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs',
                     'font-bold uppercase tracking-wide',
                   )}
@@ -218,16 +202,14 @@ export function TypeInputCard({
         </motion.div>
 
         {/* Decorative Elements - responsive size */}
-        <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 bg-gradient-to-bl from-sky/12 to-transparent rounded-bl-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 bg-linear-to-bl from-sky/12 to-transparent rounded-bl-full pointer-events-none" />
 
         {/* Content Area */}
         <div
           className={cn(
             'relative z-10 flex flex-col justify-between',
-            // Spacing responsive
             'space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8 xl:space-y-10',
-            // Min height responsive
-            'min-h-[280px] sm:min-h-[320px] md:min-h-[360px] lg:min-h-[400px] xl:min-h-[420px]',
+            'min-h-70 sm:min-h-80 md:min-h-90 lg:min-h-100 xl:min-h-105',
           )}
         >
           {/* Label */}
@@ -253,18 +235,12 @@ export function TypeInputCard({
               placeholder="Start typing here..."
               className={cn(
                 'w-full h-full',
-                // Text size responsive
                 'text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl',
-                // Border radius
                 'rounded-xl sm:rounded-xl md:rounded-2xl lg:rounded-2xl xl:rounded-3xl',
-                // Background & border - menggunakan color palette
                 'bg-white/75 border-2 border-white/50',
-                // Padding responsive
                 'px-3 sm:px-4 md:px-5 lg:px-6 xl:px-7',
                 'py-4 sm:py-5 md:py-6 lg:py-8 xl:py-9',
-                // Typography
                 'font-bold text-navy placeholder:text-navy/30',
-                // Focus states - menggunakan color palette
                 'focus-visible:ring-4 focus-visible:ring-sky/25 focus-visible:border-blue focus-visible:bg-white',
                 'transition-all duration-300 shadow-sm',
               )}

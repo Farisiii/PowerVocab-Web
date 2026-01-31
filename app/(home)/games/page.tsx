@@ -90,7 +90,7 @@ export default function GamesPage() {
             <motion.section variants={itemVariants} className="mb-8 md:mb-12">
               <div className="flex items-center gap-3 md:gap-4 mb-8">
                 <div className="w-1.5 md:w-3 h-6 md:h-10 bg-blue rounded-full shadow-lg shadow-blue/20" />
-                <h3 className="font-black text-navy uppercase tracking-[0.2em] text-xs md:text-lg">
+                <h3 className="font-black text-navy uppercase tracking-[0.2em] text-sm md:text-lg">
                   Select Game Challenge
                 </h3>
               </div>

@@ -51,7 +51,7 @@ export function ProgressCard() {
             {/* Desktop Action */}
             <Button
               size="sm"
-              className="hidden md:flex bg-cyan text-navy hover:bg-white hover:scale-105 transition-all font-black text-[10px] tracking-widest rounded-xl px-8 h-8 lg:h-12 shadow-md shadow-cyan/10"
+              className="hidden md:flex bg-white text-navy hover:bg-cyan hover:scale-105 transition-all font-black text-[10px] tracking-widest rounded-xl px-8 h-8 lg:h-12 shadow-md shadow-cyan/10"
             >
               START SESSION{' '}
               <Play size={14} fill="currentColor" className="ml-2" />
@@ -108,7 +108,7 @@ export function ProgressCard() {
         </div>
 
         {/* Mobile Action */}
-        <Button className="w-full md:hidden bg-cyan text-navy hover:bg-white font-black text-[10px] tracking-widest rounded-xl h-11 shadow-lg active:scale-95 transition-all">
+        <Button className="w-full md:hidden bg-white text-navy hover:bg-cyan font-black text-[10px] tracking-widest rounded-xl h-11 shadow-lg active:scale-95 transition-all">
           START SESSION <Play size={14} fill="currentColor" className="ml-2" />
         </Button>
       </div>

@@ -50,7 +50,7 @@ export function Sidebar({
 
   return (
     <aside
-      className={`flex flex-col bg-white h-full ${isMobile ? 'w-full' : 'hidden md:flex w-64 lg:w-72 fixed left-0 top-0 border-r border-cyan/10'} overflow-y-auto no-scrollbar z-50`}
+      className={`flex flex-col bg-white h-full ${isMobile ? 'w-full' : 'hidden md:flex w-64 lg:w-72 fixed left-0 top-0 border-r border-cyan/10'} overflow-y-auto no-scrollbar z-12`}
     >
       {/* Sidebar Branding */}
       <motion.div
@@ -60,28 +60,21 @@ export function Sidebar({
         className="p-6 lg:p-8 shrink-0 flex justify-between items-center border-b border-cyan/5"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue to-sky flex items-center justify-center shadow-md">
+          <div className="lg:hidden w-10 h-10 rounded-xl bg-linear-to-br from-blue to-sky flex items-center justify-center shadow-md">
             <Image src="/logo.webp" alt="PowerVocab" width={24} height={24} />
           </div>
+          <div className="hidden lg:flex w-12 h-12 rounded-xl bg-linear-to-br from-blue to-sky items-center justify-center shadow-md">
+            <Image src="/logo.webp" alt="PowerVocab" width={32} height={32} />
+          </div>
           <div className="flex flex-col">
-            <h1 className="text-lg lg:text-xl font-black text-navy uppercase tracking-tighter leading-none">
+            <h1 className="text-lg lg:text-2xl font-black text-navy uppercase tracking-tighter leading-none">
               PowerVocab
             </h1>
-            <span className="text-[8px] font-bold text-sky tracking-[0.3em] uppercase mt-1">
+            <span className="text-[8px] lg:text-[10px] font-bold text-sky tracking-[0.3em] uppercase mt-1">
               Lexicon Hub
             </span>
           </div>
         </div>
-        {isMobile && (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="text-navy/40 hover:text-navy active:scale-90 transition-transform"
-          >
-            <X size={24} />
-          </Button>
-        )}
       </motion.div>
 
       {/* Main Navigation */}
@@ -109,7 +102,7 @@ export function Sidebar({
                     size={18}
                     className={isActive ? 'text-cyan' : ''}
                   />
-                  <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest">
+                  <span className="text-[12px] lg:text-xs font-black uppercase tracking-widest">
                     {item.label}
                   </span>
                 </Button>

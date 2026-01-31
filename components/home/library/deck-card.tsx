@@ -82,16 +82,16 @@ export function DeckCard({ title, words, progress, description }: any) {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
-            {/* Study Action */}
+            {/* Flashcard Action */}
             <Button className="flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5">
-              Study <Play size={12} className="ml-1.5 fill-current" />
+              Flashcard <Play size={12} className="ml-1.5 fill-current" />
             </Button>
 
             <div className="flex items-center gap-2 w-full xl:w-auto">
               {/* Edit Action */}
               <Button
                 variant="outline"
-                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-navy/60 hover:text-navy transition-all flex items-center justify-center gap-2"
+                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 hover:bg-green-50 hover:border-green-200 text-navy/60 hover:text-green-600 transition-all flex items-center justify-center gap-2"
               >
                 <Edit3 size={14} />
                 <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">

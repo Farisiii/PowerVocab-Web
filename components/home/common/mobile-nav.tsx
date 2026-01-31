@@ -1,18 +1,47 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, Plus, User } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import { Sidebar } from './sidebar'
 import { Button } from '@/components/ui/button'
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-} from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
+
+const MenuToggle = ({ isOpen }: { isOpen: boolean }) => {
+  return (
+    <motion.div
+      initial={false}
+      animate={isOpen ? 'open' : 'closed'}
+      className="w-6 h-6 flex flex-col justify-center items-center gap-1.25"
+    >
+      <motion.span
+        variants={{
+          closed: { rotate: 0, y: 0 },
+          open: { rotate: 45, y: 7 },
+        }}
+        className="w-5 h-[2.5px] bg-navy rounded-full origin-center block"
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      />
+      <motion.span
+        variants={{
+          closed: { opacity: 1 },
+          open: { opacity: 0 },
+        }}
+        className="w-5 h-[2.5px] bg-navy rounded-full block"
+        transition={{ duration: 0.2 }}
+      />
+      <motion.span
+        variants={{
+          closed: { rotate: 0, y: 0 },
+          open: { rotate: -45, y: -8 },
+        }}
+        className="w-5 h-[2.5px] bg-navy rounded-full origin-center block"
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      />
+    </motion.div>
+  )
+}
 
 interface MobileNavProps {
   title: string
@@ -20,61 +49,80 @@ interface MobileNavProps {
   primaryAction?: () => void
 }
 
-export function MobileNav({ title, userImage, primaryAction }: MobileNavProps) {
+export function MobileNav({ title, primaryAction }: MobileNavProps) {
   const [open, setOpen] = useState(false)
+
+  const toggleMenu = () => setOpen((prev) => !prev)
 
   return (
     <>
-      {/* Mobile Sticky Header */}
-      <header className="lg:hidden sticky top-0 z-50 bg-white/90 backdrop-blur-xl supports-backdrop-filter:bg-[#f8fafc]/80 border-b border-slate-200">
+      <header className="lg:hidden sticky top-0 z-40 bg-white/90 backdrop-blur-xl supports-backdrop-filter:bg-[#f8fafc]/80 border-b border-slate-200">
         <div className="flex items-center justify-between px-4 sm:px-6 py-3">
-          {/* LEFT: Menu & Title */}
-          <div className="flex items-center gap-3">
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-10 h-10 rounded-xl hover:bg-slate-100 transition-all active:scale-90"
-                >
-                  <Menu size={20} className="text-navy" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0 border-none w-72">
-                <VisuallyHidden>
-                  <SheetTitle>{title} Navigation</SheetTitle>
-                </VisuallyHidden>
-                <Sidebar isMobile onClose={() => setOpen(false)} />
-              </SheetContent>
-            </Sheet>
-            <h1 className="text-lg sm:text-xl font-black text-navy uppercase tracking-tight truncate max-w-40">
+          <div className="w-full flex items-center justify-between">
+            <h1 className="text-lg sm:text-xl font-black text-navy uppercase tracking-tight truncate w-full flex justify-center">
               {title}
             </h1>
+            <div className="w-10 h-10" />
           </div>
-
-          {/* RIGHT: Profile Thumbnail dengan Desain Gradient */}
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-cyan to-sky p-0.5 shadow-sm ring-2 ring-white"
-          >
-            <div className="w-full h-full bg-white rounded-[10px] overflow-hidden flex items-center justify-center relative border border-cyan/5">
-              {userImage ? (
-                <Image
-                  src={userImage}
-                  alt="Profile"
-                  fill
-                  className="object-cover"
-                  sizes="40px"
-                />
-              ) : (
-                <User size={18} className="text-navy" />
-              )}
-            </div>
-          </motion.div>
         </div>
       </header>
 
-      {/* FAB (Floating Action Button) - Muncul hanya jika ada primaryAction & layar < XL */}
+      <motion.div
+        className="lg:hidden fixed top-3 right-4 sm:right-6 z-60"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <motion.div
+          initial={false}
+          animate={{
+            boxShadow: open
+              ? '0 8px 24px rgba(15, 40, 84, 0.15)'
+              : '0 0px 0px rgba(15, 40, 84, 0)',
+          }}
+          transition={{ duration: 0.3 }}
+          className="rounded-xl"
+        >
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleMenu}
+            className="w-10 h-10 rounded-xl hover:bg-slate-100 transition-all active:scale-90 flex relative bg-transparent"
+            aria-label="Toggle Menu"
+          >
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: open ? 1 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-white/90 backdrop-blur-xl rounded-xl"
+            />
+
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: open ? 1 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 border border-slate-200/50 rounded-xl pointer-events-none"
+            />
+
+            <div className="relative z-10">
+              <MenuToggle isOpen={open} />
+            </div>
+          </Button>
+        </motion.div>
+      </motion.div>
+
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="left" className="p-0 border-none w-72">
+          <VisuallyHidden>
+            <SheetTitle>{title} Navigation</SheetTitle>
+          </VisuallyHidden>
+          <Sidebar isMobile onClose={() => setOpen(false)} />
+        </SheetContent>
+      </Sheet>
+
       <AnimatePresence>
         {primaryAction && (
           <motion.div
@@ -83,12 +131,12 @@ export function MobileNav({ title, userImage, primaryAction }: MobileNavProps) {
             exit={{ scale: 0, rotate: -180 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="xl:hidden fixed bottom-8 right-6 z-50"
+            className="xl:hidden fixed bottom-8 right-6 z-10"
           >
             <Button
               onClick={primaryAction}
               size="icon"
-              className="w-16 h-16 bg-navy text-white rounded-2xl shadow-[0_15px_30px_rgba(15,23,42,0.3)] hover:bg-blue border-2 border-white/10"
+              className="w-12 h-12 bg-navy text-white rounded-2xl shadow-[0_15px_30px_rgba(15,23,42,0.3)] hover:bg-blue border-2 border-white/10"
             >
               <Plus size={32} />
             </Button>

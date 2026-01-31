@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { FlashcardHeader } from '@/components/games/common/flashcard-header' // Pastikan path import benar
+import { FlashcardHeader } from '@/components/games/common/flashcard-header'
 import { FillBlankCard } from '@/components/games/fillintheblanks/fill-blank-card'
 import { FillBlankControls } from '@/components/games/fillintheblanks/fill-blank-controls'
 
-// Mock Data (Struktur mirip dengan MOCK_WORDS di contohmu)
+// Mock Data
 const MOCK_QUESTIONS = [
   {
     id: '1',
@@ -18,7 +18,6 @@ const MOCK_QUESTIONS = [
       { id: '4', label: 'Erratic' },
     ],
   },
-  // Bisa tambah soal lain di sini
 ]
 
 export default function FillBlankPage() {
@@ -39,9 +38,9 @@ export default function FillBlankPage() {
         <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-sky/5 blur-[120px] rounded-full" />
       </div>
 
-      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-5 xl:px-8 py-6 xl:py-10">
+      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8">
         {/* Header */}
-        <div className="shrink-0">
+        <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
           <FlashcardHeader
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
@@ -49,9 +48,9 @@ export default function FillBlankPage() {
           />
         </div>
 
-        {/* Game Area */}
-        <div className="flex-1 flex items-center justify-center min-h-0 lg:py-8">
-          <div className="w-full h-full max-w-5xl flex flex-col justify-center">
+        {/* Game Area - takes remaining space */}
+        <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
+          <div className="w-full h-full max-w-5xl flex items-center justify-center">
             <FillBlankCard
               sentence={currentQuestion.sentence}
               options={currentQuestion.options}
@@ -62,7 +61,7 @@ export default function FillBlankPage() {
         </div>
 
         {/* Controls */}
-        <div className="shrink-0 flex flex-col items-center gap-6">
+        <div className="shrink-0 mt-4 md:mt-5">
           <FillBlankControls onCheck={handleCheck} disabled={!selectedId} />
         </div>
       </div>

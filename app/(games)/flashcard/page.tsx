@@ -34,9 +34,9 @@ export default function FlashcardPage() {
         <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-sky/5 blur-[120px] rounded-full" />
       </div>
 
-      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-5 xl:px-8 py-6 xl:py-10">
+      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8">
         {/* Header */}
-        <div className="shrink-0">
+        <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
           <FlashcardHeader
             current={currentIndex + 1}
             total={MOCK_WORDS.length}
@@ -44,8 +44,8 @@ export default function FlashcardPage() {
           />
         </div>
 
-        {/* Flashcard*/}
-        <div className="flex-1 flex items-center justify-center min-h-0 lg:py-8">
+        {/* Flashcard - takes remaining space */}
+        <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
           <FlashcardCard
             word={currentWord.word}
             translation={currentWord.translation}
@@ -55,7 +55,7 @@ export default function FlashcardPage() {
         </div>
 
         {/* Controls */}
-        <div className="shrink-0 flex flex-col items-center gap-6">
+        <div className="shrink-0 mt-4 md:mt-5 lg:mt-6 mb-2">
           <FlashcardControls onNext={handleNext} />
         </div>
       </div>

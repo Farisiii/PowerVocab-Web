@@ -37,33 +37,34 @@ export function FillBlankCard({
   }, [])
 
   return (
-    <div className="w-full h-full flex flex-col gap-4 lg:gap-8 mx-auto max-w-5xl">
+    <div className="w-full h-full flex flex-col gap-4 md:gap-6 lg:gap-8 mx-auto max-w-5xl">
       {/* QUESTION CARD */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className={cn(
           'relative flex flex-col items-center justify-center text-center transition-all',
-          'flex-1 min-h-75 rounded-[2.5rem] p-6 sm:p-10',
+          'flex-1 min-h-70 rounded-[2.5rem] p-6 sm:p-8',
           'bg-white border-2 border-slate-100 shadow-xl shadow-navy/5',
-          'lg:min-h-100 lg:rounded-[3.5rem] lg:p-16',
+          'md:min-h-80 md:p-10',
+          'lg:min-h-90 lg:rounded-[3.5rem] lg:p-12 xl:p-16',
         )}
       >
         <div className="w-full max-w-4xl">
-          <h2 className="text-2xl font-bold leading-relaxed text-navy md:text-3xl lg:text-5xl lg:leading-[1.4]">
+          <h2 className="text-xl font-bold leading-relaxed text-navy sm:text-2xl md:text-3xl md:leading-normal lg:text-4xl xl:text-5xl xl:leading-[1.6]">
             {parts[0]}
 
-            <span className="inline-block relative align-bottom mx-2 sm:mx-3 -mb-1 sm:-mb-2">
+            <span className="inline-block relative align-bottom">
               <motion.span
                 layout
                 className={cn(
                   'block rounded-full transition-colors duration-300',
                   'h-1.5 sm:h-2 lg:h-2.5',
-                  'min-w-20 sm:min-w-30 lg:min-w-40',
+                  'min-w-24 sm:min-w-32 md:min-w-40 lg:min-w-48',
                   selectedId ? 'bg-blue' : 'bg-slate-200',
                 )}
               >
-                <span className="opacity-0 px-2 text-xl lg:text-4xl whitespace-nowrap font-black">
+                <span className="opacity-0 px-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl whitespace-nowrap font-black">
                   {selectedOption ? selectedOption.label : 'placeholder'}
                 </span>
               </motion.span>
@@ -73,11 +74,11 @@ export function FillBlankCard({
                   <motion.span
                     key={selectedId}
                     initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                    animate={{ opacity: 1, y: -6, scale: 1 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.9 }}
-                    className="absolute bottom-full left-0 w-full text-center"
+                    className="absolute bottom-full left-0 w-full text-center lg:pb-2"
                   >
-                    <span className="block text-blue font-black text-xl sm:text-2xl lg:text-5xl whitespace-nowrap drop-shadow-sm pb-2">
+                    <span className="block text-blue font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl whitespace-nowrap drop-shadow-sm">
                       {selectedOption.label}
                     </span>
                   </motion.span>
@@ -92,7 +93,7 @@ export function FillBlankCard({
 
       {/* OPTIONS GRID */}
       <div className="shrink-0 w-full">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
           {options.map((option) => {
             const isSelected = selectedId === option.id
             return (
@@ -106,9 +107,9 @@ export function FillBlankCard({
                   variant="outline"
                   onClick={() => onSelect(option.id)}
                   className={cn(
-                    'w-full h-16 sm:h-20 lg:h-24 relative overflow-hidden transition-all duration-300',
+                    'w-full h-16 sm:h-18 md:h-20 lg:h-22 xl:h-24 relative overflow-hidden transition-all duration-300',
                     'rounded-2xl lg:rounded-3xl border-2',
-                    'text-base sm:text-lg lg:text-2xl font-bold whitespace-normal leading-tight px-2',
+                    'text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold whitespace-normal leading-tight px-2 sm:px-3 md:px-4',
                     isSelected
                       ? 'bg-navy text-white border-navy shadow-lg shadow-navy/25 translate-y-0'
                       : 'bg-white text-navy/70 border-slate-200 md:hover:border-blue/30 md:hover:bg-slate-50 md:hover:shadow-md',

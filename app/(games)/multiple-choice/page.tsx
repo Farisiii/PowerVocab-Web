@@ -2,25 +2,50 @@
 
 import { useState } from 'react'
 import { FlashcardHeader } from '@/components/games/common/flashcard-header'
-import { FillBlankCard } from '@/components/games/fillintheblanks/card'
-import { FillBlankControls } from '@/components/games/fillintheblanks/controls'
+import { MultipleChoiceCard } from '@/components/games/multiplechoice/card'
+import { MultipleChoiceControls } from '@/components/games/multiplechoice/controls'
 
 // Mock Data
 const MOCK_QUESTIONS = [
   {
     id: '1',
-    sentence:
-      "The architect's vision was so {blank} that it redefined the city's skyline forever.",
+    description:
+      'Sesuatu yang sangat baru dan kreatif, membawa ide atau metode yang belum pernah ada sebelumnya dan banyak yang perlu dilakukan dengan berbagai kecepatan',
     options: [
-      { id: '1', label: 'Innovative' },
-      { id: '2', label: 'Minimalist' },
-      { id: '3', label: 'Ostentatious' },
-      { id: '4', label: 'Erratic' },
+      { id: '1', word: 'Innovative' },
+      { id: '2', word: 'Traditional' },
+      { id: '3', word: 'Obsolete' },
+      { id: '4', word: 'Mundane' },
     ],
+    correctId: '1',
+  },
+  {
+    id: '2',
+    description:
+      'Sangat berlebihan dan mencolok, dirancang untuk menarik perhatian dan menunjukkan kekayaan atau kemewahan.',
+    options: [
+      { id: '1', word: 'Modest' },
+      { id: '2', word: 'Ostentatious' },
+      { id: '3', word: 'Subtle' },
+      { id: '4', word: 'Reserved' },
+    ],
+    correctId: '2',
+  },
+  {
+    id: '3',
+    description:
+      'Tidak dapat diprediksi dan tidak konsisten dalam perilaku atau pola, sering berubah tanpa alasan yang jelas.',
+    options: [
+      { id: '1', word: 'Steady' },
+      { id: '2', word: 'Reliable' },
+      { id: '3', word: 'Erratic' },
+      { id: '4', word: 'Consistent' },
+    ],
+    correctId: '3',
   },
 ]
 
-export default function FillBlankPage() {
+export default function MatchDefinitionPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
@@ -28,6 +53,9 @@ export default function FillBlankPage() {
 
   const handleCheck = () => {
     console.log('Checking answer:', selectedId)
+    console.log('Correct answer:', currentQuestion.correctId)
+    console.log('Is correct:', selectedId === currentQuestion.correctId)
+    // TODO: Implement answer checking logic
   }
 
   return (
@@ -44,15 +72,15 @@ export default function FillBlankPage() {
           <FlashcardHeader
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
-            deckTitle="Architecture 101"
+            deckTitle="Vocabulary Mastery"
           />
         </div>
 
         {/* Game Area - takes remaining space */}
         <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
           <div className="w-full h-full max-w-5xl flex items-center justify-center">
-            <FillBlankCard
-              sentence={currentQuestion.sentence}
+            <MultipleChoiceCard
+              description={currentQuestion.description}
               options={currentQuestion.options}
               selectedId={selectedId}
               onSelect={setSelectedId}
@@ -62,7 +90,10 @@ export default function FillBlankPage() {
 
         {/* Controls */}
         <div className="shrink-0 mt-2 md:mt-3">
-          <FillBlankControls onCheck={handleCheck} disabled={!selectedId} />
+          <MultipleChoiceControls
+            onCheck={handleCheck}
+            disabled={!selectedId}
+          />
         </div>
       </div>
     </div>

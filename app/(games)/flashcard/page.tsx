@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { MOCK_DECKS } from '@/lib/data'
 import { FlashcardHeader } from '@/components/games/common/flashcard-header'
-import { FlashcardCard } from '@/components/games/flashcard/flashcard-card'
-import { FlashcardControls } from '@/components/games/flashcard/flashcard-controls'
+import { FlashcardCard } from '@/components/games/flashcard/card'
+import { FlashcardControls } from '@/components/games/flashcard/controls'
 
 const MOCK_WORDS = [
   { id: '1', word: 'makan', translation: 'eat' },

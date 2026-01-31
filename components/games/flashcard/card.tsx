@@ -28,7 +28,7 @@ export function FlashcardCard({
 
   return (
     <div
-      className="relative w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[540px] xl:max-w-[600px] h-full perspective-1000 mx-auto transition-all duration-500"
+      className="relative w-full max-w-85 sm:max-w-95 md:max-w-105 lg:max-w-135 xl:max-w-150 h-full perspective-1000 mx-auto transition-all duration-500"
       onClick={onFlip}
     >
       <motion.div

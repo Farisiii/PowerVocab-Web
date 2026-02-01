@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { FlashcardHeader } from '@/components/games/common/flashcard-header'
+import { GameHeader } from '@/components/games/common/game-header'
 import { FillBlankCard } from '@/components/games/fillintheblanks/card'
 import { FillBlankControls } from '@/components/games/fillintheblanks/controls'
 
@@ -41,7 +41,7 @@ export default function FillBlankPage() {
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8">
         {/* Header */}
         <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
-          <FlashcardHeader
+          <GameHeader
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
             deckTitle="Architecture 101"

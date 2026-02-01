@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { MOCK_DECKS } from '@/lib/data'
-import { FlashcardHeader } from '@/components/games/common/flashcard-header'
+import { GameHeader } from '@/components/games/common/game-header'
 import { FlashcardCard } from '@/components/games/flashcard/card'
 import { FlashcardControls } from '@/components/games/flashcard/controls'
 
@@ -37,7 +37,7 @@ export default function FlashcardPage() {
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8">
         {/* Header */}
         <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
-          <FlashcardHeader
+          <GameHeader
             current={currentIndex + 1}
             total={MOCK_WORDS.length}
             deckTitle={currentDeck.title}

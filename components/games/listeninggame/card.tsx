@@ -10,23 +10,10 @@ interface ListenAndTypeCardProps {
   onPlaybackRateChange: (rate: number) => void
 }
 
-export function ListenAndTypeCard({
-  correctText,
-  userInput,
-  onInputChange,
-  playbackRate,
-  onPlaybackRateChange,
-}: ListenAndTypeCardProps) {
+export function ListenAndTypeCard(props: ListenAndTypeCardProps) {
   return (
     <div className="w-full max-w-5xl mx-auto">
-      {/* Single Unified Card with Cutout Design */}
-      <TypeInputCard
-        userInput={userInput}
-        onInputChange={onInputChange}
-        correctText={correctText}
-        playbackRate={playbackRate}
-        onPlaybackRateChange={onPlaybackRateChange}
-      />
+      <TypeInputCard {...props} />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { GameHeader } from '@/components/games/common/game-header'
 import { FillBlankCard } from '@/components/games/fillintheblanks/card'
 import { FillBlankControls } from '@/components/games/fillintheblanks/controls'
+import BackgroundAmbience from '@/components/home/common/background-ambience'
 
 // Mock Data
 const MOCK_QUESTIONS = [
@@ -31,14 +32,10 @@ export default function FillBlankPage() {
   }
 
   return (
-    <div className="h-dvh w-full bg-linear-to-br from-white via-[#eaf4fb] to-cyan overflow-hidden flex flex-col items-center">
-      {/* Background Decor */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-blue/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-sky/5 blur-[120px] rounded-full" />
-      </div>
+    <div className="h-dvh w-full bg-[#f8fafc] overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
+      <BackgroundAmbience />
 
-      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8">
+      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8 relative z-10">
         {/* Header */}
         <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
           <GameHeader
@@ -48,7 +45,7 @@ export default function FillBlankPage() {
           />
         </div>
 
-        {/* Game Area - takes remaining space */}
+        {/* Game Area */}
         <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
           <div className="w-full h-full max-w-5xl flex items-center justify-center">
             <FillBlankCard

@@ -55,7 +55,6 @@ export default function MatchDefinitionPage() {
     console.log('Checking answer:', selectedId)
     console.log('Correct answer:', currentQuestion.correctId)
     console.log('Is correct:', selectedId === currentQuestion.correctId)
-    // TODO: Implement answer checking logic
   }
 
   return (
@@ -76,7 +75,7 @@ export default function MatchDefinitionPage() {
           />
         </div>
 
-        {/* Game Area - takes remaining space */}
+        {/* Game Area */}
         <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
           <div className="w-full h-full max-w-5xl flex items-center justify-center">
             <MultipleChoiceCard

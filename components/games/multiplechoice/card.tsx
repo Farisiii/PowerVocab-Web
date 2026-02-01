@@ -53,7 +53,7 @@ export function MultipleChoiceCard({
       >
         {/* Indonesian Badge - Fixed at top */}
         <div className="shrink-0 lg:absolute lg:top-4 px-3 py-1 rounded-full bg-navy/5 border border-navy/10 backdrop-blur-sm sm:px-4 sm:py-1.5 lg:px-5 lg:py-2">
-          <span className="text-[9px] font-black tracking-[0.2em] text-navy/60 uppercase sm:text-[10px] lg:text-[11px]">
+          <span className="text-[10px] font-black tracking-[0.2em] text-navy/60 uppercase sm:text-[10px] lg:text-[11px] flex items-center">
             Deskripsi
           </span>
         </div>

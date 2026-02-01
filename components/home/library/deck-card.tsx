@@ -115,7 +115,8 @@ export function DeckCard({
               onClick={onPlay}
               className="flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] uppercase tracking-widest md:hover:bg-blue active:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5"
             >
-              Flashcard <Play size={12} className="ml-1.5 fill-current" />
+              Flashcard
+              <Play size={12} className="fill-current" />
             </Button>
 
             <div className="flex items-center gap-2 w-full xl:w-auto">

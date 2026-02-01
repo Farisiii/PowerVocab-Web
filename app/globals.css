@@ -42,6 +42,34 @@
     background: var(--color-navy);
   }
 
+  textarea::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  textarea::-webkit-scrollbar-track {
+    background: rgba(28, 77, 141, 0.05);
+
+    border-radius: 10px;
+
+    margin: 12px 0;
+  }
+
+  textarea::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-sky), var(--color-blue));
+
+    border-radius: 10px;
+
+    border: none;
+  }
+
+  textarea::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      to bottom,
+      var(--color-blue),
+      var(--color-navy)
+    );
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,

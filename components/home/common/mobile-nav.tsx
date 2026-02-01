@@ -68,8 +68,9 @@ export function MobileNav({ title, primaryAction }: MobileNavProps) {
     <>
       <header className="lg:hidden sticky top-0 z-40 bg-white/90 backdrop-blur-xl supports-backdrop-filter:bg-[#f8fafc]/80 border-b border-slate-200">
         <div className="flex items-center justify-between px-4 sm:px-6 py-3">
-          <div className="w-full flex items-center justify-between">
-            <h1 className="text-lg sm:text-xl font-black text-navy uppercase tracking-tight truncate w-full flex justify-center">
+          <div className="grid grid-cols-3 items-center w-full">
+            <div className="w-10 h-10" />
+            <h1 className="text-xl sm:text-2xl font-black text-navy uppercase tracking-tight truncate w-full flex justify-center">
               {title}
             </h1>
             <div className="w-10 h-10" />

@@ -6,6 +6,7 @@ import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { GameCard } from '@/components/home/games/game-card'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
+import BackgroundAmbience from '@/components/home/common/background-ambience'
 
 const GAMES = [
   {
@@ -38,21 +39,18 @@ const GAMES = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    y: 0,
+    transition: { staggerChildren: 0.08, duration: 0.5, ease: 'easeOut' },
   },
 }
 
 const itemVariants: Variants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: 'spring', stiffness: 50, damping: 15 },
-  },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
 }
 
 export default function GamesPage() {
@@ -60,12 +58,14 @@ export default function GamesPage() {
   const router = useRouter()
 
   return (
-    <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30">
-      <div className="hidden lg:block">
+    <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30 relative">
+      <BackgroundAmbience />
+
+      <div className="hidden lg:block z-20">
         <Sidebar />
       </div>
 
-      <div className="flex flex-col flex-1 min-w-0">
+      <div className="flex flex-col flex-1 min-w-0 relative z-10">
         <MobileNav title="Games" />
 
         <motion.main
@@ -75,16 +75,23 @@ export default function GamesPage() {
           className="w-full lg:pl-72 relative min-w-0"
         >
           <div className="px-5 sm:px-8 md:px-12 lg:px-16 py-6 md:py-12 pb-12 md:pb-12">
+            {/* HEADER */}
             <motion.header
               variants={itemVariants}
-              className="hidden lg:block mb-14"
+              className="hidden lg:flex justify-between items-end mb-14 relative"
             >
-              <h1 className="flex justify-center text-5xl lg:text-6xl font-black text-navy tracking-tighter uppercase leading-[0.9]">
-                Arcade Mode
-              </h1>
-              <p className="flex justify-center text-xs md:text-sm font-bold text-sky tracking-[0.4em] uppercase opacity-70 mt-3 ml-1">
-                Interactive Vocabulary Arcade
-              </p>
+              <div>
+                <h1 className="text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-linear-to-br from-navy via-blue to-sky tracking-tighter uppercase leading-[0.9] drop-shadow-sm">
+                  Arcade Mode
+                </h1>
+
+                <div className="flex items-center gap-2 mt-4 ml-1">
+                  <div className="h-1 w-12 bg-linear-to-r from-blue to-cyan rounded-full" />
+                  <p className="text-sm font-bold text-navy/60 tracking-[0.3em] uppercase">
+                    Interactive Vocabulary Arcade
+                  </p>
+                </div>
+              </div>
             </motion.header>
 
             <motion.section variants={itemVariants} className="mb-8 md:mb-12">
@@ -94,6 +101,7 @@ export default function GamesPage() {
                   Select Game Challenge
                 </h3>
               </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6 md:gap-8">
                 {GAMES.map((game) => (
                   <GameCard

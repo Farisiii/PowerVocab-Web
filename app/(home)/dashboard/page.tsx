@@ -7,7 +7,7 @@ import { LearningActivity } from '@/components/home/dashboard/learning-activity'
 import { StatsCards } from '@/components/home/dashboard/stats-cards'
 import { VocabGrowthChart } from '@/components/home/dashboard/vocab-growth-chart'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
-import BackgroundAmbience from '@/components/home/common/background-ambience'
+import BackgroundAmbience from '@/components/common/background-ambience'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },

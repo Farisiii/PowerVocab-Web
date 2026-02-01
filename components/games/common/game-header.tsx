@@ -48,10 +48,10 @@ export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
 
             {/* Counter Badge */}
             <div className="shrink-0 flex items-baseline gap-1">
-              <span className="text-xl md:text-2xl font-black text-blue tabular-nums leading-none">
+              <span className="text-xl md:text-2xl font-black text-navy tabular-nums leading-none">
                 {current}
               </span>
-              <span className="text-xs md:text-sm font-bold text-slate-300">
+              <span className="text-xs md:text-sm font-bold text-blue">
                 / {total}
               </span>
             </div>

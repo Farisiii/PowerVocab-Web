@@ -5,7 +5,7 @@ import { MOCK_DECKS } from '@/lib/data'
 import { GameHeader } from '@/components/games/common/game-header'
 import { FlashcardCard } from '@/components/games/flashcard/card'
 import { FlashcardControls } from '@/components/games/flashcard/controls'
-import BackgroundAmbience from '@/components/home/common/background-ambience'
+import BackgroundAmbience from '@/components/common/background-ambience'
 
 const MOCK_WORDS = [
   { id: '1', word: 'makan', translation: 'eat' },

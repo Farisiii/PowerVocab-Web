@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { GameCard } from '@/components/home/games/game-card'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
-import BackgroundAmbience from '@/components/home/common/background-ambience'
+import BackgroundAmbience from '@/components/common/background-ambience'
 
 const GAMES = [
   {

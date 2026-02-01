@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { GameHeader } from '@/components/games/common/game-header'
 import { FillBlankCard } from '@/components/games/fillintheblanks/card'
 import { FillBlankControls } from '@/components/games/fillintheblanks/controls'
-import BackgroundAmbience from '@/components/home/common/background-ambience'
+import BackgroundAmbience from '@/components/common/background-ambience'
 
 // Mock Data
 const MOCK_QUESTIONS = [

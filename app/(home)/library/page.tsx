@@ -9,7 +9,7 @@ import { Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
-import BackgroundAmbience from '@/components/home/common/background-ambience'
+import BackgroundAmbience from '@/components/common/background-ambience'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },

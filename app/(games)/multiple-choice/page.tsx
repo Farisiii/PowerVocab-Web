@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { GameHeader } from '@/components/games/common/game-header'
+import { GameModal } from '@/components/games/common/game-modal'
 import { GameControls } from '@/components/games/common/game-controls'
 import { MultipleChoiceCard } from '@/components/games/multiplechoice/card'
 import BackgroundAmbience from '@/components/common/background-ambience'
@@ -46,43 +48,63 @@ const MOCK_QUESTIONS = [
 ]
 
 export default function MatchDefinitionPage() {
+  const router = useRouter()
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<
     { questionId: string; selectedId: string }[]
   >([])
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [finalScore, setFinalScore] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+
   const currentQuestion = MOCK_QUESTIONS[currentIndex]
   const isLastQuestion = currentIndex === MOCK_QUESTIONS.length - 1
 
   const handleNextAction = () => {
     if (!selectedId) return
-    const currentAnswer = {
-      questionId: currentQuestion.id,
-      selectedId: selectedId,
-    }
-    const updatedAnswers = [...answers, currentAnswer]
+
+    const updatedAnswers = [
+      ...answers,
+      { questionId: currentQuestion.id, selectedId },
+    ]
+
     setAnswers(updatedAnswers)
 
     if (isLastQuestion) {
-      handleFinish(updatedAnswers)
+      finishGame(updatedAnswers)
     } else {
       setCurrentIndex((prev) => prev + 1)
       setSelectedId(null)
     }
   }
 
-  const handleFinish = (
+  const finishGame = async (
     finalAnswers: { questionId: string; selectedId: string }[],
   ) => {
-    console.log('Game Selesai!', finalAnswers)
-    const score = finalAnswers.filter((ans, index) => {
-      return ans.selectedId === MOCK_QUESTIONS[index].correctId
-    }).length
+    setIsLoading(true)
 
-    alert(
-      `Selesai! Anda berhasil menjawab ${score} dari ${MOCK_QUESTIONS.length} soal.`,
-    )
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      const score = finalAnswers.filter((ans, index) => {
+        return ans.selectedId === MOCK_QUESTIONS[index].correctId
+      }).length
+
+      setFinalScore(score)
+      setIsModalOpen(true)
+    } catch (error) {
+      console.error('Gagal menghitung skor:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+    router.push('/games')
   }
 
   return (
@@ -115,11 +137,32 @@ export default function MatchDefinitionPage() {
         <div className="shrink-0 mt-2 md:mt-4">
           <GameControls
             onAction={handleNextAction}
-            disabled={!selectedId}
-            label={isLastQuestion ? 'Selesai' : 'Next Question'}
+            disabled={!selectedId || isLoading}
+            label={
+              isLoading
+                ? 'Sabar ya...'
+                : isLastQuestion
+                  ? 'Selesai'
+                  : 'Next Question'
+            }
           />
         </div>
       </div>
+
+      {/* Result Modal */}
+      <GameModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        score={finalScore}
+        totalQuestions={MOCK_QUESTIONS.length}
+        onRestart={() => {
+          setCurrentIndex(0)
+          setSelectedId(null)
+          setAnswers([])
+          setIsModalOpen(false)
+        }}
+        onExit={handleModalClose}
+      />
     </div>
   )
 }

@@ -6,7 +6,6 @@ import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { GameCard } from '@/components/home/games/game-card'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
-import BackgroundAmbience from '@/components/common/background-ambience'
 
 const GAMES = [
   {
@@ -58,9 +57,7 @@ export default function GamesPage() {
   const router = useRouter()
 
   return (
-    <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30 relative">
-      <BackgroundAmbience />
-
+    <div className="flex min-h-screen bg-linear-to-br from-white via-[#eaf4fb] to-cyan items-start selection:bg-cyan/30 relative">
       <div className="hidden lg:block z-20">
         <Sidebar />
       </div>

@@ -5,7 +5,6 @@ import { motion, Variants } from 'framer-motion'
 import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
-import BackgroundAmbience from '@/components/common/background-ambience'
 import ProfileCard from '@/components/home/settings/profile-card'
 import StatsCard from '@/components/home/settings/stats-card'
 import AccountForm from '@/components/home/settings/account-form'
@@ -40,9 +39,7 @@ export default function SettingsPage() {
   const hasChanges = name !== INITIAL_DATA.name || email !== INITIAL_DATA.email
 
   return (
-    <div className="flex min-h-screen bg-[#f8fafc] items-start selection:bg-cyan/30 relative">
-      <BackgroundAmbience />
-
+    <div className="flex min-h-screen bg-linear-to-br from-white via-[#eaf4fb] to-cyan items-start selection:bg-cyan/30 relative">
       <div className="hidden lg:block z-20">
         <Sidebar />
       </div>

@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export function LearningActivity() {
   const [currentDate] = useState(new Date(2026, 0, 1))
@@ -40,76 +42,92 @@ export function LearningActivity() {
   }
 
   return (
-    <div className="bg-white rounded-[2.5rem] sm:rounded-[3rem] p-5 sm:p-8 lg:p-10 shadow-2xl shadow-navy/5 border border-white h-full">
-      {/* HEADER */}
-      <div className="flex flex-row justify-between items-start sm:items-center mb-8 gap-4">
-        <div>
-          <h3 className="text-xl sm:text-2xl font-black text-navy uppercase tracking-tighter">
-            Activity
-          </h3>
-          <p className="text-[9px] sm:text-[10px] font-bold text-sky tracking-[0.3em] uppercase">
-            Consistency Monitor
-          </p>
-        </div>
-
-        <div className="flex items-center bg-slate-50 p-2 rounded-2xl gap-3 border border-slate-100">
-          <button className="py-2 md:p-2 hover:bg-white hover:shadow-sm rounded-xl text-navy transition-all">
-            <ChevronLeft size={18} strokeWidth={3} />
-          </button>
-          <span className="text-xs font-black uppercase tracking-widest min-w-22.5 text-center">
-            Jan 2026
-          </span>
-          <button className="py-2 md:p-2 text-slate-300 cursor-not-allowed">
-            <ChevronRight size={18} strokeWidth={3} />
-          </button>
-        </div>
-      </div>
-
-      {/* GRID */}
-      <div className="grid grid-cols-7 gap-2 sm:gap-3 md:gap-4">
-        {/* Day Headers */}
-        {days.map((d) => (
-          <div
-            key={d}
-            className="text-center text-[9px] sm:text-[10px] md:text-xs font-black text-navy tracking-[0.2em]"
-          >
-            {d}
+    <Card className="relative rounded-[3rem] border-4 border-white/50 shadow-glass overflow-hidden bg-white/70 backdrop-blur-xl">
+      <CardContent className="p-6 sm:p-8 lg:p-10">
+        {/* HEADER */}
+        <div className="flex flex-row justify-between items-start sm:items-center mb-10 gap-4">
+          <div>
+            <h3 className="text-xl sm:text-2xl font-black text-navy uppercase tracking-tighter">
+              Activity
+            </h3>
+            <p className="text-[9px] sm:text-[10px] font-bold text-sky tracking-[0.3em] uppercase">
+              Consistency Monitor
+            </p>
           </div>
-        ))}
 
-        {Array.from({ length: startDayIndex }).map((_, i) => (
-          <div key={`empty-${i}`} />
-        ))}
-
-        {/* Date Slots */}
-        {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((date) => {
-          const type = activity[date]
-
-          let bgClass = 'border-transparent text-slate-300'
-          if (type === 1) bgClass = 'bg-red-50 border-red-100 text-red-500'
-          if (type === 2) bgClass = 'bg-sky/10 border-sky/20 text-sky'
-          if (type === 3) bgClass = 'bg-navy border-navy text-white scale-110'
-
-          return (
-            <div
-              key={date}
-              className="aspect-square flex items-center justify-center"
+          <div className="flex items-center gap-0 md:gap-2 bg-white/60 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-white/60 shadow-sm">
+            <Button
+              size="icon"
+              variant="ghost"
+              className="rounded-xl text-navy hover:bg-white hover:shadow-md"
             >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className={`
-                  w-full max-w-10 sm:max-w-12 aspect-square rounded-xl sm:rounded-2xl
-                  flex items-center justify-center text-xs sm:text-sm font-black transition-all border-2
-                  ${bgClass}
-                  ${type === 3 ? 'rounded-full' : ''} 
-                `}
-              >
-                {date}
-              </motion.div>
+              <ChevronLeft size={18} strokeWidth={3} />
+            </Button>
+
+            <span className="text-xs font-black uppercase tracking-widest min-w-24 text-center text-navy">
+              Jan 2026
+            </span>
+
+            <Button size="icon" variant="ghost" disabled className="rounded-xl">
+              <ChevronRight size={18} strokeWidth={3} />
+            </Button>
+          </div>
+        </div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-7 gap-2 sm:gap-3 md:gap-4">
+          {days.map((d) => (
+            <div
+              key={d}
+              className="text-center text-[9px] sm:text-[10px] md:text-xs font-black text-navy/60 tracking-[0.2em]"
+            >
+              {d}
             </div>
-          )
-        })}
-      </div>
-    </div>
+          ))}
+
+          {Array.from({ length: startDayIndex }).map((_, i) => (
+            <div key={`empty-${i}`} />
+          ))}
+
+          {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((date) => {
+            const type = activity[date]
+
+            let styles = 'bg-white/40 border-transparent text-slate-300'
+
+            if (type === 1)
+              styles = 'bg-red-50/70 border-red-100 text-red-500 shadow-sm'
+
+            if (type === 2)
+              styles = 'bg-sky/10 border-sky/20 text-sky shadow-sm'
+
+            if (type === 3)
+              styles = 'bg-navy border-navy text-white scale-110 shadow-lg'
+
+            return (
+              <div
+                key={date}
+                className="aspect-square flex items-center justify-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.15 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className={`
+                      w-full max-w-10 sm:max-w-12 aspect-square
+                      flex items-center justify-center
+                      text-xs sm:text-sm font-black
+                      border-2 transition-all duration-300
+                      rounded-xl sm:rounded-2xl
+                      ${styles}
+                      ${type === 3 ? 'rounded-full' : ''}
+                    `}
+                >
+                  {date}
+                </motion.div>
+              </div>
+            )
+          })}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

@@ -32,8 +32,7 @@ export function FillBlankCard({
         animate={{ opacity: 1, y: 0 }}
         className="relative flex-1 min-h-0 rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden flex flex-col items-center justify-center border-4 border-white/50 p-6 sm:p-8 md:p-10 lg:p-12"
       >
-        <div className="absolute inset-0 bg-linear-to-br from-white via-sky/5 to-cyan/10" />
-        <div className="absolute inset-0 bg-linear-to-br from-transparent via-blue/5 to-sky/10" />
+        <div className="absolute inset-0 bg-white" />
         <div className="absolute inset-0">
           <div className="absolute -top-12 -left-12 w-48 h-48 lg:w-60 lg:h-60 bg-sky/20 rounded-full blur-3xl" />
           <div className="absolute top-1/2 -translate-y-1/2 -right-16 w-40 h-40 lg:w-52 lg:h-52 bg-blue/15 rounded-full blur-2xl" />

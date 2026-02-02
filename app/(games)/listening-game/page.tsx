@@ -79,7 +79,7 @@ export default function ListenAndTypePage() {
   }
 
   return (
-    <div className="h-dvh w-full bg-linear-to-br from-white via-[#eaf4fb] to-cyan overflow-hidden flex flex-col items-center">
+    <div className="h-dvh w-full bg-[#f8fafc] overflow-hidden flex flex-col items-center">
       <BackgroundAmbience />
 
       <div className="fixed inset-0 pointer-events-none -z-10">

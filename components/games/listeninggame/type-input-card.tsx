@@ -54,8 +54,21 @@ export function TypeInputCard({
             'border-4 border-white/50',
           )}
         >
-          <div className="absolute inset-0 bg-linear-to-br from-white via-sky/5 to-cyan/10" />
-          <div className="absolute inset-0 bg-linear-to-br from-transparent via-blue/5 to-sky/10" />
+          <div className="absolute inset-0 bg-white" />
+
+          <div className="absolute inset-0">
+            <div className="absolute -top-12 -left-12 w-48 h-48 lg:w-60 lg:h-60 bg-sky/20 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 -translate-y-1/2 -right-16 w-40 h-40 lg:w-52 lg:h-52 bg-blue/15 rounded-full blur-2xl" />
+            <div className="absolute -bottom-12 left-1/4 w-44 h-44 lg:w-56 lg:h-56 bg-cyan/25 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 lg:w-72 lg:h-72 bg-linear-to-br from-sky/10 to-blue/10 rounded-full blur-3xl" />
+          </div>
+
+          <div className="absolute inset-0 opacity-[0.02]">
+            <div
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(28,77,141,0.8),transparent_50%)]"
+              style={{ backgroundSize: '30px 30px' }}
+            />
+          </div>
 
           <div className="absolute inset-0 backdrop-blur-sm bg-white/30" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(28,77,141,0.03)_100%)]" />

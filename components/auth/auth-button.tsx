@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { motion, Variants } from 'framer-motion'
-import { ReactNode } from 'react'
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 15 },
@@ -25,20 +24,10 @@ export function AuthButton({
   onClick,
   type = 'button',
 }: AuthButtonProps) {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkDesktop = () =>
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
-
   return (
     <motion.div
       variants={itemVariants}
-      whileHover={isDesktop ? { scale: 1.01 } : {}}
+      whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
     >
       <Button

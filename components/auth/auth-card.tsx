@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { motion, Variants } from 'framer-motion'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 
 interface AuthCardProps {
   title: string
@@ -41,19 +41,9 @@ export function AuthCard({
   footer,
   children,
 }: AuthCardProps) {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkDesktop = () =>
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
-
   return (
     <motion.div
-      initial={isDesktop ? 'hidden' : 'visible'}
+      initial="hidden"
       animate="visible"
       variants={cardContainerVariants}
       className="relative w-full"

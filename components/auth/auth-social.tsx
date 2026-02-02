@@ -30,20 +30,10 @@ export function AuthDivider() {
 }
 
 export function GoogleButton() {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkDesktop = () =>
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
-
   return (
     <motion.div
       variants={itemVariants}
-      whileHover={isDesktop ? { scale: 1.01 } : {}}
+      whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
     >
       <Button

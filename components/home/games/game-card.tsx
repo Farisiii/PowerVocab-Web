@@ -14,21 +14,9 @@ interface GameCardProps {
 }
 
 export function GameCard({ title, description, image, onPlay }: GameCardProps) {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    }
-
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
-
   return (
     <motion.div
-      whileHover={isDesktop ? { y: -10 } : {}}
+      whileHover={{ y: -10 }}
       className="group relative bg-white rounded-4xl overflow-hidden shadow-glass border border-white transition-all duration-500 md:hover:shadow-soft-lg flex flex-col h-full"
     >
       {/* Image Container */}

@@ -5,7 +5,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function LearningActivity() {
-  const [isDesktop, setIsDesktop] = useState(false)
   const [currentDate] = useState(new Date(2026, 0, 1))
 
   const daysInMonth = 31
@@ -39,15 +38,6 @@ export function LearningActivity() {
     23: 2,
     24: 3,
   }
-
-  useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    }
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
 
   return (
     <div className="bg-white rounded-[2.5rem] sm:rounded-[3rem] p-5 sm:p-8 lg:p-10 shadow-2xl shadow-navy/5 border border-white h-full">
@@ -106,7 +96,7 @@ export function LearningActivity() {
               className="aspect-square flex items-center justify-center"
             >
               <motion.div
-                whileHover={isDesktop ? { scale: 1.1 } : {}}
+                whileHover={{ scale: 1.1 }}
                 className={`
                   w-full max-w-10 sm:max-w-12 aspect-square rounded-xl sm:rounded-2xl
                   flex items-center justify-center text-xs sm:text-sm font-black transition-all border-2

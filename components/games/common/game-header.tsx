@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -13,16 +12,7 @@ interface GameHeaderProps {
 
 export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
   const router = useRouter()
-  const [isDesktop, setIsDesktop] = useState(false)
   const progressValue = Math.min((current / total) * 100, 100)
-
-  useEffect(() => {
-    const checkDesktop = () =>
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
 
   return (
     <header className="w-full relative z-20 mx-auto max-w-7xl">
@@ -30,7 +20,7 @@ export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
         {/* BACK BUTTON */}
         <motion.button
           whileTap={{ scale: 0.92 }}
-          whileHover={isDesktop ? { scale: 1.05, x: -2 } : {}}
+          whileHover={{ scale: 1.05, x: -2 }}
           onClick={() => router.back()}
           className="group shrink-0 flex items-center justify-center rounded-2xl bg-white border-2 border-slate-100 text-navy shadow-sm w-11 h-11 md:w-14 md:h-14 transition-all hover:border-blue/30 hover:shadow-md hover:text-blue cursor-pointer"
         >
@@ -71,7 +61,6 @@ export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
             </motion.div>
           </div>
         </div>
-        <div className="hidden md:block w-14" />
       </div>
     </header>
   )

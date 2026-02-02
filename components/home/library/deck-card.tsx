@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { Edit3, Trash2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -25,30 +24,16 @@ export function DeckCard({
   onDelete,
   onPlay,
 }: DeckCardProps) {
-  const [isDesktop, setIsDesktop] = useState(false)
   const radius = 24
   const circumference = 2 * Math.PI * radius
 
-  useEffect(() => {
-    // Cek apakah layar >= 768px (md breakpoint)
-    const checkScreen = () => {
-      setIsDesktop(window.matchMedia('(min-width: 768px)').matches)
-    }
-
-    checkScreen()
-    window.addEventListener('resize', checkScreen)
-    return () => window.removeEventListener('resize', checkScreen)
-  }, [])
-
   return (
     <motion.div
-      // Logic: Hover cuma aktif kalau di desktop
-      whileHover={isDesktop ? { y: -8 } : {}}
+      whileHover={{ y: -8 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
       className="h-full"
     >
-      {/* Tambahkan prefix 'md:' pada semua class hover agar tidak nyangkut di mobile */}
       <Card className="relative h-full overflow-hidden group rounded-3xl lg:rounded-4xl border-0 bg-white shadow-[0_4px_20px_rgba(15,23,42,0.03)] md:hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)] active:shadow-[0_20px_40px_rgba(15,23,42,0.08)] transition-all duration-500">
         <div className="p-6 lg:p-7 flex flex-col h-full justify-between gap-5">
           <div className="flex justify-between items-start gap-4">
@@ -64,7 +49,6 @@ export function DeckCard({
                 )}
               </div>
 
-              {/* md:group-hover:text-blue */}
               <h4 className="text-lg lg:text-xl font-black text-navy leading-tight tracking-tight wrap-break-word line-clamp-2 md:group-hover:text-blue group-active:text-blue transition-colors">
                 {title}
               </h4>

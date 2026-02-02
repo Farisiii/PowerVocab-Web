@@ -2,16 +2,15 @@
 
 import { useState } from 'react'
 import { GameHeader } from '@/components/games/common/game-header'
+import { GameControls } from '@/components/games/common/game-controls'
 import { MultipleChoiceCard } from '@/components/games/multiplechoice/card'
-import { MultipleChoiceControls } from '@/components/games/multiplechoice/controls'
 import BackgroundAmbience from '@/components/common/background-ambience'
 
-// Mock Data
 const MOCK_QUESTIONS = [
   {
     id: '1',
     description:
-      'Sesuatu yang sangat baru dan kreatif, membawa ide atau metode yang belum pernah ada sebelumnya dan banyak yang perlu dilakukan dengan berbagai kecepatan',
+      'Sesuatu yang sangat baru dan kreatif, membawa ide atau metode yang belum pernah ada sebelumnya...',
     options: [
       { id: '1', word: 'Innovative' },
       { id: '2', word: 'Traditional' },
@@ -23,7 +22,7 @@ const MOCK_QUESTIONS = [
   {
     id: '2',
     description:
-      'Sangat berlebihan dan mencolok, dirancang untuk menarik perhatian dan menunjukkan kekayaan atau kemewahan.',
+      'Sangat berlebihan dan mencolok, dirancang untuk menarik perhatian...',
     options: [
       { id: '1', word: 'Modest' },
       { id: '2', word: 'Ostentatious' },
@@ -35,7 +34,7 @@ const MOCK_QUESTIONS = [
   {
     id: '3',
     description:
-      'Tidak dapat diprediksi dan tidak konsisten dalam perilaku atau pola, sering berubah tanpa alasan yang jelas.',
+      'Tidak dapat diprediksi dan tidak konsisten dalam perilaku atau pola...',
     options: [
       { id: '1', word: 'Steady' },
       { id: '2', word: 'Reliable' },
@@ -49,22 +48,50 @@ const MOCK_QUESTIONS = [
 export default function MatchDefinitionPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [answers, setAnswers] = useState<
+    { questionId: string; selectedId: string }[]
+  >([])
 
   const currentQuestion = MOCK_QUESTIONS[currentIndex]
+  const isLastQuestion = currentIndex === MOCK_QUESTIONS.length - 1
 
-  const handleCheck = () => {
-    console.log('Checking answer:', selectedId)
-    console.log('Correct answer:', currentQuestion.correctId)
-    console.log('Is correct:', selectedId === currentQuestion.correctId)
+  const handleNextAction = () => {
+    if (!selectedId) return
+    const currentAnswer = {
+      questionId: currentQuestion.id,
+      selectedId: selectedId,
+    }
+    const updatedAnswers = [...answers, currentAnswer]
+    setAnswers(updatedAnswers)
+
+    if (isLastQuestion) {
+      handleFinish(updatedAnswers)
+    } else {
+      setCurrentIndex((prev) => prev + 1)
+      setSelectedId(null)
+    }
+  }
+
+  const handleFinish = (
+    finalAnswers: { questionId: string; selectedId: string }[],
+  ) => {
+    console.log('Game Selesai!', finalAnswers)
+    const score = finalAnswers.filter((ans, index) => {
+      return ans.selectedId === MOCK_QUESTIONS[index].correctId
+    }).length
+
+    alert(
+      `Selesai! Anda berhasil menjawab ${score} dari ${MOCK_QUESTIONS.length} soal.`,
+    )
   }
 
   return (
     <div className="h-dvh w-full bg-[#f8fafc] overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
       <BackgroundAmbience />
 
-      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 sm:px-5 md:px-6 xl:px-8 py-4 sm:py-5 md:py-6 xl:py-8 relative z-10">
+      <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 py-4 sm:py-8 relative z-10">
         {/* Header */}
-        <div className="shrink-0 mb-4 md:mb-5 lg:mb-6">
+        <div className="shrink-0 mb-4 md:mb-6">
           <GameHeader
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
@@ -73,7 +100,7 @@ export default function MatchDefinitionPage() {
         </div>
 
         {/* Game Area */}
-        <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
+        <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2">
           <div className="w-full h-full max-w-5xl flex items-center justify-center">
             <MultipleChoiceCard
               description={currentQuestion.description}
@@ -85,10 +112,11 @@ export default function MatchDefinitionPage() {
         </div>
 
         {/* Controls */}
-        <div className="shrink-0 mt-2 md:mt-3">
-          <MultipleChoiceControls
-            onCheck={handleCheck}
+        <div className="shrink-0 mt-2 md:mt-4">
+          <GameControls
+            onAction={handleNextAction}
             disabled={!selectedId}
+            label={isLastQuestion ? 'Selesai' : 'Next Question'}
           />
         </div>
       </div>

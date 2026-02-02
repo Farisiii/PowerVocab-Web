@@ -90,7 +90,7 @@ export function MultipleChoiceCard({
 
       {/* OPTIONS GRID */}
       <div className="shrink-0 w-full">
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:gap-5">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
           {options.map((option) => {
             const isSelected = selectedId === option.id
             return (
@@ -104,16 +104,10 @@ export function MultipleChoiceCard({
                   variant="outline"
                   onClick={() => onSelect(option.id)}
                   className={cn(
-                    'w-full h-14 relative overflow-hidden transition-all duration-300',
-                    'rounded-xl border-2',
-                    'text-sm font-bold whitespace-normal leading-tight px-2',
-                    'sm:h-16 sm:rounded-2xl sm:text-base sm:px-3',
-                    'md:h-18 md:text-lg md:px-4',
-                    'lg:h-20 lg:rounded-2xl lg:text-xl',
-                    'xl:h-22 xl:rounded-3xl xl:text-2xl',
+                    'w-full h-14 rounded-xl border-2 font-bold',
                     isSelected
-                      ? 'bg-navy text-white border-navy shadow-lg shadow-navy/25'
-                      : 'bg-white text-navy/70 border-slate-200 md:hover:border-blue/30 md:hover:bg-slate-50 md:hover:shadow-md active:bg-slate-100',
+                      ? 'bg-navy text-white border-navy'
+                      : 'bg-white text-navy/70 border-slate-200 md:hover:border-blue/30 md:hover:bg-slate-50',
                   )}
                 >
                   {isSelected && (

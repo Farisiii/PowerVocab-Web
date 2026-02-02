@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, Variants } from 'framer-motion'
-import { ReactNode, useState, useEffect } from 'react'
+import { ReactNode } from 'react'
 import Image from 'next/image'
 
 interface AuthLayoutProps {
@@ -30,20 +30,6 @@ const leftItemVariants: Variants = {
   },
 }
 
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkDesktop = () =>
-      setIsDesktop(window.matchMedia('(min-width: 1024px)').matches)
-    checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
-  }, [])
-
-  return isDesktop
-}
-
 export function AuthLayout({
   title,
   badge,
@@ -52,24 +38,10 @@ export function AuthLayout({
   mobileSubtitle,
   children,
 }: AuthLayoutProps) {
-  const isDesktop = useIsDesktop()
-
   return (
-    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-hidden overflow-x-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
-      {/* Background Decor */}
-      <div
-        className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
-        aria-hidden="true"
-      >
-        <motion.div
-          className="absolute -top-[15%] -right-[5%] w-120 h-120 bg-sky-400/30 blur-[120px] rounded-full opacity-60"
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-      </div>
-
+    <main className="min-h-screen lg:h-screen w-full flex justify-center relative overflow-hidden bg-linear-to-br from-white via-[#eaf4fb] to-cyan selection:bg-blue/20">
       <div className="grid lg:grid-cols-2 gap-8 xl:gap-24 max-w-7xl w-full relative px-4 sm:px-6 md:px-12">
-        {/* Left Side: Desktop Info */}
+        {/* LEFT SIDE (Desktop Only) */}
         <div className="hidden lg:flex flex-col justify-center h-full sticky top-0 z-10 py-12">
           <motion.div
             variants={leftContainerVariants}
@@ -84,14 +56,12 @@ export function AuthLayout({
               {title}
             </motion.h1>
 
-            <motion.div
-              variants={leftItemVariants}
-              className="space-y-4 xl:space-y-6"
-            >
+            <motion.div variants={leftItemVariants}>
               <span className="bg-blue/10 text-blue px-4 py-2 rounded-full text-xs xl:text-sm font-bold uppercase tracking-widest inline-block backdrop-blur-sm border border-blue/5">
                 {badge}
               </span>
-              <p className="text-lg xl:text-2xl text-navy/60 leading-relaxed max-w-lg font-medium">
+
+              <p className="text-lg xl:text-2xl text-navy/60 leading-relaxed max-w-lg font-medium mt-4">
                 {description}
               </p>
             </motion.div>
@@ -101,11 +71,11 @@ export function AuthLayout({
               className="flex gap-12 xl:gap-16 pt-8 xl:pt-10 border-t-2 border-navy/5"
             >
               {stats.map((s, i) => (
-                <div key={i} className="group cursor-default">
-                  <p className="text-3xl xl:text-5xl font-black text-navy lg:group-hover:text-blue transition-colors duration-300">
+                <div key={i}>
+                  <p className="text-3xl xl:text-5xl font-black text-navy">
                     {s.value}
                   </p>
-                  <p className="text-[10px] xl:text-xs opacity-50 font-bold uppercase tracking-widest mt-1 xl:mt-2">
+                  <p className="text-[10px] xl:text-xs opacity-50 font-bold uppercase tracking-widest mt-2">
                     {s.label}
                   </p>
                 </div>
@@ -114,28 +84,19 @@ export function AuthLayout({
           </motion.div>
         </div>
 
-        {/* Right Side: Form Content */}
+        {/* RIGHT SIDE (Scrollable on Desktop) */}
         <div className="w-full h-full lg:overflow-y-auto no-scrollbar z-20 relative flex flex-col">
           {/* Mobile Header */}
           <div className="lg:hidden w-full relative z-30 pt-8 sm:pt-12 pb-4 px-6">
             <div className="flex flex-col items-center justify-center gap-5 text-center">
-              <div className="relative group">
-                <div className="absolute -inset-4 bg-linear-to-tr from-cyan/40 via-blue/30 to-purple/20 rounded-full blur-2xl opacity-60" />
-                <div className="relative h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 shrink-0 rounded-[20px] sm:rounded-3xl overflow-hidden bg-linear-to-br from-white/80 via-white/20 to-white/5 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-white/40 flex items-center justify-center transition-all duration-300">
-                  <div className="absolute inset-0 bg-linear-to-br from-white/90 via-transparent to-transparent opacity-70 z-10 pointer-events-none mix-blend-overlay" />
-                  <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.5)] z-10 pointer-events-none rounded-[20px] sm:rounded-3xl" />
-                  <div className="relative z-20 h-full w-full p-3 sm:p-4 drop-shadow-md">
-                    <Image
-                      src="/logo.webp"
-                      alt="Logo"
-                      fill
-                      priority
-                      loading="eager"
-                      className="object-contain"
-                      sizes="(max-width: 640px) 80px, 96px"
-                    />
-                  </div>
-                </div>
+              <div className="relative h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24">
+                <Image
+                  src="/logo.webp"
+                  alt="Logo"
+                  fill
+                  priority
+                  className="object-contain"
+                />
               </div>
 
               <div className="flex flex-col items-center leading-none gap-2">
@@ -149,18 +110,12 @@ export function AuthLayout({
             </div>
           </div>
 
-          {/* Form Wrapper */}
+          {/* FORM WRAPPER */}
           <div className="flex flex-col items-center justify-start lg:justify-center grow py-8 lg:py-12">
             <div className="max-w-[90%] md:max-w-[85%] w-full lg:max-w-lg relative">
-              <div className="hidden lg:block absolute inset-0 bg-white/40 blur-[80px] -z-10 opacity-50" />
-
               <motion.div
-                initial={
-                  isDesktop
-                    ? { opacity: 0, x: 30, scale: 0.98 }
-                    : { opacity: 0, y: 20, scale: 0.98 }
-                }
-                animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{
                   duration: 0.9,
                   ease: [0.22, 1, 0.36, 1],

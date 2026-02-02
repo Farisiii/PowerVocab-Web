@@ -29,32 +29,47 @@ export function DeckCard({
 
   return (
     <motion.div
-      whileHover={{ y: -8 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 18 }}
       className="h-full"
     >
-      <Card className="relative h-full overflow-hidden group rounded-3xl lg:rounded-4xl border-0 bg-white shadow-[0_4px_20px_rgba(15,23,42,0.03)] md:hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)] active:shadow-[0_20px_40px_rgba(15,23,42,0.08)] transition-all duration-500">
-        <div className="p-6 lg:p-7 flex flex-col h-full justify-between gap-5">
+      <Card
+        className="
+          relative h-full overflow-hidden
+          rounded-3xl border border-white/60
+          bg-white/80 backdrop-blur-xl
+          shadow-glass
+          transition-all duration-500
+          group
+          hover:shadow-soft-lg
+        "
+      >
+        {/* subtle gradient overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-white via-white to-cyan/10 opacity-60 pointer-events-none" />
+
+        <div className="relative z-10 p-6 flex flex-col h-full gap-6">
+          {/* TOP */}
           <div className="flex justify-between items-start gap-4">
             <div className="space-y-2 flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="px-2 py-0.5 rounded-md bg-blue/5 text-[9px] xl:text-[10px] font-black text-blue uppercase tracking-widest border border-blue/10">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2 py-0.5 rounded-md bg-blue/5 text-[10px] font-black text-blue uppercase tracking-widest border border-blue/10">
                   {words} Words
-                </div>
+                </span>
+
                 {progress === 100 && (
-                  <div className="px-2 py-0.5 rounded-md bg-emerald-50 text-[9px] xl:text-[10px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
+                  <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-[10px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
                     Done
-                  </div>
+                  </span>
                 )}
               </div>
 
-              <h4 className="text-lg lg:text-xl font-black text-navy leading-tight tracking-tight wrap-break-word line-clamp-2 md:group-hover:text-blue group-active:text-blue transition-colors">
+              <h4 className="text-xl font-black text-navy leading-tight tracking-tight line-clamp-2 group-hover:text-blue transition-colors">
                 {title}
               </h4>
             </div>
 
-            <div className="relative w-14 h-14 shrink-0 flex items-center justify-center bg-slate-50 rounded-full">
+            {/* Progress Circle */}
+            <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90">
                 <circle
                   cx="28"
@@ -80,50 +95,67 @@ export function DeckCard({
                       circumference - (circumference * progress) / 100,
                   }}
                   viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
+                  transition={{ duration: 1.2, ease: 'easeOut' }}
                   strokeLinecap="round"
                 />
               </svg>
+
               <span className="absolute text-[12px] font-black text-navy">
                 {progress}%
               </span>
             </div>
           </div>
 
-          <p className="text-slate-400 text-[13px] font-medium italic leading-snug line-clamp-2">
-            "{description}"
+          {/* DESCRIPTION */}
+          <p className="text-slate-500 text-sm font-medium leading-relaxed line-clamp-2">
+            {description}
           </p>
 
-          <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
+          {/* ACTIONS */}
+          <div className="mt-auto pt-5 border-t border-slate-100 flex flex-col gap-3">
             <Button
               onClick={onPlay}
-              className="flex-1 min-w-25 h-10 bg-navy text-white rounded-xl font-black text-[10px] uppercase tracking-widest md:hover:bg-blue active:bg-blue transition-all active:scale-95 shadow-md shadow-navy/5"
+              className="
+                w-full h-11 rounded-2xl
+                bg-navy text-white
+                font-black text-xs uppercase tracking-widest
+                hover:bg-blue
+                transition-all
+                active:scale-95
+                shadow-md shadow-navy/10
+              "
             >
               Flashcard
-              <Play size={12} className="fill-current" />
+              <Play size={14} className="ml-2 fill-current" />
             </Button>
 
-            <div className="flex items-center gap-2 w-full xl:w-auto">
+            <div className="flex gap-3">
               <Button
                 onClick={onEdit}
                 variant="outline"
-                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 md:hover:bg-green-50 md:hover:border-green-200 active:bg-green-50 active:border-green-200 text-navy/60 md:hover:text-green-600 active:text-green-600 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="
+                  flex-1 h-10 rounded-xl
+                  border-slate-200
+                  text-navy/70
+                  hover:bg-green-50 hover:text-green-600 hover:border-green-200
+                  transition-all active:scale-95
+                "
               >
                 <Edit3 size={14} />
-                <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">
-                  Edit
-                </span>
               </Button>
 
               <Button
                 onClick={onDelete}
                 variant="outline"
-                className="flex-1 h-10 px-3 sm:px-4 rounded-xl bg-white border-slate-200 md:hover:bg-red-50 md:hover:border-red-200 active:bg-red-50 active:border-red-200 text-navy/60 md:hover:text-red-600 active:text-red-600 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="
+                  flex-1 h-10 rounded-xl
+                  border-slate-200
+                  text-navy/70
+                  hover:bg-red-50 hover:text-red-600 hover:border-red-200
+                  transition-all active:scale-95
+                "
               >
                 <Trash2 size={14} />
-                <span className="text-[10px] font-black uppercase tracking-widest xl:hidden">
-                  Delete
-                </span>
               </Button>
             </div>
           </div>

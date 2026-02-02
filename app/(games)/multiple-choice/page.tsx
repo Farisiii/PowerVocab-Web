@@ -14,10 +14,10 @@ const MOCK_QUESTIONS = [
     description:
       'Sesuatu yang sangat baru dan kreatif, membawa ide atau metode yang belum pernah ada sebelumnya...',
     options: [
-      { id: '1', word: 'Innovative' },
-      { id: '2', word: 'Traditional' },
-      { id: '3', word: 'Obsolete' },
-      { id: '4', word: 'Mundane' },
+      { id: '1', text: 'Innovative' },
+      { id: '2', text: 'Traditional' },
+      { id: '3', text: 'Obsolete' },
+      { id: '4', text: 'Mundane' },
     ],
     correctId: '1',
   },
@@ -26,10 +26,10 @@ const MOCK_QUESTIONS = [
     description:
       'Sangat berlebihan dan mencolok, dirancang untuk menarik perhatian...',
     options: [
-      { id: '1', word: 'Modest' },
-      { id: '2', word: 'Ostentatious' },
-      { id: '3', word: 'Subtle' },
-      { id: '4', word: 'Reserved' },
+      { id: '1', text: 'Modest' },
+      { id: '2', text: 'Ostentatious' },
+      { id: '3', text: 'Subtle' },
+      { id: '4', text: 'Reserved' },
     ],
     correctId: '2',
   },
@@ -38,10 +38,10 @@ const MOCK_QUESTIONS = [
     description:
       'Tidak dapat diprediksi dan tidak konsisten dalam perilaku atau pola...',
     options: [
-      { id: '1', word: 'Steady' },
-      { id: '2', word: 'Reliable' },
-      { id: '3', word: 'Erratic' },
-      { id: '4', word: 'Consistent' },
+      { id: '1', text: 'Steady' },
+      { id: '2', text: 'Reliable' },
+      { id: '3', text: 'Erratic' },
+      { id: '4', text: 'Consistent' },
     ],
     correctId: '3',
   },

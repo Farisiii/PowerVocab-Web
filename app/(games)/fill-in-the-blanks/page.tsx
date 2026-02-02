@@ -14,10 +14,10 @@ const MOCK_QUESTIONS = [
     sentence:
       "The architect's vision was so {blank} that it redefined the city's skyline forever.",
     options: [
-      { id: '1', label: 'Innovative' },
-      { id: '2', label: 'Minimalist' },
-      { id: '3', label: 'Ostentatious' },
-      { id: '4', label: 'Erratic' },
+      { id: '1', text: 'Innovative' },
+      { id: '2', text: 'Minimalist' },
+      { id: '3', text: 'Ostentatious' },
+      { id: '4', text: 'Erratic' },
     ],
     correctId: '1',
   },

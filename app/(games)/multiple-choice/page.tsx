@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { GameHeader } from '@/components/games/common/game-header'
 import { GameModal } from '@/components/games/common/game-modal'
 import { GameControls } from '@/components/games/common/game-controls'
 import { MultipleChoiceCard } from '@/components/games/multiplechoice/card'
+import { ExitConfirmModal } from '@/components/games/common/game-exitConfirm-modal'
 import BackgroundAmbience from '@/components/common/background-ambience'
 
 const MOCK_QUESTIONS = [
@@ -59,9 +60,39 @@ export default function MatchDefinitionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false)
 
   const currentQuestion = MOCK_QUESTIONS[currentIndex]
   const isLastQuestion = currentIndex === MOCK_QUESTIONS.length - 1
+
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault()
+      window.history.pushState(null, '', window.location.pathname)
+      setIsExitModalOpen(true)
+    }
+
+    window.history.pushState(null, '', window.location.pathname)
+
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
+
+  const handleBackClick = () => {
+    setIsExitModalOpen(true)
+  }
+
+  const handleExitConfirm = () => {
+    setIsExitModalOpen(false)
+    router.push('/games')
+  }
+
+  const handleExitCancel = () => {
+    setIsExitModalOpen(false)
+  }
 
   const handleNextAction = () => {
     if (!selectedId) return
@@ -118,6 +149,7 @@ export default function MatchDefinitionPage() {
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
             deckTitle="Vocabulary Mastery"
+            onBackClick={handleBackClick}
           />
         </div>
 
@@ -149,8 +181,21 @@ export default function MatchDefinitionPage() {
         </div>
       </div>
 
+      {/* Exit Confirm Modal */}
+      <ExitConfirmModal
+        isOpen={isExitModalOpen}
+        onClose={handleExitCancel}
+        onConfirm={handleExitConfirm}
+        title="Fill Blank Game"
+        description="Progress kamu di sesi ini bakal hilang kalau keluar sekarang"
+        imageSrc="/multiplechoice.webp"
+        confirmText="Lanjut Main"
+        cancelText="Keluar Aja"
+      />
+
       {/* Result Modal */}
       <GameModal
+        showSkeleton={true}
         isOpen={isModalOpen}
         onClose={handleModalClose}
         score={finalScore}
@@ -162,6 +207,9 @@ export default function MatchDefinitionPage() {
           setIsModalOpen(false)
         }}
         onExit={handleModalClose}
+        title="Hasil Akhir"
+        restartText="Main Lagi"
+        exitText="Keluar"
       />
     </div>
   )

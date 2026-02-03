@@ -2,16 +2,20 @@
 
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 interface GameHeaderProps {
   current: number
   total: number
   deckTitle: string
+  onBackClick?: () => void
 }
 
-export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
-  const router = useRouter()
+export function GameHeader({
+  current,
+  total,
+  deckTitle,
+  onBackClick,
+}: GameHeaderProps) {
   const progressValue = Math.min((current / total) * 100, 100)
 
   return (
@@ -21,7 +25,7 @@ export function GameHeader({ current, total, deckTitle }: GameHeaderProps) {
         <motion.button
           whileTap={{ scale: 0.92 }}
           whileHover={{ scale: 1.05, x: -2 }}
-          onClick={() => router.back()}
+          onClick={onBackClick}
           className="group relative shrink-0 flex items-center justify-center rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-slate-200 text-navy shadow-glass w-11 h-11 md:w-14 md:h-14 transition-all duration-300 hover:border-blue/50 hover:shadow-soft-lg hover:text-blue hover:bg-white cursor-pointer overflow-hidden"
         >
           {/* Hover Gradient */}

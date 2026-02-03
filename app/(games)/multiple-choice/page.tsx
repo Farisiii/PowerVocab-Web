@@ -3,11 +3,10 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { GameHeader } from '@/components/games/common/game-header'
-import { GameModal } from '@/components/games/common/game-modal'
+import { FinishModal } from '@/components/games/common/game-finish-modal'
 import { GameControls } from '@/components/games/common/game-controls'
 import { MultipleChoiceCard } from '@/components/games/multiplechoice/card'
 import { ExitConfirmModal } from '@/components/games/common/game-exitConfirm-modal'
-import BackgroundAmbience from '@/components/common/background-ambience'
 
 const MOCK_QUESTIONS = [
   {
@@ -139,9 +138,7 @@ export default function MatchDefinitionPage() {
   }
 
   return (
-    <div className="h-dvh w-full bg-[#f8fafc] overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
-      <BackgroundAmbience />
-
+    <div className="h-dvh w-full bg-linear-to-br from-cyan via-[#eaf4fb] to-white overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 py-4 sm:py-8 relative z-10">
         {/* Header */}
         <div className="shrink-0 mb-4 md:mb-6">
@@ -172,7 +169,7 @@ export default function MatchDefinitionPage() {
             disabled={!selectedId || isLoading}
             label={
               isLoading
-                ? 'Sabar ya...'
+                ? 'Proses Jawaban...'
                 : isLastQuestion
                   ? 'Selesai'
                   : 'Next Question'
@@ -194,7 +191,7 @@ export default function MatchDefinitionPage() {
       />
 
       {/* Result Modal */}
-      <GameModal
+      <FinishModal
         showSkeleton={true}
         isOpen={isModalOpen}
         onClose={handleModalClose}

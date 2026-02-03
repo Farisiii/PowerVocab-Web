@@ -7,7 +7,6 @@ import { useSpeech } from '../../../hooks/use-speech'
 import { CardHeader } from './card-header'
 import { AudioControls } from './audio-controls'
 import { InputSection } from './input-section'
-import { FooterStats } from './footer-stats'
 
 interface TypeInputCardProps {
   userInput: string
@@ -15,6 +14,8 @@ interface TypeInputCardProps {
   correctText: string
   playbackRate: number
   onPlaybackRateChange: (rate: number) => void
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 export function TypeInputCard({
@@ -23,6 +24,8 @@ export function TypeInputCard({
   correctText,
   playbackRate,
   onPlaybackRateChange,
+  onFocus,
+  onBlur,
 }: TypeInputCardProps) {
   const { isPlaying, togglePlay } = useSpeech(correctText, playbackRate)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -85,9 +88,12 @@ export function TypeInputCard({
             />
           </div>
 
-          <InputSection userInput={userInput} onInputChange={onInputChange} />
-
-          <FooterStats userInput={userInput} />
+          <InputSection
+            userInput={userInput}
+            onInputChange={onInputChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
 
           <div className="absolute inset-0 rounded-4xl md:rounded-[2.5rem] lg:rounded-[3rem] shadow-[inset_0_2px_20px_rgba(28,77,141,0.1)] pointer-events-none" />
         </motion.div>

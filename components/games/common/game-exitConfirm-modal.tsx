@@ -56,7 +56,6 @@ export function ExitConfirmModal({
                   priority
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/10 to-white" />
-
                 <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white via-white/80 to-transparent" />
               </div>
 
@@ -85,7 +84,7 @@ export function ExitConfirmModal({
                   <Button
                     variant="ghost"
                     onClick={onConfirm}
-                    className="h-14 sm:h-16 rounded-[1.25rem] sm:rounded-2xl text-slate-400 hover:text-slate-600 hover:bg-slate-50 font-bold text-sm sm:text-base transition-all duration-200"
+                    className="h-14 sm:h-16 rounded-[1.25rem] sm:rounded-2xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 font-bold text-sm sm:text-base transition-all duration-200"
                   >
                     {cancelText}
                   </Button>

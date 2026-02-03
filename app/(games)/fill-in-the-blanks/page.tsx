@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { GameHeader } from '@/components/games/common/game-header'
-import { GameModal } from '@/components/games/common/game-modal'
+import { FinishModal } from '@/components/games/common/game-finish-modal'
 import { GameControls } from '@/components/games/common/game-controls'
 import { FillBlankCard } from '@/components/games/fillintheblanks/card'
-import BackgroundAmbience from '@/components/common/background-ambience'
+import { ExitConfirmModal } from '@/components/games/common/game-exitConfirm-modal'
 
 const MOCK_QUESTIONS = [
   {
@@ -35,9 +35,38 @@ export default function FillBlankPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false)
 
   const currentQuestion = MOCK_QUESTIONS[currentIndex]
   const isLastQuestion = currentIndex === MOCK_QUESTIONS.length - 1
+
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault()
+      window.history.pushState(null, '', window.location.pathname)
+      setIsExitModalOpen(true)
+    }
+
+    window.history.pushState(null, '', window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
+
+  const handleBackClick = () => {
+    setIsExitModalOpen(true)
+  }
+
+  const handleExitConfirm = () => {
+    setIsExitModalOpen(false)
+    router.push('/games')
+  }
+
+  const handleExitCancel = () => {
+    setIsExitModalOpen(false)
+  }
 
   const handleNextAction = () => {
     const updatedAnswers = [
@@ -82,9 +111,7 @@ export default function FillBlankPage() {
   }
 
   return (
-    <div className="h-dvh w-full bg-[#f8fafc] overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
-      <BackgroundAmbience />
-
+    <div className="h-dvh w-full bg-linear-to-br from-cyan via-[#eaf4fb] to-white overflow-hidden flex flex-col items-center relative selection:bg-cyan/30">
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 py-4 sm:py-8 relative z-10">
         {/* Header */}
         <div className="shrink-0 mb-4 md:mb-6">
@@ -92,6 +119,7 @@ export default function FillBlankPage() {
             current={currentIndex + 1}
             total={MOCK_QUESTIONS.length}
             deckTitle="Architecture 101"
+            onBackClick={handleBackClick}
           />
         </div>
 
@@ -123,8 +151,20 @@ export default function FillBlankPage() {
         </div>
       </div>
 
-      {/* Modal */}
-      <GameModal
+      {/* Exit Confirm Modal */}
+      <ExitConfirmModal
+        isOpen={isExitModalOpen}
+        onClose={handleExitCancel}
+        onConfirm={handleExitConfirm}
+        title="Fill in the Blank"
+        description="Progress kamu di sesi ini bakal hilang kalau keluar sekarang"
+        imageSrc="/fillblank.webp"
+        confirmText="Lanjut Main"
+        cancelText="Keluar Aja"
+      />
+
+      {/* Finish Modal */}
+      <FinishModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
         score={finalScore}

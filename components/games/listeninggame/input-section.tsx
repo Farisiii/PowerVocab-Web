@@ -7,9 +7,16 @@ import { cn } from '@/lib/utils'
 interface InputSectionProps {
   userInput: string
   onInputChange: (value: string) => void
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
-export function InputSection({ userInput, onInputChange }: InputSectionProps) {
+export function InputSection({
+  userInput,
+  onInputChange,
+  onFocus,
+  onBlur,
+}: InputSectionProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -24,6 +31,8 @@ export function InputSection({ userInput, onInputChange }: InputSectionProps) {
         <Textarea
           value={userInput}
           onChange={(e) => onInputChange(e.target.value)}
+          onFocus={onFocus}
+          onBlur={onBlur}
           placeholder="Start typing here..."
           className={cn(
             'relative w-full resize-none',
@@ -37,7 +46,7 @@ export function InputSection({ userInput, onInputChange }: InputSectionProps) {
             'transition-all duration-300',
             'shadow-[inset_0_2px_8px_rgba(15,40,84,0.03),0_4px_20px_rgba(28,77,141,0.08)]',
             'hover:border-white/80 hover:shadow-[inset_0_2px_8px_rgba(15,40,84,0.05),0_8px_30px_rgba(28,77,141,0.12)]',
-            'h-80 sm:h-55 md:h-130 lg:h-40',
+            'h-40 sm:h-55 md:h-130 lg:h-40',
             'leading-relaxed',
             'overflow-y-auto',
           )}

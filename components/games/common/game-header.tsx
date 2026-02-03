@@ -28,13 +28,11 @@ export function GameHeader({
           onClick={onBackClick}
           className="group relative shrink-0 flex items-center justify-center rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-slate-200 text-navy shadow-glass w-11 h-11 md:w-14 md:h-14 transition-all duration-300 hover:border-blue/50 hover:shadow-soft-lg hover:text-blue hover:bg-white cursor-pointer overflow-hidden"
         >
-          {/* Hover Gradient */}
           <div className="absolute inset-0 bg-linear-to-br from-blue/5 via-sky/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
           {/* Icon */}
           <ArrowLeft className="relative z-10 w-5 h-5 md:w-6 md:h-6 stroke-[2.5px] transition-transform duration-300 group-hover:-translate-x-0.5" />
 
-          {/* Glow Effect */}
           <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[inset_0_0_20px_rgba(28,77,141,0.1)]" />
         </motion.button>
 
@@ -59,11 +57,11 @@ export function GameHeader({
               className="relative shrink-0 flex items-center gap-1 px-3.5 py-2 rounded-full bg-white/80 backdrop-blur-sm border-2 border-slate-200 shadow-glass overflow-hidden"
             >
               <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,rgba(28,77,141,0.8),transparent_50%)] bg-size-[15px_15px]" />
-              <div className="absolute inset-0 bg-linear-to-br from-blue/5 via-transparent to-sky/5" />
-              <span className="relative z-10 text-lg md:text-xl font-black text-navy tabular-nums leading-none">
+              <div className="absolute inset-0 bg-linear-to-br from-navy via-blue to-sky text-white" />
+              <span className="relative z-10 text-lg md:text-xl font-black text-white tabular-nums leading-none">
                 {current}
               </span>
-              <span className="relative z-10 text-[10px] md:text-xs font-bold text-blue/60 uppercase tracking-wider">
+              <span className="relative z-10 text-[10px] md:text-xs font-bold text-white/60 uppercase tracking-wider">
                 / {total}
               </span>
             </motion.div>

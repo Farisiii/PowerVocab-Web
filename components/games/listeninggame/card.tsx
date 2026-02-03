@@ -8,6 +8,8 @@ interface ListenAndTypeCardProps {
   onInputChange: (value: string) => void
   playbackRate: number
   onPlaybackRateChange: (rate: number) => void
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 export function ListenAndTypeCard(props: ListenAndTypeCardProps) {

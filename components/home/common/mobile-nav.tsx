@@ -99,7 +99,7 @@ export function MobileNav({ title, primaryAction }: MobileNavProps) {
             exit={{ scale: 0, rotate: -180 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="xl:hidden fixed bottom-8 right-6 z-10"
+            className="xl:hidden fixed bottom-8 right-6 z-100"
           >
             <Button
               onClick={primaryAction}

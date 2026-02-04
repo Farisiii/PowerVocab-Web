@@ -7,6 +7,7 @@ import { GameHeader } from '@/components/games/common/game-header'
 import { FlashcardCard } from '@/components/games/flashcard/card'
 import { FlashcardControls } from '@/components/games/flashcard/controls'
 import { ExitConfirmModal } from '@/components/games/common/game-exitConfirm-modal'
+import { FlashcardFinishModal } from '@/components/games/flashcard/finish-modal'
 
 const MOCK_WORDS = [
   { id: '1', word: 'makan', translation: 'eat' },
@@ -19,10 +20,16 @@ export default function FlashcardPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFlipped, setIsFlipped] = useState(false)
   const [isExitModalOpen, setIsExitModalOpen] = useState(false)
+  const [isFinishModalOpen, setIsFinishModalOpen] = useState(false)
+
+  const [cardStatus, setCardStatus] = useState<Record<string, boolean>>({})
+
   const currentDeck = MOCK_DECKS.find((d) => d.id === '3') || MOCK_DECKS[0]
   const currentWord = MOCK_WORDS[currentIndex]
-
   const isLastCard = currentIndex === MOCK_WORDS.length - 1
+
+  const memorizedCount = Object.values(cardStatus).filter(Boolean).length
+  const notMemorizedCount = Object.values(cardStatus).filter((s) => !s).length
 
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
@@ -52,14 +59,33 @@ export default function FlashcardPage() {
     setIsExitModalOpen(false)
   }
 
-  const handleNext = () => {
+  const handleNext = (mastered: boolean) => {
+    setCardStatus((prev) => ({
+      ...prev,
+      [currentWord.id]: mastered,
+    }))
+
     setIsFlipped(false)
 
     setTimeout(() => {
-      if (!isLastCard) {
+      if (isLastCard) {
+        setIsFinishModalOpen(true)
+      } else {
         setCurrentIndex((prev) => prev + 1)
       }
     }, 200)
+  }
+
+  const handleRestart = () => {
+    setIsFinishModalOpen(false)
+    setCurrentIndex(0)
+    setIsFlipped(false)
+    setCardStatus({})
+  }
+
+  const handleExit = () => {
+    setIsFinishModalOpen(false)
+    router.push('/games')
   }
 
   return (
@@ -91,6 +117,7 @@ export default function FlashcardPage() {
         </div>
       </div>
 
+      {/* Exit Confirm Modal */}
       <ExitConfirmModal
         isOpen={isExitModalOpen}
         onClose={handleExitCancel}
@@ -100,6 +127,17 @@ export default function FlashcardPage() {
         imageSrc="/flashcard.webp"
         confirmText="Lanjut Belajar"
         cancelText="Keluar Aja"
+      />
+
+      {/* Finish Modal */}
+      <FlashcardFinishModal
+        isOpen={isFinishModalOpen}
+        onClose={handleExit}
+        memorizedCount={memorizedCount}
+        notMemorizedCount={notMemorizedCount}
+        onRestart={handleRestart}
+        onExit={handleExit}
+        showSkeleton={true}
       />
     </div>
   )

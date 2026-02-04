@@ -107,12 +107,7 @@ export default function ListenAndTypePage() {
       </div>
 
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 py-8 relative z-10">
-        <div
-          className={`
-            shrink-0 mb-6
-            ${isInputFocused ? 'md:hidden' : ''}
-          `}
-        >
+        <div className="shrink-0 mb-6">
           <GameHeader
             current={currentIndex + 1}
             total={MOCK_SENTENCES.length}

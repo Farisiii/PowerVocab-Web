@@ -34,7 +34,6 @@ export default function FillBlankPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
   const [isExitModalOpen, setIsExitModalOpen] = useState(false)
 
   const currentQuestion = MOCK_QUESTIONS[currentIndex]
@@ -84,25 +83,15 @@ export default function FillBlankPage() {
     }
   }
 
-  const finishGame = async (
+  const finishGame = (
     finalAnswers: { questionId: string; selectedId: string | null }[],
   ) => {
-    setIsLoading(true)
+    const score = finalAnswers.filter((ans, index) => {
+      return ans.selectedId === MOCK_QUESTIONS[index].correctId
+    }).length
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      const score = finalAnswers.filter((ans, index) => {
-        return ans.selectedId === MOCK_QUESTIONS[index].correctId
-      }).length
-
-      setFinalScore(score)
-      setIsModalOpen(true)
-    } catch (error) {
-      console.error('Gagal menghitung skor:', error)
-    } finally {
-      setIsLoading(false)
-    }
+    setFinalScore(score)
+    setIsModalOpen(true)
   }
 
   const handleModalClose = () => {
@@ -139,14 +128,8 @@ export default function FillBlankPage() {
         <div className="shrink-0 mt-2 md:mt-4">
           <GameControls
             onAction={handleNextAction}
-            disabled={!selectedId || isLoading}
-            label={
-              isLoading
-                ? 'Sabar ya...'
-                : isLastQuestion
-                  ? 'Selesai'
-                  : 'Next Question'
-            }
+            disabled={!selectedId}
+            label={isLastQuestion ? 'Selesai' : 'Next Question'}
           />
         </div>
       </div>
@@ -165,6 +148,7 @@ export default function FillBlankPage() {
 
       {/* Finish Modal */}
       <FinishModal
+        showSkeleton={true}
         isOpen={isModalOpen}
         onClose={handleModalClose}
         score={finalScore}

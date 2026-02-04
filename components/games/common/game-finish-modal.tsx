@@ -92,19 +92,22 @@ export function FinishModal({
                   priority
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/10 to-white" />
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white via-white/80 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white/95 via-white/80 to-transparent" />
               </div>
 
               {/* Content */}
-              <div className="px-6 sm:px-8 pt-4 pb-6 sm:pb-8 bg-white overflow-y-auto -mt-1">
+              <div className="px-6 sm:px-8 pt-4 pb-6 sm:pb-8 bg-white overflow-y-auto border-t border-white">
                 {isCalculating ? (
-                  <div className="text-center space-y-4">
-                    <div className="h-16 w-40 mx-auto bg-slate-100 rounded-xl animate-pulse" />
-                    <div className="h-6 w-28 mx-auto bg-slate-100 rounded-full animate-pulse" />
-                    <div className="h-3 w-full bg-slate-100 rounded-full animate-pulse" />
-                    <div className="grid grid-cols-2 gap-3 pt-4">
-                      <div className="h-12 bg-slate-100 rounded-xl animate-pulse" />
-                      <div className="h-12 bg-slate-100 rounded-xl animate-pulse" />
+                  <div className="text-center space-y-3 -mt-1 md:mt-0">
+                    <div className="h-14 sm:h-16 w-32 sm:w-40 mx-auto bg-slate-100 rounded-xl animate-pulse" />
+                    <div className="h-5 sm:h-6 w-32 sm:w-36 mx-auto bg-slate-100 rounded-lg animate-pulse" />
+                    <div className="h-8 w-20 mx-auto bg-slate-100 rounded-full animate-pulse" />
+                    <div className="mt-5">
+                      <div className="h-2.5 w-full bg-slate-100 rounded-full animate-pulse" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-6">
+                      <div className="h-14 sm:h-16 bg-slate-100 rounded-[1.25rem] sm:rounded-2xl animate-pulse" />
+                      <div className="h-14 sm:h-16 bg-slate-100 rounded-[1.25rem] sm:rounded-2xl animate-pulse" />
                     </div>
                   </div>
                 ) : (

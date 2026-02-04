@@ -27,11 +27,11 @@ export default function ListenAndTypePage() {
   const [playbackRate, setPlaybackRate] = useState(1.0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
   const [isExitModalOpen, setIsExitModalOpen] = useState(false)
+  const [isInputFocused, setIsInputFocused] = useState(false)
+
   const currentSentence = MOCK_SENTENCES[currentIndex]
   const isLastQuestion = currentIndex === MOCK_SENTENCES.length - 1
-  const [isInputFocused, setIsInputFocused] = useState(false)
 
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
@@ -81,33 +81,23 @@ export default function ListenAndTypePage() {
     router.push('/games')
   }
 
-  const finishGame = async (finalAnswers: { id: string; input: string }[]) => {
-    setIsLoading(true)
+  const finishGame = (finalAnswers: { id: string; input: string }[]) => {
+    const correctCount = finalAnswers.filter((ans, index) => {
+      const original = MOCK_SENTENCES[index].text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s]/g, '')
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const input = ans.input
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s]/g, '')
 
-      const correctCount = finalAnswers.filter((ans, index) => {
-        const original = MOCK_SENTENCES[index].text
-          .toLowerCase()
-          .trim()
-          .replace(/[^\w\s]/g, '')
+      return input === original
+    }).length
 
-        const input = ans.input
-          .toLowerCase()
-          .trim()
-          .replace(/[^\w\s]/g, '')
-
-        return input === original
-      }).length
-
-      setFinalScore(correctCount)
-      setIsModalOpen(true)
-    } catch (error) {
-      console.error('Gagal mengirim jawaban:', error)
-    } finally {
-      setIsLoading(false)
-    }
+    setFinalScore(correctCount)
+    setIsModalOpen(true)
   }
 
   return (
@@ -119,9 +109,9 @@ export default function ListenAndTypePage() {
       <div className="w-full max-w-6xl mx-auto h-full flex flex-col px-4 py-8 relative z-10">
         <div
           className={`
-    shrink-0 mb-6
-    ${isInputFocused ? 'md:hidden' : ''}
-  `}
+            shrink-0 mb-6
+            ${isInputFocused ? 'md:hidden' : ''}
+          `}
         >
           <GameHeader
             current={currentIndex + 1}
@@ -146,14 +136,8 @@ export default function ListenAndTypePage() {
         <div className="shrink-0 mt-4 z-100">
           <GameControls
             onAction={handleNextAction}
-            disabled={!userInput.trim() || isLoading}
-            label={
-              isLoading
-                ? 'Sabar ya...'
-                : isLastQuestion
-                  ? 'Selesai'
-                  : 'Next Question'
-            }
+            disabled={!userInput.trim()}
+            label={isLastQuestion ? 'Selesai' : 'Next Question'}
           />
         </div>
       </div>

@@ -1,4 +1,6 @@
-import { Loader2, ShieldAlert, Trash2 } from 'lucide-react'
+'use client'
+
+import { ShieldAlert, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface AccountDangerZoneProps {
@@ -18,7 +20,6 @@ export default function AccountDangerZone({
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#ef4444_1px,transparent_1px)] bg-size-[16px_16px]" />
 
         <div className="relative flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8">
-          {/* Left Side */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5">
             <div className="relative">
               <div className="absolute inset-0 bg-red-100 rounded-2xl animate-ping opacity-20" />
@@ -37,28 +38,18 @@ export default function AccountDangerZone({
               </p>
             </div>
           </div>
-
-          {/* Right Side */}
           <Button
             variant="ghost"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="group/btn relative h-12 px-6 rounded-xl overflow-hidden bg-white border border-red-100 text-red-500 shadow-sm transition-all duration-300 hover:border-red-500 hover:bg-red-600 hover:text-white hover:shadow-red-500/30 hover:shadow-lg active:scale-95 w-full sm:w-auto"
+            className="group/btn relative h-12 px-6 rounded-xl overflow-hidden bg-white border border-red-100 text-red-500 shadow-sm transition-all duration-300 hover:bg-red-600 hover:text-white w-full sm:w-auto cursor-pointer"
           >
             <span className="relative z-10 flex items-center font-bold text-xs tracking-[0.15em] uppercase">
-              {isDeleting ? (
-                <Loader2 size={16} className="animate-spin mr-2" />
-              ) : (
-                <Trash2
-                  size={16}
-                  className="mr-2 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:scale-110"
-                />
-              )}
-              {isDeleting ? 'Processing...' : 'Delete Account'}
+              <Trash2 size={16} className="mr-2" />
+              Hapus Akun
             </span>
           </Button>
         </div>
-        <div className="absolute bottom-0 inset-x-0 h-0.75 bg-linear-to-r from-transparent via-red-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   )

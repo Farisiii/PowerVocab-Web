@@ -6,7 +6,7 @@ import { Check, Loader2, Settings2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import AccountFormFields from './account-form-fields'
 import AccountDangerZone from './account-danger-zone'
-import { DeleteAccountModal } from '../delete-confirm-modal'
+import { DeleteAccountModal } from '../delete-account-modal'
 
 export default function AccountCard({
   name,

@@ -7,11 +7,12 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
-interface DeleteAccountModalProps {
+interface DeleteDeckModalProps {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => void
   isDeleting: boolean
+  deckTitle: string
 }
 
 const containerVariants: Variants = {
@@ -34,24 +35,25 @@ const itemVariants: Variants = {
   },
 }
 
-export function DeleteAccountModal({
+export function DeleteDeckModal({
   isOpen,
   onClose,
   onConfirm,
   isDeleting,
-}: DeleteAccountModalProps) {
+  deckTitle,
+}: DeleteDeckModalProps) {
   return (
     <Dialog
       open={isOpen}
       onOpenChange={(open) => !open && !isDeleting && onClose()}
     >
       <DialogContent
-        className="w-[92vw] max-w-lg p-0 border-none bg-white rounded-4xl overflow-hidden shadow-soft-lg outline-none"
+        className="w-[92vw] max-w-lg p-0 border-none bg-white rounded-3xl overflow-hidden outline-none sm:rounded-4xl"
         onPointerDownOutside={isDeleting ? (e) => e.preventDefault() : onClose}
         onEscapeKeyDown={isDeleting ? (e) => e.preventDefault() : onClose}
       >
         <DialogTitle asChild>
-          <VisuallyHidden>Hapus Akun</VisuallyHidden>
+          <VisuallyHidden>Hapus Deck</VisuallyHidden>
         </DialogTitle>
 
         <motion.div
@@ -60,7 +62,7 @@ export function DeleteAccountModal({
           transition={{ duration: 0.3 }}
           className="flex flex-col bg-white"
         >
-          {/* HEADER IMAGE */}
+          {/* HEADER IMAGE SECTION */}
           <div className="relative w-full h-52 sm:h-60 overflow-hidden">
             <motion.div
               initial={{ scale: 1.15 }}
@@ -69,46 +71,58 @@ export function DeleteAccountModal({
               className="w-full h-full relative"
             >
               <Image
-                src="/delete-account.webp"
-                alt="Hapus Akun"
+                src="/delete-deck.webp"
+                alt="Hapus Deck"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 600px"
                 className="object-cover"
               />
             </motion.div>
-            <div className="absolute inset-0 bg-linear-to-t from-white via-white/60 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-white via-white/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent" />
           </div>
 
           {/* CONTENT SECTION */}
-          <div className="px-6 sm:px-8 pb-8 pt-0 -mt-8 relative z-10 bg-white text-center">
+          <div className="px-6 sm:px-8 pb-10 pt-0 -mt-8 relative z-10 bg-white">
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="space-y-6"
+              className="flex flex-col items-center w-full space-y-6 sm:space-y-8"
             >
-              {/* Judul & Deskripsi */}
-              <motion.div variants={itemVariants} className="space-y-3">
+              {/* TEXT GROUP */}
+              <motion.div
+                variants={itemVariants}
+                className="flex flex-col items-center text-center space-y-4 w-full"
+              >
                 <h2 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
-                  Hapus <span className="text-red-600">Akun?</span>
+                  Hapus <span className="text-red-600">Deck?</span>
                 </h2>
-                <p className="text-slate-500 font-medium text-sm sm:text-base max-w-70 mx-auto leading-relaxed">
-                  Semua progress dan kosa kata kamu akan hilang secara permanen.
+
+                {/* Nama Deck Wrapper */}
+                <div className="w-full max-w-xs mx-auto px-5 py-2.5 rounded-2xl bg-red-50 border border-red-100 overflow-hidden">
+                  <p className="text-red-700 font-black text-sm uppercase tracking-widest truncate text-center">
+                    {deckTitle}
+                  </p>
+                </div>
+
+                <p className="text-slate-500 font-medium text-sm sm:text-base max-w-64 leading-relaxed">
+                  Seluruh kosa kata dan progress belajar di deck ini akan hilang
+                  permanen.
                 </p>
               </motion.div>
 
-              {/* Action Buttons */}
+              {/* ACTION BUTTONS */}
               <motion.div
                 variants={itemVariants}
-                className="grid grid-cols-2 gap-3 sm:gap-4"
+                className="w-full max-w-full grid grid-cols-2 gap-3 sm:gap-4 px-0"
               >
                 <Button
                   variant="ghost"
                   onClick={onClose}
                   disabled={isDeleting}
-                  className="h-14 sm:h-16 rounded-[1.25rem] sm:rounded-2xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 font-bold text-sm sm:text-base transition-all duration-200 uppercase tracking-wider"
+                  className="w-full min-w-0 h-14 sm:h-16 rounded-2xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 font-bold text-sm sm:text-base transition-all duration-200 uppercase tracking-wider"
                 >
                   Batal
                 </Button>
@@ -116,13 +130,13 @@ export function DeleteAccountModal({
                 <Button
                   onClick={onConfirm}
                   disabled={isDeleting}
-                  className="relative h-14 sm:h-16 rounded-[1.25rem] sm:rounded-2xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-xl shadow-red-500/25 hover:shadow-2xl hover:shadow-red-500/30 overflow-hidden group"
+                  className="relative w-full min-w-0 h-14 sm:h-16 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm sm:text-base transition-all duration-300 shadow-xl shadow-red-500/25 hover:shadow-2xl hover:shadow-red-500/30 overflow-hidden group"
                 >
                   {isDeleting ? (
                     <Loader2 className="h-6 w-6 animate-spin mx-auto" />
                   ) : (
                     <>
-                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/10 to-transparent" />
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                       <span className="relative z-10">YA, HAPUS</span>
                     </>
                   )}

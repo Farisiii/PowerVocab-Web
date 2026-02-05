@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { AtSign, Lock } from 'lucide-react'
@@ -11,7 +12,46 @@ import { AuthDivider, GoogleButton } from './auth-social'
 export function LoginForm() {
   const router = useRouter()
 
+  // 1. State untuk menangampung input dan error
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+  // 2. Handle perubahan input & hapus error saat mengetik
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+
+    // Auto-clear error ketika user mulai mengetik ulang
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }))
+    }
+  }
+
   const handleSignIn = () => {
+    const newErrors: { [key: string]: string } = {}
+
+    // 3. Validasi Sederhana
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter your email address'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email format'
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required to sign in'
+    }
+
+    // Jika ada error, set state dan stop proses
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
+    // 4. Jika valid, lanjut navigasi
     router.push('/library')
   }
 
@@ -33,16 +73,24 @@ export function LoginForm() {
     >
       <AuthInput
         label="Email Address"
+        name="email" // Penting untuk binding
         type="email"
         placeholder="name@domain.com"
         icon={AtSign}
+        value={formData.email}
+        onChange={handleInputChange}
+        error={errors.email} // Pass error message
       />
 
       <AuthInput
         label="Password"
+        name="password" // Penting untuk binding
         type="password"
         placeholder="••••••••"
         icon={Lock}
+        value={formData.password}
+        onChange={handleInputChange}
+        error={errors.password} // Pass error message
         extraLabel={
           <Link
             href="#"

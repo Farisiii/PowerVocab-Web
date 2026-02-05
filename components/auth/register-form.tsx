@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AtSign, Lock, User } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -21,8 +22,43 @@ const itemVariants: Variants = {
 
 export function RegisterForm() {
   const router = useRouter()
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+  })
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }))
+    }
+  }
 
   const handleSignUp = () => {
+    const newErrors: { [key: string]: string } = {}
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Name is required to start your journey'
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is missing'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Secure password is required'
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters'
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
     router.push('/library')
   }
 
@@ -44,23 +80,35 @@ export function RegisterForm() {
     >
       <AuthInput
         label="Full Name"
+        name="fullName"
         type="text"
         placeholder="John Doe"
         icon={User}
+        value={formData.fullName}
+        onChange={handleInputChange}
+        error={errors.fullName}
       />
 
       <AuthInput
         label="Email Address"
+        name="email"
         type="email"
         placeholder="name@domain.com"
         icon={AtSign}
+        value={formData.email}
+        onChange={handleInputChange}
+        error={errors.email}
       />
 
       <AuthInput
         label="Password"
+        name="password"
         type="password"
         placeholder="••••••••"
         icon={Lock}
+        value={formData.password}
+        onChange={handleInputChange}
+        error={errors.password}
       />
 
       <motion.div

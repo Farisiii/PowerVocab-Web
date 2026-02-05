@@ -9,17 +9,31 @@ import { VocabGrowthChart } from '@/components/home/dashboard/vocab-growth-chart
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 
 const containerVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    y: 0,
-    transition: { staggerChildren: 0.08, duration: 0.5, ease: 'easeOut' },
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
   },
 }
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
+  hidden: {
+    opacity: 0,
+    y: 12,
+    scale: 0.99,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.215, 0.61, 0.355, 1],
+    },
+  },
 }
 
 export default function DashboardPage() {
@@ -64,25 +78,28 @@ export default function DashboardPage() {
             {/* MAIN GRID */}
             <div className="grid grid-cols-12 gap-6 xl:gap-10">
               {/* Left: Activity */}
-              <div className="col-span-12 xl:col-span-8 order-1">
-                <motion.div variants={itemVariants}>
-                  <LearningActivity />
-                </motion.div>
-              </div>
+              <motion.div
+                variants={itemVariants}
+                className="col-span-12 xl:col-span-8 order-1"
+              >
+                <LearningActivity />
+              </motion.div>
 
               {/* Right: Stats */}
-              <div className="col-span-12 xl:col-span-4 flex flex-col gap-6 xl:gap-10 order-2 xl:order-3">
-                <motion.div variants={itemVariants}>
-                  <StatsCards />
-                </motion.div>
-              </div>
+              <motion.div
+                variants={itemVariants}
+                className="col-span-12 xl:col-span-4 flex flex-col gap-6 xl:gap-10 order-2 xl:order-3"
+              >
+                <StatsCards />
+              </motion.div>
 
               {/* Bottom: Chart */}
-              <div className="col-span-12 order-4">
-                <motion.div variants={itemVariants}>
-                  <VocabGrowthChart />
-                </motion.div>
-              </div>
+              <motion.div
+                variants={itemVariants}
+                className="col-span-12 order-4"
+              >
+                <VocabGrowthChart />
+              </motion.div>
             </div>
           </div>
         </motion.main>

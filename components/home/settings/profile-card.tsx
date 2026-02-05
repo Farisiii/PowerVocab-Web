@@ -69,7 +69,7 @@ export default function ProfileCard({
 
           <div className="absolute bottom-0 w-full leading-0 drop-shadow-sm z-10 text-navy">
             <svg
-              className="w-full h-auto relative block scale-105" // scale-105 prevents 1px gap glitches
+              className="w-full h-auto relative block scale-105"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1440 320"
             >

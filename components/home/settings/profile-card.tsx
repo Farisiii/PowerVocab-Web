@@ -36,54 +36,54 @@ export default function ProfileCard({
 
   return (
     <div
-      className={`relative rounded-[3rem] overflow-hidden flex flex-col items-center text-center p-0 pb-8 transition-all duration-500 border-4 ${
+      className={`group relative w-full rounded-[3rem] overflow-hidden flex flex-col items-center text-center pb-10 transition-all duration-500 border-4 ${
         isPremium
-          ? 'border-blue/30 shadow-soft-lg'
-          : 'border-white/50 shadow-glass'
+          ? 'border-white/40 shadow-[0_20px_60px_-15px_rgba(15,40,84,0.3)]'
+          : 'border-white/60 shadow-xl'
       }`}
     >
-      {/* Glass Effect Layers */}
       <div className="absolute inset-0 bg-white" />
-      <div className="absolute inset-0">
-        <div className="absolute -top-12 -left-12 w-48 h-48 lg:w-60 lg:h-60 bg-sky/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -translate-y-1/2 -right-16 w-40 h-40 lg:w-52 lg:h-52 bg-blue/15 rounded-full blur-2xl" />
-        <div className="absolute -bottom-12 left-1/4 w-44 h-44 lg:w-56 lg:h-56 bg-cyan/25 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 lg:w-72 lg:h-72 bg-linear-to-br from-sky/10 to-blue/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] bg-blue-100/40 rounded-full blur-[100px] mix-blend-multiply animate-pulse-slow" />
+        <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] bg-cyan-100/40 rounded-full blur-[80px] mix-blend-multiply" />
       </div>
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(28,77,141,0.8),transparent_50%)]"
-          style={{ backgroundSize: '30px 30px' }}
-        />
-      </div>
-      <div className="absolute inset-0 backdrop-blur-sm bg-white/30" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(28,77,141,0.03)_100%)]" />
-      <div className="absolute inset-0 rounded-[3rem] shadow-[inset_0_2px_20px_rgba(28,77,141,0.1)]" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full">
-        {/* Banner */}
-        <div
-          className={`w-full h-48 relative overflow-hidden ${
-            isPremium
-              ? 'bg-linear-to-br from-navy via-blue to-sky'
-              : 'bg-linear-to-br from-slate-200/80 to-slate-300/80'
-          }`}
-        >
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#ffffff_1px,transparent_0)] bg-size-[20px_20px]" />
-          {isPremium && (
-            <div className="absolute inset-0 bg-linear-to-br from-sky/20 via-transparent to-cyan/20" />
-          )}
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#0f2854_1px,transparent_1px)] bg-size-[24px_24px]" />
+      <div className="absolute inset-0 backdrop-blur-[2px] bg-white/30" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 w-full flex flex-col items-center">
+        <div className="relative w-full h-56 overflow-hidden">
           <div
-            className={`absolute bottom-0 inset-x-0 h-24 bg-linear-to-t to-transparent ${
-              isPremium ? 'from-white/80' : 'from-white/60'
+            className={`absolute inset-0 ${
+              isPremium
+                ? 'bg-linear-to-b from-blue-400 via-blue-200 to-white'
+                : 'bg-linear-to-b from-slate-300 via-slate-100 to-white'
             }`}
           />
+
+          {isPremium && (
+            <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.8),transparent_70%)]" />
+          )}
+
+          <div className="absolute bottom-0 w-full leading-0 drop-shadow-sm z-10 text-navy">
+            <svg
+              className="w-full h-auto relative block scale-105" // scale-105 prevents 1px gap glitches
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1440 320"
+            >
+              <path
+                fill="currentColor"
+                fillOpacity="1"
+                d="M0,128L13.3,138.7C26.7,149,53,171,80,176C106.7,181,133,171,160,186.7C186.7,203,213,245,240,229.3C266.7,213,293,139,320,117.3C346.7,96,373,128,400,128C426.7,128,453,96,480,112C506.7,128,533,192,560,197.3C586.7,203,613,149,640,117.3C666.7,85,693,75,720,96C746.7,117,773,171,800,186.7C826.7,203,853,181,880,176C906.7,171,933,181,960,197.3C986.7,213,1013,235,1040,213.3C1066.7,192,1093,128,1120,128C1146.7,128,1173,192,1200,208C1226.7,224,1253,192,1280,186.7C1306.7,181,1333,203,1360,192C1386.7,181,1413,139,1427,117.3L1440,96L1440,320L0,320Z"
+              ></path>
+            </svg>
+          </div>
         </div>
 
-        {/* Avatar Section */}
-        <div className="relative -mt-24 mb-4 flex justify-center">
-          {/* Hidden Input */}
+        {/* AVATAR SECTION */}
+        <div className="relative -mt-28 mb-4 flex justify-center w-full z-20">
           <input
             ref={fileInputRef}
             type="file"
@@ -92,84 +92,80 @@ export default function ProfileCard({
             onChange={handleFileChange}
           />
 
-          {/* Avatar Container */}
-          <div className="relative">
-            {/* Glow */}
+          <div className="relative group/avatar">
             <div
-              className={`absolute inset-0 rounded-full blur-xl scale-110 ${
-                isPremium ? 'bg-cyan/40 animate-pulse-slow' : 'bg-slate-300/20'
+              className={`absolute -inset-1 rounded-full blur-md transition-all duration-500 ${
+                isPremium ? 'bg-white/40' : 'bg-black/5'
               }`}
             />
 
-            {/* Clickable Avatar */}
             <div
               onClick={handleAvatarClick}
-              className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 p-1.5 rounded-full bg-white relative z-10 shadow-xl cursor-pointer group transition-transform duration-300 hover:scale-105 active:scale-95"
+              className={`relative w-36 h-36 md:w-40 md:h-40 rounded-full border-[6px] border-white shadow-2xl cursor-pointer overflow-hidden transition-transform duration-300 group-hover/avatar:scale-[1.02] active:scale-95 bg-white`}
             >
-              <div
-                className={`w-full h-full rounded-full overflow-hidden relative border-4 ${isPremium ? 'border-blue/20' : 'border-slate-200'}`}
-              >
-                <Image
-                  src={preview || '/avatar_placeholder.webp'}
-                  alt="Profile"
-                  fill
-                  sizes="(max-width: 768px) 128px, 160px"
-                  className="object-cover"
-                />
+              <Image
+                src={preview || '/avatar_placeholder.webp'}
+                alt="Profile"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 144px, 160px"
+              />
 
-                {/* Hover Overlay (Desktop) */}
-                <div className="absolute inset-0 bg-navy/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                  <Camera className="text-white" size={22} strokeWidth={2.5} />
-                </div>
+              <div className="absolute inset-0 bg-navy/60 backdrop-blur-[2px] opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <Camera
+                  className="text-white drop-shadow-md"
+                  size={28}
+                  strokeWidth={2}
+                />
               </div>
             </div>
 
-            {/* Camera Button */}
             <Button
               type="button"
               onClick={handleAvatarClick}
               size="icon"
-              className="absolute bottom-2 right-2 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-glass bg-white hover:bg-white text-navy hover:text-blue hover:scale-110 border-2 border-white z-20 p-0 transition-all duration-300"
+              className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-white text-navy hover:bg-blue-50 hover:text-blue-600 shadow-lg border-2 border-navy/10 transition-all duration-300 hover:scale-110"
             >
               <Camera size={18} strokeWidth={2.5} />
             </Button>
           </div>
         </div>
 
-        {/* Name */}
-        <h2 className="text-3xl font-black text-navy tracking-tight mb-1 drop-shadow-sm px-4">
-          {name || 'Your Name'}
-        </h2>
+        {/* INFO SECTION */}
+        <div className="px-6 w-full flex flex-col items-center gap-1">
+          <h2 className="text-3xl font-black text-navy tracking-tight mb-2 drop-shadow-sm">
+            {name || 'Your Name'}
+          </h2>
 
-        {/* Email */}
-        <div className="flex items-center justify-center gap-2 mb-6 mx-auto w-fit px-5 py-2 rounded-full bg-blue/10 backdrop-blur-sm text-blue text-sm font-bold tracking-wide border border-blue/20">
-          <Mail size={14} strokeWidth={2.5} />
-          <span className="truncate max-w-50">
-            {email || 'email@example.com'}
-          </span>
-        </div>
-
-        {/* Plan */}
-        {isPremium ? (
-          <div className="relative overflow-hidden rounded-full group cursor-default inline-block">
-            <div className="absolute top-0 -left-full w-[50%] h-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-[shimmer_2.5s_infinite_linear]" />
-            <div className="relative px-8 py-3 bg-linear-to-r from-blue via-sky to-cyan flex items-center gap-3 shadow-lg shadow-blue/30 rounded-full">
-              <Crown size={16} className="text-white" fill="currentColor" />
-              <span className="text-xs font-black text-white tracking-[0.25em] uppercase drop-shadow-md">
-                Premium Member
-              </span>
-            </div>
+          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-navy/5 text-navy/70 text-sm font-bold tracking-wide mb-6 border border-navy/10">
+            <Mail size={14} strokeWidth={2.5} />
+            <span className="truncate max-w-50">
+              {email || 'email@example.com'}
+            </span>
           </div>
-        ) : (
-          <div className="px-8 py-3 bg-white/60 backdrop-blur-sm border-2 border-slate-200 rounded-full items-center gap-3 shadow-md inline-block">
-            <div className="flex items-center gap-2">
-              <User size={16} className="text-navy/50" strokeWidth={2.5} />
-              <span className="text-xs font-black text-navy/60 tracking-[0.25em] uppercase">
+          {isPremium ? (
+            <div className="relative group/badge cursor-default">
+              <div className="absolute -inset-1 bg-linear-to-r from-blue-400 to-cyan-400 rounded-full blur opacity-25 group-hover/badge:opacity-50 transition duration-500" />
+              <div className="relative px-8 py-3 bg-navy flex items-center gap-3 shadow-xl shadow-blue-900/20 rounded-full transition-transform hover:-translate-y-0.5">
+                <Crown
+                  size={18}
+                  className="text-yellow-400 animate-pulse"
+                  fill="currentColor"
+                />
+                <span className="text-xs font-black text-white tracking-[0.2em] uppercase">
+                  Premium Member
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="px-8 py-3 bg-white border-2 border-slate-100 rounded-full flex items-center gap-3 shadow-sm text-slate-500">
+              <User size={16} strokeWidth={2.5} />
+              <span className="text-xs font-black tracking-[0.2em] uppercase">
                 Free Plan
               </span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

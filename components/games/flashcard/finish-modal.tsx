@@ -101,8 +101,8 @@ export function FlashcardFinishModal({
                 className="object-cover"
               />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/90 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-white via-white/60 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-white via-white/90 to-transparent" />
           </div>
 
           {/* CONTENT SECTION */}
@@ -202,7 +202,7 @@ export function FlashcardFinishModal({
 
                     <Button
                       onClick={onRestart}
-                      className="h-12 sm:h-14 rounded-2xl bg-navy hover:bg-blue text-white font-bold shadow-lg shadow-navy/20 active:scale-95 transition-all"
+                      className="h-12 sm:h-14 rounded-2xl btn-modern "
                     >
                       {restartText}
                     </Button>

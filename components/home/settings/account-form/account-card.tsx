@@ -22,24 +22,20 @@ export default function AccountCard({
   const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  // State Error
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({})
 
-  // --- VALIDATION LOGIC YANG LEBIH PINTAR ---
   const validate = () => {
     const newErrors: { name?: string; email?: string } = {}
     let isValid = true
 
-    // Validasi Nama
     if (!name.trim()) {
-      newErrors.name = 'Full Name is required' // Pesan spesifik
+      newErrors.name = 'Full Name is required'
       isValid = false
     } else if (name.length < 3) {
-      newErrors.name = 'Name is too short (min 3 chars)' // Pesan spesifik
+      newErrors.name = 'Name is too short (min 3 chars)'
       isValid = false
     }
 
-    // Validasi Email yang Lebih Informatif
     if (!email.trim()) {
       newErrors.email = 'Email address is required'
       isValid = false
@@ -47,10 +43,8 @@ export default function AccountCard({
       newErrors.email = 'Email must contain "@"'
       isValid = false
     } else {
-      // Cek format umum
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(email)) {
-        // Cek kasus spesifik biar user paham
         if (email.endsWith('@')) {
           newErrors.email = 'Missing domain name after "@"'
         } else if (!email.includes('.')) {
@@ -94,18 +88,14 @@ export default function AccountCard({
   }
 
   return (
-    // Container utama
     <div className="relative rounded-[2.5rem] md:rounded-[3rem] h-full flex flex-col overflow-hidden border-4 border-white/50 shadow-xl p-6 md:p-12 transition-all duration-300">
       <div className="absolute inset-0 bg-white" />
-      {/* Background Blobs */}
       <div className="absolute inset-0">
         <div className="absolute -top-12 -left-12 w-48 h-48 lg:w-60 lg:h-60 bg-sky/20 rounded-full blur-3xl" />
         <div className="absolute top-1/2 -translate-y-1/2 -right-16 w-40 h-40 lg:w-52 lg:h-52 bg-blue/15 rounded-full blur-2xl" />
         <div className="absolute -bottom-12 left-1/4 w-44 h-44 lg:w-56 lg:h-56 bg-cyan/25 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 lg:w-72 lg:h-72 bg-linear-to-br from-sky/10 to-blue/10 rounded-full blur-3xl" />
       </div>
-
-      {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div
           className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(28,77,141,0.8),transparent_50%)]"
@@ -121,7 +111,7 @@ export default function AccountCard({
       <div className="relative z-10 flex flex-col h-full max-w-2xl mx-auto w-full">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 relative">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-950 via-blue-800 to-sky-600 flex items-center justify-center text-white shadow-lg shadow-blue-900/20 rotate-3 transition-transform hover:rotate-6 hover:scale-110 shrink-0">
+          <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-blue-950 via-blue-800 to-sky-600 flex items-center justify-center text-white shadow-lg shadow-blue-900/20 rotate-3 transition-transform hover:rotate-6 hover:scale-110 shrink-0">
             <Settings2 size={28} strokeWidth={2} />
           </div>
           <div>
@@ -134,7 +124,7 @@ export default function AccountCard({
           </div>
         </div>
 
-        {/* --- 1. FORM FIELDS COMPONENT --- */}
+        {/* FORM FIELDS COMPONENT */}
         <AccountFormFields
           name={name}
           email={email}
@@ -143,15 +133,15 @@ export default function AccountCard({
           handleEmailChange={handleEmailChange}
         />
 
-        {/* --- 2. DANGER ZONE COMPONENT --- */}
+        {/* DANGER ZONE COMPONENT */}
         <AccountDangerZone
           isDeleting={isDeleting}
           handleDelete={handleDelete}
         />
 
-        {/* SAVE BUTTON (FOOTER) */}
+        {/* SAVE BUTTON */}
         <div className="mt-8 pt-6 sm:mt-10 sm:pt-8 border-t border-blue-900/5 relative flex flex-col sm:flex-row sm:justify-end">
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-900/20 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-blue-900/20 to-transparent" />
 
           <Button
             onClick={handleSave}
@@ -164,9 +154,7 @@ export default function AccountCard({
           >
             {hasChanges && (
               <>
-                {/* Gradient Background */}
                 <div className="absolute inset-0 btn-modern" />
-                {/* Shine Effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_-20%,#ffffff,transparent_70%)] transition-opacity duration-500" />
               </>
             )}

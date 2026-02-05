@@ -7,7 +7,7 @@ import { MobileNav } from '@/components/home/common/mobile-nav'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 import ProfileCard from '@/components/home/settings/profile-card'
 import StatsCard from '@/components/home/settings/stats-card'
-import AccountForm from '@/components/home/settings/account-form'
+import AccountForm from '@/components/home/settings/account-form/account-card'
 
 const INITIAL_DATA = {
   name: 'Alex Morgan',

@@ -4,15 +4,14 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { motion, Variants } from 'framer-motion'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import { Loader2 } from 'lucide-react'
+import { Loader2, LogOut } from 'lucide-react'
 import Image from 'next/image'
 
-interface DeleteDeckModalProps {
+interface LogoutModalProps {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => void
-  isDeleting: boolean
-  deckTitle: string
+  isLoggingOut: boolean
 }
 
 const containerVariants: Variants = {
@@ -35,25 +34,26 @@ const itemVariants: Variants = {
   },
 }
 
-export function DeleteDeckModal({
+export function LogoutModal({
   isOpen,
   onClose,
   onConfirm,
-  isDeleting,
-  deckTitle,
-}: DeleteDeckModalProps) {
+  isLoggingOut,
+}: LogoutModalProps) {
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={(open) => !open && !isDeleting && onClose()}
+      onOpenChange={(open) => !open && !isLoggingOut && onClose()}
     >
       <DialogContent
         className="w-[92vw] max-w-lg p-0 border-none bg-white rounded-3xl overflow-hidden outline-none sm:rounded-4xl"
-        onPointerDownOutside={isDeleting ? (e) => e.preventDefault() : onClose}
-        onEscapeKeyDown={isDeleting ? (e) => e.preventDefault() : onClose}
+        onPointerDownOutside={
+          isLoggingOut ? (e) => e.preventDefault() : onClose
+        }
+        onEscapeKeyDown={isLoggingOut ? (e) => e.preventDefault() : onClose}
       >
         <DialogTitle asChild>
-          <VisuallyHidden>Hapus Deck</VisuallyHidden>
+          <VisuallyHidden>Konfirmasi Keluar</VisuallyHidden>
         </DialogTitle>
 
         <motion.div
@@ -63,16 +63,16 @@ export function DeleteDeckModal({
           className="flex flex-col bg-white"
         >
           {/* HEADER IMAGE SECTION */}
-          <div className="relative w-full h-52 sm:h-60 overflow-hidden">
+          <div className="relative w-full h-52 sm:h-60 overflow-hidden bg-slate-50">
             <motion.div
               initial={{ scale: 1.15 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1, ease: 'easeOut' }}
-              className="w-full h-full relative"
+              className="w-full h-full relative flex items-center justify-center"
             >
               <Image
-                src="/delete-deck.webp"
-                alt="Hapus Deck"
+                src="/logout.webp"
+                alt="Keluar Akun"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 600px"
@@ -97,19 +97,12 @@ export function DeleteDeckModal({
                 className="flex flex-col items-center text-center space-y-4 w-full"
               >
                 <h2 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
-                  Hapus <span className="text-red-600">Deck?</span>
+                  Keluar <span className="text-red-500">Akun?</span>
                 </h2>
 
-                {/* Nama Deck Wrapper */}
-                <div className="w-full max-w-xs mx-auto px-5 py-2.5 rounded-2xl bg-red-50 border border-red-100 overflow-hidden">
-                  <p className="text-red-700 font-black text-sm uppercase tracking-widest truncate text-center">
-                    {deckTitle}
-                  </p>
-                </div>
-
                 <p className="text-slate-500 font-medium text-sm sm:text-base max-w-64 leading-relaxed">
-                  Seluruh kosa kata dan progress belajar di deck ini akan hilang
-                  permanen.
+                  Sesi Anda saat ini akan berakhir dan Anda harus masuk kembali
+                  untuk mengakses akun
                 </p>
               </motion.div>
 
@@ -121,7 +114,7 @@ export function DeleteDeckModal({
                 <Button
                   variant="ghost"
                   onClick={onClose}
-                  disabled={isDeleting}
+                  disabled={isLoggingOut}
                   className="w-full min-w-0 h-14 sm:h-16 rounded-2xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 font-bold text-sm sm:text-base transition-all duration-200 uppercase tracking-wider"
                 >
                   Batal
@@ -129,15 +122,17 @@ export function DeleteDeckModal({
 
                 <Button
                   onClick={onConfirm}
-                  disabled={isDeleting}
-                  className="relative w-full min-w-0 h-14 sm:h-16 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm sm:text-base transition-all duration-300 shadow-xl shadow-red-500/25 hover:shadow-2xl hover:shadow-red-500/30 overflow-hidden group"
+                  disabled={isLoggingOut}
+                  className="relative w-full min-w-0 h-14 sm:h-16 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm sm:text-base transition-all duration-300 shadow-xl shadow-red-500/25 hover:shadow-2xl hover:shadow-red-500/30 overflow-hidden group cursor-pointer"
                 >
-                  {isDeleting ? (
+                  {isLoggingOut ? (
                     <Loader2 className="h-6 w-6 animate-spin mx-auto" />
                   ) : (
                     <>
                       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-                      <span className="relative z-10">YA, HAPUS</span>
+                      <span className="relative z-10 flex items-center gap-2">
+                        YA, KELUAR
+                      </span>
                     </>
                   )}
                 </Button>

@@ -84,7 +84,7 @@ export function InfiniteDeckGrid() {
             })),
           }
         })
-      }, 350) // Delay sedikit lebih lama dari durasi exit modal
+      }, 350)
     },
   })
 

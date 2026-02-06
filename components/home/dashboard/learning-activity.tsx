@@ -60,8 +60,16 @@ export function LearningActivity() {
   }
 
   return (
-    <Card className="relative rounded-[3rem] border-4 border-white/50 shadow-glass overflow-hidden bg-white/70 backdrop-blur-xl">
-      <CardContent className="p-6 sm:p-8 lg:p-10">
+    <Card className="relative rounded-[3rem] border-4 border-white/50 shadow-glass overflow-hidden bg-linear-to-br from-cyan via-[#eaf4fb] to-white/70 backdrop-blur-xl">
+      <div className="absolute inset-0 bg-white" />
+      <div className="absolute inset-0">
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-sky/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-blue/20 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-linear-to-br from-sky/5 to-blue/5" />
+      </div>
+      <div className="absolute inset-0 backdrop-blur-sm bg-white/30" />
+      <div className="absolute inset-0 rounded-[3rem] shadow-[inset_0_2px_20px_rgba(28,77,141,0.08)]" />
+      <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10">
         {/* HEADER */}
         <div className="flex flex-row justify-between items-start sm:items-center mb-10 gap-4">
           <motion.div

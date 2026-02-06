@@ -31,7 +31,7 @@ const itemVariants: Variants = {
 export default function SettingsPage() {
   useScrollbarGutterStable()
 
-  const isPremium = true
+  const isPremium = false
 
   const [name, setName] = useState(INITIAL_DATA.name)
   const [email, setEmail] = useState(INITIAL_DATA.email)

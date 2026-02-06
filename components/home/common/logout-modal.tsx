@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { motion, Variants } from 'framer-motion'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import { Loader2, LogOut } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
 interface LogoutModalProps {

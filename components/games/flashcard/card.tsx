@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { RotateCw, Volume2 } from 'lucide-react'
+import { Volume2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface FlashcardCardProps {
@@ -62,7 +62,6 @@ export function FlashcardCard({
           </div>
 
           <div className="absolute bottom-6 sm:bottom-8 lg:bottom-10 flex flex-col items-center gap-2 opacity-40">
-            <RotateCw className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white animate-spin-slow" />
             <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-black uppercase tracking-widest text-white">
               Tap to Reveal
             </span>
@@ -108,9 +107,6 @@ export function FlashcardCard({
           </div>
 
           <div className="absolute bottom-6 sm:bottom-8 lg:bottom-10 flex flex-col items-center gap-2 opacity-50 z-10">
-            <div className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-white/50 backdrop-blur-sm shadow-lg">
-              <RotateCw className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-blue" />
-            </div>
             <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-black uppercase tracking-widest text-navy drop-shadow-sm">
               Tap to Reveal
             </span>

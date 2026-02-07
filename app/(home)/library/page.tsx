@@ -1,10 +1,12 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion, Variants } from 'framer-motion'
 import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { ProgressCard } from '@/components/home/library/progress-card'
 import { InfiniteDeckGrid } from '@/components/home/library/infinite-deck-grid'
+import { CreateDeckModal } from '@/components/home/library/create-deck-modal'
 import { Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -26,7 +28,20 @@ const itemVariants: Variants = {
 
 export default function LibraryPage() {
   useScrollbarGutterStable()
-  const handleAdd = () => console.log('Add new item')
+
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  useEffect(() => {
+    if (isCreateModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isCreateModalOpen])
+
+  const handleAdd = () => setIsCreateModalOpen(true)
 
   return (
     <div className="flex min-h-screen bg-linear-to-br from-white via-[#eaf4fb] to-cyan items-start selection:bg-cyan/30 relative">
@@ -101,7 +116,10 @@ export default function LibraryPage() {
                       />
                     </div>
 
-                    <Button className="hidden xl:flex items-center gap-3 bg-navy text-white px-10 h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl md:hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto">
+                    <Button
+                      onClick={handleAdd}
+                      className="hidden xl:flex items-center gap-3 bg-navy text-white px-10 h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl md:hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto cursor-pointer"
+                    >
                       <Plus size={18} strokeWidth={3} /> CREATE NEW
                     </Button>
                   </div>
@@ -115,6 +133,11 @@ export default function LibraryPage() {
           </div>
         </motion.main>
       </div>
+
+      <CreateDeckModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
     </div>
   )
 }

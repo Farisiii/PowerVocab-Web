@@ -2,14 +2,29 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import { Trash2, Languages, Type } from 'lucide-react'
+import { Trash2, Languages, Type, Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import { WordPair, mockAiResponse } from '@/lib/data'
 
-interface CreateDeckModalProps {
+interface DeckModalProps {
   isOpen: boolean
   onClose: () => void
-  onCreate: (deck: any) => void
+  onSave: (deck: any) => void
+  editDeckId?: string | null
+}
+
+const fetchDeckDetail = async (id: string) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+  return {
+    id,
+    title: 'deck edit test',
+    description: 'uji coba buat edit aja ini mah, mari kita cobaaa',
+    pairs: [
+      { id: 'srv-1', english: 'Ambiguous', indonesian: 'Ambigu' },
+      { id: 'srv-2', english: 'Benevolent', indonesian: 'Baik Hati' },
+      { id: 'srv-3', english: 'Candid', indonesian: 'Jujur' },
+    ],
+  }
 }
 
 const deckNameSchema = z.object({
@@ -24,22 +39,22 @@ const generateEmptyPairs = (): WordPair[] => {
   }))
 }
 
-export function CreateDeckModal({
+export function DeckModal({
   isOpen,
   onClose,
-  onCreate,
-}: CreateDeckModalProps) {
+  onSave,
+  editDeckId,
+}: DeckModalProps) {
   const [deckName, setDeckName] = useState('')
   const [description, setDescription] = useState('')
   const [pairs, setPairs] = useState<WordPair[]>(generateEmptyPairs())
-  const [isGenerating, setIsGenerating] = useState(false)
-
   const [deckNameError, setDeckNameError] = useState<string>('')
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isLoadingData, setIsLoadingData] = useState(false)
 
   const listRef = useRef<HTMLDivElement>(null)
-
   const showDeckNameError = deckNameError !== ''
-
+  const isEditMode = !!editDeckId
   const validateDeckName = (value: string) => {
     const result = deckNameSchema.safeParse({ deckName: value })
     if (!result.success) {
@@ -54,7 +69,6 @@ export function CreateDeckModal({
     setDeckName(value)
     validateDeckName(value)
   }
-
   const handleRemovePair = (id: string) => {
     setPairs(
       pairs.map((p) =>
@@ -69,30 +83,33 @@ export function CreateDeckModal({
     value: string,
   ) => {
     const maxLength = field === 'english' ? 15 : 20
+
     if (value.length <= maxLength) {
       setPairs(pairs.map((p) => (p.id === id ? { ...p, [field]: value } : p)))
     }
   }
 
+  const handleClearAll = () => {
+    setPairs(generateEmptyPairs())
+  }
   const handleAiGenerate = async () => {
     if (!validateDeckName(deckName)) return
 
     setIsGenerating(true)
-
     await new Promise((resolve) => setTimeout(resolve, 1500))
-
     const result = mockAiResponse
-
     const newPairs = generateEmptyPairs()
-
     result.data.forEach((aiPair, index) => {
-      newPairs[index] = aiPair
+      newPairs[index] = {
+        id: aiPair.id,
+        english: aiPair.english.slice(0, 15),
+        indonesian: aiPair.indonesian.slice(0, 20),
+      }
     })
 
     setPairs(newPairs)
     setIsGenerating(false)
   }
-
   const handleSubmit = () => {
     if (!validateDeckName(deckName)) return
 
@@ -100,15 +117,17 @@ export function CreateDeckModal({
       (p) => p.english.trim() && p.indonesian.trim(),
     )
 
-    const newDeck = {
-      id: crypto.randomUUID(),
+    const deckPayload = {
+      id: editDeckId || crypto.randomUUID(),
       title: deckName,
       description,
+      pairs,
       totalWords: filledPairs.length,
       progress: 0,
     }
 
-    onCreate(newDeck)
+    onSave(deckPayload)
+    onClose()
   }
 
   const filledPairsCount = pairs.filter(
@@ -117,24 +136,56 @@ export function CreateDeckModal({
 
   const isFormValid =
     !deckNameError && deckName.trim() !== '' && filledPairsCount > 0
-
-  const handleClearAll = () => {
-    setPairs(generateEmptyPairs())
-  }
-
   useEffect(() => {
-    if (isOpen) {
-      setDeckName('')
-      setDescription('')
-      setPairs(generateEmptyPairs())
-      setDeckNameError('Deck name is required')
+    const initData = async () => {
+      if (isOpen) {
+        setDeckNameError('')
+
+        if (editDeckId) {
+          setIsLoadingData(true)
+          try {
+            const data = await fetchDeckDetail(editDeckId)
+
+            setDeckName(data.title)
+            setDescription(data.description)
+            const loadedPairs = generateEmptyPairs()
+
+            if (Array.isArray(data.pairs)) {
+              data.pairs.forEach((p: any, idx: number) => {
+                if (idx < 20) {
+                  loadedPairs[idx] = {
+                    id: p.id || `pair-${idx}`,
+                    english: p.english || '',
+                    indonesian: p.indonesian || '',
+                  }
+                }
+              })
+            }
+
+            setPairs(loadedPairs)
+          } catch (error) {
+            console.error('Gagal mengambil data deck:', error)
+          } finally {
+            setIsLoadingData(false)
+          }
+        } else {
+          setDeckName('')
+          setDescription('')
+          setPairs(generateEmptyPairs())
+          setDeckNameError('Deck name is required')
+          setIsLoadingData(false)
+        }
+      }
     }
-  }, [isOpen])
+
+    initData()
+  }, [isOpen, editDeckId])
 
   return (
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-40 py-6">
+          {/* Overlay Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -143,6 +194,7 @@ export function CreateDeckModal({
             className="absolute inset-0 bg-navy/40 backdrop-blur-md cursor-pointer"
           />
 
+          {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -150,15 +202,26 @@ export function CreateDeckModal({
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="relative w-full max-w-6xl h-[85vh] bg-white rounded-[2.5rem] shadow-glass overflow-hidden flex flex-row z-10 border border-white/50"
           >
+            {isLoadingData && (
+              <div className="absolute inset-0 z-50 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+                <Loader2 className="animate-spin text-blue" size={48} />
+                <p className="text-navy/60 font-bold animate-pulse">
+                  Fetching deck details...
+                </p>
+              </div>
+            )}
+
             {/* Sidebar Section */}
             <div className="w-1/3 bg-linear-to-b from-[#f8fafc] to-[#eaf4fb] border-r border-blue/10 relative overflow-y-auto shrink-0">
               <div className="p-10 space-y-8">
                 <div>
                   <h2 className="text-3xl font-black text-navy tracking-tighter mb-1">
-                    NEW DECK
+                    {isEditMode ? 'EDIT DECK' : 'NEW DECK'}
                   </h2>
                   <p className="text-navy/60 text-sm font-medium">
-                    Create a new vocabulary set manually or let AI help you.
+                    {isEditMode
+                      ? 'Update your vocabulary set details.'
+                      : 'Create a new vocabulary set manually or let AI help you.'}
                   </p>
                 </div>
 
@@ -222,7 +285,7 @@ export function CreateDeckModal({
                 <div>
                   <button
                     onClick={handleAiGenerate}
-                    disabled={isGenerating || !deckName.trim()}
+                    disabled={isGenerating || !deckName.trim() || isLoadingData}
                     className="group relative w-full overflow-hidden rounded-2xl bg-linear-to-r from-blue to-navy p-0.5 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:shadow-lg hover:shadow-blue/20"
                   >
                     <div className="relative flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm h-14 w-full rounded-2xl transition-all group-hover:bg-transparent">
@@ -336,10 +399,10 @@ export function CreateDeckModal({
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={!isFormValid}
+                  disabled={!isFormValid || isLoadingData}
                   className="px-10 h-14 rounded-2xl bg-linear-to-r from-blue to-navy text-white font-black tracking-widest text-sm uppercase shadow-lg shadow-navy/20 hover:bg-blue hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-navy"
                 >
-                  Create Deck
+                  {isEditMode ? 'Save Changes' : 'Create Deck'}
                 </button>
               </div>
             </div>

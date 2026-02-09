@@ -15,6 +15,10 @@ import { MOCK_DECKS } from '@/lib/data'
 
 const ITEMS_PER_PAGE = 6
 
+interface InfiniteDeckGridProps {
+  onEditDeck: (id: string) => void
+}
+
 const fetchDecks = async ({ pageParam = 1 }) => {
   await new Promise((resolve) => setTimeout(resolve, 800))
   const start = (pageParam - 1) * ITEMS_PER_PAGE
@@ -49,7 +53,7 @@ const cardVariants: Variants = {
   },
 }
 
-export function InfiniteDeckGrid() {
+export function InfiniteDeckGrid({ onEditDeck }: InfiniteDeckGridProps) {
   const queryClient = useQueryClient()
   const { ref, inView } = useInView({ threshold: 0.1 })
 
@@ -154,6 +158,7 @@ export function InfiniteDeckGrid() {
                     progress={deck.progress}
                     description={deck.description}
                     onDelete={() => handleOpenDelete(deck.id, deck.title)}
+                    onEdit={() => onEditDeck(deck.id)}
                   />
                 </motion.div>
               ))}

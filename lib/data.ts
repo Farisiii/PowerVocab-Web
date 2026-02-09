@@ -15,7 +15,7 @@ export const MOCK_DECKS = [
   {
     id: '1',
     title: 'Business English',
-    totalWords: 120,
+    totalWords: 20,
     progress: 45,
     description:
       'Mastering professional communication, emails, and corporate terminology for daily business interactions.',
@@ -23,7 +23,7 @@ export const MOCK_DECKS = [
   {
     id: '2',
     title: 'Academic Writing',
-    totalWords: 85,
+    totalWords: 20,
     progress: 100,
     description:
       'Advanced formal structures for thesis, journals, and essay writing with academic vocabulary.',
@@ -31,7 +31,7 @@ export const MOCK_DECKS = [
   {
     id: '3',
     title: 'Travel & Leisure Essentials for Global Nomads',
-    totalWords: 210,
+    totalWords: 20,
     progress: 12,
     description:
       'Essential phrases for booking, navigating cities, and casual social interactions while traveling.',
@@ -39,7 +39,7 @@ export const MOCK_DECKS = [
   {
     id: '4',
     title: 'Advanced Verbs',
-    totalWords: 65,
+    totalWords: 20,
     progress: 60,
     description:
       'Focusing on complex action words to make your English sound more natural and sophisticated.',
@@ -47,7 +47,7 @@ export const MOCK_DECKS = [
   {
     id: '5',
     title: 'IELTS Band 8+ Vocabulary',
-    totalWords: 350,
+    totalWords: 20,
     progress: 25,
     description:
       'High-level synonyms and idiomatic expressions specifically curated for the IELTS Speaking and Writing sections.',
@@ -55,7 +55,7 @@ export const MOCK_DECKS = [
   {
     id: '6',
     title: 'Medical Terminology',
-    totalWords: 150,
+    totalWords: 15,
     progress: 0,
     description:
       'Foundational medical terms, anatomy, and healthcare jargon for professionals and students.',
@@ -63,7 +63,7 @@ export const MOCK_DECKS = [
   {
     id: '7',
     title: 'Daily Phrasal Verbs',
-    totalWords: 90,
+    totalWords: 15,
     progress: 85,
     description:
       'Common phrasal verbs used in casual conversations to help you sound like a native speaker.',
@@ -71,7 +71,7 @@ export const MOCK_DECKS = [
   {
     id: '8',
     title: 'Technology & Startup Jargon',
-    totalWords: 110,
+    totalWords: 15,
     progress: 55,
     description:
       'Latest terms from the tech industry, software development, and the venture capital ecosystem.',
@@ -79,7 +79,7 @@ export const MOCK_DECKS = [
   {
     id: '9',
     title: 'Legal English Basics',
-    totalWords: 140,
+    totalWords: 15,
     progress: 0,
     description:
       'Essential legal vocabulary and formal expressions used in contracts and court documents.',
@@ -87,7 +87,7 @@ export const MOCK_DECKS = [
   {
     id: '10',
     title: 'Interview Preparation',
-    totalWords: 75,
+    totalWords: 15,
     progress: 40,
     description:
       'Common interview questions, professional answers, and confidence-building phrases.',
@@ -95,7 +95,7 @@ export const MOCK_DECKS = [
   {
     id: '11',
     title: 'Everyday Small Talk',
-    totalWords: 60,
+    totalWords: 15,
     progress: 90,
     description:
       'Light conversation starters and casual responses for daily social interactions.',
@@ -103,7 +103,7 @@ export const MOCK_DECKS = [
   {
     id: '12',
     title: 'Finance & Banking Terms',
-    totalWords: 130,
+    totalWords: 10,
     progress: 0,
     description:
       'Key vocabulary for personal finance, investments, loans, and banking services.',
@@ -111,7 +111,7 @@ export const MOCK_DECKS = [
   {
     id: '13',
     title: 'Customer Service English',
-    totalWords: 95,
+    totalWords: 10,
     progress: 70,
     description:
       'Polite and effective expressions for handling customers, complaints, and support calls.',
@@ -119,7 +119,7 @@ export const MOCK_DECKS = [
   {
     id: '14',
     title: 'Presentation Skills',
-    totalWords: 80,
+    totalWords: 10,
     progress: 35,
     description:
       'Phrases and structures to deliver clear and persuasive presentations in English.',
@@ -127,7 +127,7 @@ export const MOCK_DECKS = [
   {
     id: '15',
     title: 'Engineering Vocabulary',
-    totalWords: 200,
+    totalWords: 10,
     progress: 0,
     description:
       'Technical terms commonly used in mechanical, electrical, and software engineering.',
@@ -135,7 +135,7 @@ export const MOCK_DECKS = [
   {
     id: '16',
     title: 'Hospitality & Hotel English',
-    totalWords: 105,
+    totalWords: 10,
     progress: 65,
     description:
       'Useful expressions for front desk staff, reservations, and guest services.',
@@ -143,7 +143,7 @@ export const MOCK_DECKS = [
   {
     id: '17',
     title: 'Negotiation & Persuasion',
-    totalWords: 115,
+    totalWords: 20,
     progress: 30,
     description:
       'Strategic language for bargaining, persuading, and reaching professional agreements.',
@@ -151,7 +151,7 @@ export const MOCK_DECKS = [
   {
     id: '18',
     title: 'Slang & Informal English',
-    totalWords: 70,
+    totalWords: 20,
     progress: 0,
     description:
       'Modern slang and informal expressions used by native speakers in daily life.',

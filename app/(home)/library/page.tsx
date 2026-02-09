@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/home/common/sidebar'
 import { MobileNav } from '@/components/home/common/mobile-nav'
 import { ProgressCard } from '@/components/home/library/progress-card'
 import { InfiniteDeckGrid } from '@/components/home/library/infinite-deck-grid'
-import { CreateDeckModal } from '@/components/home/library/create-deck-modal'
+import { DeckModal } from '@/components/home/library/deck-modal'
 import { Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -31,31 +31,49 @@ export default function LibraryPage() {
   useScrollbarGutterStable()
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
+
   const queryClient = useQueryClient()
 
-  const handleCreateDeck = (newDeck: any) => {
+  const handleSaveDeck = (savedDeck: any) => {
     queryClient.setQueryData(['decks-infinite'], (oldData: any) => {
       if (!oldData) {
         return {
           pages: [
             {
-              items: [newDeck],
+              items: [savedDeck],
               nextPage: undefined,
             },
           ],
           pageParams: [1],
         }
       }
+      const isEditing = oldData.pages.some((page: any) =>
+        page.items.find((item: any) => item.id === savedDeck.id),
+      )
 
-      return {
-        ...oldData,
-        pages: oldData.pages.map((page: any, index: number) =>
-          index === 0 ? { ...page, items: [newDeck, ...page.items] } : page,
-        ),
+      if (isEditing) {
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            items: page.items.map((item: any) =>
+              item.id === savedDeck.id ? savedDeck : item,
+            ),
+          })),
+        }
+      } else {
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any, index: number) =>
+            index === 0 ? { ...page, items: [savedDeck, ...page.items] } : page,
+          ),
+        }
       }
     })
 
     setIsCreateModalOpen(false)
+    setSelectedDeckId(null)
   }
 
   useEffect(() => {
@@ -69,7 +87,15 @@ export default function LibraryPage() {
     }
   }, [isCreateModalOpen])
 
-  const handleAdd = () => setIsCreateModalOpen(true)
+  const handleEditClick = (id: string) => {
+    setSelectedDeckId(id)
+    setIsCreateModalOpen(true)
+  }
+
+  const handleAdd = () => {
+    setSelectedDeckId(null)
+    setIsCreateModalOpen(true)
+  }
 
   return (
     <div className="flex min-h-screen bg-linear-to-br from-white via-[#eaf4fb] to-cyan items-start selection:bg-cyan/30 relative">
@@ -155,17 +181,18 @@ export default function LibraryPage() {
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <InfiniteDeckGrid />
+                <InfiniteDeckGrid onEditDeck={handleEditClick} />
               </motion.div>
             </section>
           </div>
         </motion.main>
       </div>
 
-      <CreateDeckModal
+      <DeckModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        onCreate={handleCreateDeck}
+        onSave={handleSaveDeck}
+        editDeckId={selectedDeckId}
       />
     </div>
   )

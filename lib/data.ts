@@ -184,3 +184,42 @@ export const MOCK_CHART_DATA = [
   { day: 23, words: 190 },
   { day: 24, words: 190 },
 ]
+
+export interface WordPair {
+  id: string
+  english: string
+  indonesian: string
+}
+
+export const mockAiResponse = {
+  data: [
+    {
+      id: 'ai-1',
+      english: 'Serendipity',
+      indonesian: 'Kebetulan Indah',
+    },
+    {
+      id: 'ai-2',
+      english: 'Petrichor',
+      indonesian: 'Wangi Hujan',
+    },
+    { id: 'ai-3', english: 'Ephemeral', indonesian: 'Sementara' },
+    { id: 'ai-4', english: 'Resilience', indonesian: 'Ketangguhan' },
+    { id: 'ai-5', english: 'Luminous', indonesian: 'Bercahaya' },
+    { id: 'ai-6', english: 'Euphoria', indonesian: 'Sangat Bahagia' },
+    { id: 'ai-7', english: 'Solitude', indonesian: 'Menyendiri' },
+    { id: 'ai-8', english: 'Gratitude', indonesian: 'Bersyukur' },
+    { id: 'ai-9', english: 'Tranquil', indonesian: 'Damai' },
+    { id: 'ai-10', english: 'Inevitable', indonesian: 'Pasti Terjadi' },
+    { id: 'ai-11', english: 'Radiant', indonesian: 'Berseri' },
+    { id: 'ai-12', english: 'Melancholy', indonesian: 'Sendu' },
+    { id: 'ai-13', english: 'Ambitious', indonesian: 'Ambisius' },
+    { id: 'ai-14', english: 'Compassion', indonesian: 'Belas Kasih' },
+    { id: 'ai-15', english: 'Harmony', indonesian: 'Selaras' },
+    { id: 'ai-16', english: 'Infinite', indonesian: 'Tak Terbatas' },
+    { id: 'ai-17', english: 'Courage', indonesian: 'Keberanian' },
+    { id: 'ai-18', english: 'Whimsical', indonesian: 'Jenaka' },
+    { id: 'ai-19', english: 'Authentic', indonesian: 'Otentik' },
+    { id: 'ai-20', english: 'Serenity', indonesian: 'Ketenangan' },
+  ],
+}

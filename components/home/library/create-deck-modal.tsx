@@ -2,18 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import { Sparkles, Trash2, Languages, Type } from 'lucide-react'
+import { Trash2, Languages, Type } from 'lucide-react'
 import { z } from 'zod'
-
-interface WordPair {
-  id: string
-  english: string
-  indonesian: string
-}
+import { WordPair, mockAiResponse } from '@/lib/data'
 
 interface CreateDeckModalProps {
   isOpen: boolean
   onClose: () => void
+  onCreate: (deck: any) => void
 }
 
 const deckNameSchema = z.object({
@@ -28,7 +24,11 @@ const generateEmptyPairs = (): WordPair[] => {
   }))
 }
 
-export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
+export function CreateDeckModal({
+  isOpen,
+  onClose,
+  onCreate,
+}: CreateDeckModalProps) {
   const [deckName, setDeckName] = useState('')
   const [description, setDescription] = useState('')
   const [pairs, setPairs] = useState<WordPair[]>(generateEmptyPairs())
@@ -68,38 +68,29 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
     field: 'english' | 'indonesian',
     value: string,
   ) => {
-    setPairs(pairs.map((p) => (p.id === id ? { ...p, [field]: value } : p)))
+    const maxLength = field === 'english' ? 15 : 20
+    if (value.length <= maxLength) {
+      setPairs(pairs.map((p) => (p.id === id ? { ...p, [field]: value } : p)))
+    }
   }
 
-  const handleAiGenerate = () => {
+  const handleAiGenerate = async () => {
     if (!validateDeckName(deckName)) return
 
     setIsGenerating(true)
-    setTimeout(() => {
-      const aiGeneratedPairs = [
-        {
-          id: 'ai-1',
-          english: 'Serendipity',
-          indonesian: 'Kebetulan yang indah',
-        },
-        {
-          id: 'ai-2',
-          english: 'Petrichor',
-          indonesian: 'Aroma hujan di tanah kering',
-        },
-        { id: 'ai-3', english: 'Ephemeral', indonesian: 'Sesaat / Fana' },
-        { id: 'ai-4', english: 'Resilience', indonesian: 'Ketangguhan' },
-        { id: 'ai-5', english: 'Luminous', indonesian: 'Bercahaya' },
-      ]
 
-      const newPairs = generateEmptyPairs()
-      aiGeneratedPairs.forEach((aiPair, index) => {
-        newPairs[index] = aiPair
-      })
+    await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      setPairs(newPairs)
-      setIsGenerating(false)
-    }, 1500)
+    const result = mockAiResponse
+
+    const newPairs = generateEmptyPairs()
+
+    result.data.forEach((aiPair, index) => {
+      newPairs[index] = aiPair
+    })
+
+    setPairs(newPairs)
+    setIsGenerating(false)
   }
 
   const handleSubmit = () => {
@@ -108,8 +99,16 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
     const filledPairs = pairs.filter(
       (p) => p.english.trim() && p.indonesian.trim(),
     )
-    console.log({ deckName, description, pairs: filledPairs })
-    onClose()
+
+    const newDeck = {
+      id: crypto.randomUUID(),
+      title: deckName,
+      description,
+      totalWords: filledPairs.length,
+      progress: 0,
+    }
+
+    onCreate(newDeck)
   }
 
   const filledPairsCount = pairs.filter(
@@ -227,7 +226,6 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
                     className="group relative w-full overflow-hidden rounded-2xl bg-linear-to-r from-blue to-navy p-0.5 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:shadow-lg hover:shadow-blue/20"
                   >
                     <div className="relative flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm h-14 w-full rounded-2xl transition-all group-hover:bg-transparent">
-                      <Sparkles size={15} className="text-white" />
                       <span className="font-black text-white tracking-widest text-sm uppercase">
                         {isGenerating ? 'Generating...' : 'AI Generate'}
                       </span>
@@ -268,10 +266,10 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
               {/* Column Headers */}
               <div className="grid grid-cols-[1fr_1fr_40px] gap-4 mb-2 px-2 shrink-0">
                 <span className="text-xs font-bold text-navy/40 uppercase tracking-widest">
-                  English
+                  English <span className="lowercase">(15 letters)</span>
                 </span>
                 <span className="text-xs font-bold text-navy/40 uppercase tracking-widest">
-                  Indonesia
+                  Indonesia <span className="lowercase">(20 letters)</span>
                 </span>
                 <span className="w-10"></span>
               </div>
@@ -302,6 +300,7 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
                           onChange={(e) =>
                             handleChange(pair.id, 'english', e.target.value)
                           }
+                          maxLength={15}
                           placeholder="Word"
                           className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-blue focus:ring-2 focus:ring-blue/10 transition-all font-medium text-navy placeholder:text-slate-300"
                         />
@@ -310,6 +309,7 @@ export function CreateDeckModal({ isOpen, onClose }: CreateDeckModalProps) {
                           onChange={(e) =>
                             handleChange(pair.id, 'indonesian', e.target.value)
                           }
+                          maxLength={20}
                           placeholder="Terjemahan"
                           className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-blue focus:ring-2 focus:ring-blue/10 transition-all font-medium text-navy placeholder:text-slate-300"
                         />

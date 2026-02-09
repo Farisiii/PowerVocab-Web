@@ -10,9 +10,9 @@ import { ExitConfirmModal } from '@/components/games/common/game-exitConfirm-mod
 import { FlashcardFinishModal } from '@/components/games/flashcard/finish-modal'
 
 const MOCK_WORDS = [
-  { id: '1', word: 'makan', translation: 'eat' },
-  { id: '2', word: 'tidur', translation: 'sleep' },
-  { id: '3', word: 'bekerja', translation: 'work' },
+  { id: '1', english: 'eat', indonesian: 'makan' },
+  { id: '2', english: 'sleep', indonesian: 'tidur' },
+  { id: '3', english: 'work', indonesian: 'bekerja' },
 ]
 
 export default function FlashcardPage() {
@@ -104,8 +104,8 @@ export default function FlashcardPage() {
         {/* Flashcard */}
         <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden py-2 md:py-4">
           <FlashcardCard
-            word={currentWord.word}
-            translation={currentWord.translation}
+            english={currentWord.english}
+            indonesian={currentWord.indonesian}
             isFlipped={isFlipped}
             onFlip={() => setIsFlipped(!isFlipped)}
           />

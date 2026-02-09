@@ -5,15 +5,31 @@ import { Volume2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface FlashcardCardProps {
-  word: string
-  translation: string
+  english: string
+  indonesian: string
   isFlipped: boolean
   onFlip: () => void
 }
 
+const getFontSize = (text: string, isTranslation = false) => {
+  const cleanLength = text.replace(/\s/g, '').length
+
+  if (isTranslation) {
+    if (cleanLength <= 8) return 'text-5xl sm:text-6xl md:text-7xl'
+    if (cleanLength <= 14) return 'text-4xl sm:text-5xl md:text-6xl'
+    if (cleanLength <= 20) return 'text-3xl sm:text-4xl md:text-5xl'
+    return 'text-2xl sm:text-3xl md:text-4xl'
+  }
+
+  if (cleanLength <= 6) return 'text-6xl sm:text-7xl md:text-8xl'
+  if (cleanLength <= 10) return 'text-5xl sm:text-6xl md:text-7xl'
+  if (cleanLength <= 15) return 'text-4xl sm:text-5xl md:text-6xl'
+  return 'text-3xl sm:text-4xl md:text-5xl'
+}
+
 export function FlashcardCard({
-  word,
-  translation,
+  english,
+  indonesian,
   isFlipped,
   onFlip,
 }: FlashcardCardProps) {
@@ -45,8 +61,10 @@ export function FlashcardCard({
           </span>
 
           <div className="flex flex-col items-center gap-5 sm:gap-6 md:gap-8 lg:gap-10">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white text-center tracking-tighter leading-none px-4">
-              {translation}
+            <h2
+              className={`${getFontSize(english, true)} font-black text-white text-center leading-tight px-4`}
+            >
+              {english}
             </h2>
 
             <Button
@@ -54,7 +72,7 @@ export function FlashcardCard({
               className="rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 bg-white text-navy md:hover:bg-cyan md:hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-xl"
               onClick={(e) => {
                 e.stopPropagation()
-                speak(translation)
+                speak(english)
               }}
             >
               <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
@@ -96,13 +114,13 @@ export function FlashcardCard({
 
           <div className="relative z-10 flex flex-col items-center gap-5 sm:gap-6 md:gap-8 lg:gap-10">
             <h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-navy text-center tracking-tighter leading-none px-4"
+              className={`${getFontSize(indonesian)} font-black text-navy text-center leading-none px-4`}
               style={{
                 textShadow:
                   '0 2px 10px rgba(28,77,141,0.1), 0 0 30px rgba(28,77,141,0.05)',
               }}
             >
-              {word}
+              {indonesian}
             </h2>
           </div>
 

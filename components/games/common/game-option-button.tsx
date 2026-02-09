@@ -12,6 +12,18 @@ interface GameOptionButtonProps {
   enableHoverEffect?: boolean
 }
 
+const getOptionFontSize = (text: string) => {
+  const length = text.length
+
+  if (length <= 6) return 'text-base sm:text-lg md:text-xl'
+
+  if (length <= 10) return 'text-sm sm:text-base md:text-lg'
+
+  if (length <= 13) return 'text-xs sm:text-sm md:text-base'
+
+  return 'text-xs sm:text-sm'
+}
+
 export function GameOptionButton({
   id,
   text,
@@ -82,7 +94,8 @@ export function GameOptionButton({
         )}
         <span
           className={cn(
-            'relative z-10 px-3 wrap-break-word hyphens-auto leading-tight transition-all duration-300',
+            'relative z-10 px-3 whitespace-nowrap overflow-hidden text-ellipsis lowercase leading-tight transition-all duration-300',
+            getOptionFontSize(text),
             isSelected ? 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]' : '',
           )}
         >

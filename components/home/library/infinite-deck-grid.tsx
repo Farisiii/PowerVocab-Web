@@ -26,21 +26,26 @@ const fetchDecks = async ({ pageParam = 1 }) => {
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+    y: -40,
+  },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 260, damping: 25 },
+    transition: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 20,
+    },
   },
   exit: {
     opacity: 0,
-    scale: 0.8,
-    filter: 'blur(10px)',
-    transition: {
-      duration: 0.5,
-      ease: [0.32, 0.72, 0, 1],
-    },
+    scale: 0.7,
+    y: 30,
+    transition: { duration: 0.3 },
   },
 }
 
@@ -133,8 +138,16 @@ export function InfiniteDeckGrid() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="w-full"
+                  className="w-full relative"
                 >
+                  {/* Glow animation saat card masuk */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.4, 0] }}
+                    transition={{ duration: 1.2 }}
+                    className="absolute inset-0 rounded-3xl bg-cyan/20 pointer-events-none"
+                  />
+
                   <DeckCard
                     title={deck.title}
                     words={deck.totalWords}

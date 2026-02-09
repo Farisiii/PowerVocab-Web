@@ -11,6 +11,7 @@ import { Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
+import { useQueryClient } from '@tanstack/react-query'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -30,6 +31,33 @@ export default function LibraryPage() {
   useScrollbarGutterStable()
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const queryClient = useQueryClient()
+
+  const handleCreateDeck = (newDeck: any) => {
+    queryClient.setQueryData(['decks-infinite'], (oldData: any) => {
+      if (!oldData) {
+        return {
+          pages: [
+            {
+              items: [newDeck],
+              nextPage: undefined,
+            },
+          ],
+          pageParams: [1],
+        }
+      }
+
+      return {
+        ...oldData,
+        pages: oldData.pages.map((page: any, index: number) =>
+          index === 0 ? { ...page, items: [newDeck, ...page.items] } : page,
+        ),
+      }
+    })
+
+    setIsCreateModalOpen(false)
+  }
+
   useEffect(() => {
     if (isCreateModalOpen) {
       document.body.style.overflow = 'hidden'
@@ -137,6 +165,7 @@ export default function LibraryPage() {
       <CreateDeckModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
+        onCreate={handleCreateDeck}
       />
     </div>
   )

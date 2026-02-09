@@ -4,16 +4,7 @@ import { Edit3, Trash2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { motion } from 'framer-motion'
-
-interface DeckCardProps {
-  title: string
-  words: number
-  progress: number
-  description: string
-  onEdit?: () => void
-  onDelete?: () => void
-  onPlay?: () => void
-}
+import { DeckCardProps } from '@/types/library-type'
 
 export function DeckCard({
   title,

@@ -6,14 +6,7 @@ import { motion, Variants } from 'framer-motion'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
-
-interface DeleteDeckModalProps {
-  isOpen: boolean
-  onClose: () => void
-  onConfirm: () => void
-  isDeleting: boolean
-  deckTitle: string
-}
+import { DeleteDeckModalProps } from '@/types/library-type'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },

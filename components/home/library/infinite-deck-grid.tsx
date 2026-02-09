@@ -144,7 +144,6 @@ export function InfiniteDeckGrid({ onEditDeck }: InfiniteDeckGridProps) {
                   exit="exit"
                   className="w-full relative"
                 >
-                  {/* Glow animation saat card masuk */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0.4, 0] }}

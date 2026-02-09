@@ -185,12 +185,6 @@ export const MOCK_CHART_DATA = [
   { day: 24, words: 190 },
 ]
 
-export interface WordPair {
-  id: string
-  english: string
-  indonesian: string
-}
-
 export const mockAiResponse = {
   data: [
     {

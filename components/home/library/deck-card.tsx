@@ -112,7 +112,7 @@ export function DeckCard({
                 variant="outline"
                 className="flex-1 h-10 rounded-xl border-slate-200 text-navy/70 hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-all active:scale-95"
               >
-                <Edit3 size={14} />
+                <Edit3 size={14} /> <span className="lg:hidden">edit</span>
               </Button>
 
               <Button
@@ -123,7 +123,7 @@ export function DeckCard({
                 variant="outline"
                 className="flex-1 h-10 rounded-xl border-slate-200 text-navy/70 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all active:scale-95"
               >
-                <Trash2 size={14} />
+                <Trash2 size={14} /> <span className="lg:hidden">delete</span>
               </Button>
             </div>
           </div>

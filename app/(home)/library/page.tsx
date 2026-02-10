@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useScrollbarGutterStable } from '@/components/utils/useScrollbarGutter'
 import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -30,6 +31,7 @@ const itemVariants: Variants = {
 export default function LibraryPage() {
   useScrollbarGutterStable()
 
+  const router = useRouter()
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
 
@@ -92,9 +94,13 @@ export default function LibraryPage() {
     setIsCreateModalOpen(true)
   }
 
-  const handleAdd = () => {
+  const handleAddDesktop = () => {
     setSelectedDeckId(null)
     setIsCreateModalOpen(true)
+  }
+
+  const handleAddMobile = () => {
+    router.push('/library/deck')
   }
 
   return (
@@ -104,7 +110,7 @@ export default function LibraryPage() {
       </div>
 
       <div className="flex flex-col flex-1 min-w-0 relative z-10">
-        <MobileNav title="Library" primaryAction={handleAdd} />
+        <MobileNav title="Library" primaryAction={handleAddMobile} />
 
         <motion.main
           variants={containerVariants}
@@ -171,7 +177,7 @@ export default function LibraryPage() {
                     </div>
 
                     <Button
-                      onClick={handleAdd}
+                      onClick={handleAddDesktop}
                       className="hidden xl:flex items-center gap-3 bg-navy text-white px-10 h-16 rounded-2xl font-black text-xs tracking-widest shadow-xl md:hover:bg-blue transition-all active:scale-95 order-1 sm:order-2 w-full lg:w-auto cursor-pointer"
                     >
                       <Plus size={18} strokeWidth={3} /> CREATE NEW

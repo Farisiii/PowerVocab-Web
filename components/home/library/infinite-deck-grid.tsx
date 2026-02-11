@@ -12,6 +12,7 @@ import { DeckCard } from './deck-card'
 import { DeleteDeckModal } from './delete-deck-modal'
 import { Loader2 } from 'lucide-react'
 import { MOCK_DECKS } from '@/lib/data'
+import { useRouter } from 'next/navigation'
 
 const ITEMS_PER_PAGE = 6
 
@@ -54,6 +55,7 @@ const cardVariants: Variants = {
 }
 
 export function InfiniteDeckGrid({ onEditDeck }: InfiniteDeckGridProps) {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const { ref, inView } = useInView({ threshold: 0.1 })
 
@@ -157,7 +159,10 @@ export function InfiniteDeckGrid({ onEditDeck }: InfiniteDeckGridProps) {
                     progress={deck.progress}
                     description={deck.description}
                     onDelete={() => handleOpenDelete(deck.id, deck.title)}
-                    onEdit={() => onEditDeck(deck.id)}
+                    onEditDesktop={() => onEditDeck(deck.id)}
+                    onEditMobile={() =>
+                      router.push(`/library/deck/edit/${deck.id}`)
+                    }
                   />
                 </motion.div>
               ))}

@@ -100,7 +100,7 @@ export default function LibraryPage() {
   }
 
   const handleAddMobile = () => {
-    router.push('/library/deck')
+    router.push('/library/create/deck')
   }
 
   return (

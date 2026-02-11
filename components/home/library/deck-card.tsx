@@ -11,7 +11,8 @@ export function DeckCard({
   words,
   progress,
   description,
-  onEdit,
+  onEditDesktop,
+  onEditMobile,
   onDelete,
   onPlay,
 }: DeckCardProps) {
@@ -107,10 +108,21 @@ export function DeckCard({
               <Button
                 onClick={(e) => {
                   e.stopPropagation()
-                  onEdit?.()
+                  onEditDesktop?.()
                 }}
                 variant="outline"
-                className="flex-1 h-10 rounded-xl border-slate-200 text-navy/70 hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-all active:scale-95"
+                className="hidden xl:flex flex-1 h-10 rounded-xl border-slate-200 text-navy/70 hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-all active:scale-95"
+              >
+                <Edit3 size={14} /> <span className="lg:hidden">edit</span>
+              </Button>
+
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onEditMobile?.()
+                }}
+                variant="outline"
+                className="xl:hidden flex-1 h-10 rounded-xl border-slate-200 text-navy/70 hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-all active:scale-95"
               >
                 <Edit3 size={14} /> <span className="lg:hidden">edit</span>
               </Button>

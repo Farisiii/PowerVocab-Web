@@ -42,7 +42,8 @@ export interface DeckCardProps {
   words: number
   progress: number
   description: string
-  onEdit?: () => void
+  onEditDesktop?: () => void
+  onEditMobile?: () => void
   onDelete?: () => void
   onPlay?: () => void
 }

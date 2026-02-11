@@ -11,6 +11,60 @@ export const MOCK_USER = {
   },
 }
 
+export const DECK_DETAILS = [
+  {
+    id: '1',
+    wordPairs: [
+      { id: '1-1', english: 'Revenue', indonesian: 'Pendapatan' },
+      { id: '1-2', english: 'Invoice', indonesian: 'Faktur' },
+      { id: '1-3', english: 'Profit', indonesian: 'Keuntungan' },
+      { id: '1-4', english: 'Expense', indonesian: 'Pengeluaran' },
+      { id: '1-5', english: 'Investment', indonesian: 'Investasi' },
+    ],
+  },
+  {
+    id: '2',
+    wordPairs: [
+      { id: '2-1', english: 'Thesis', indonesian: 'Tesis' },
+      { id: '2-2', english: 'Cohesion', indonesian: 'Keterpaduan' },
+      { id: '2-3', english: 'Abstract', indonesian: 'Abstrak' },
+      { id: '2-4', english: 'Citation', indonesian: 'Kutipan' },
+      { id: '2-5', english: 'Methodology', indonesian: 'Metodologi' },
+    ],
+  },
+  {
+    id: '3',
+    wordPairs: [
+      { id: '3-1', english: 'Reservation', indonesian: 'Reservasi' },
+      { id: '3-2', english: 'Itinerary', indonesian: 'Rencana perjalanan' },
+      { id: '3-3', english: 'Destination', indonesian: 'Tujuan' },
+      { id: '3-4', english: 'Accommodation', indonesian: 'Akomodasi' },
+      { id: '3-5', english: 'Departure', indonesian: 'Keberangkatan' },
+      { id: '4-5', english: 'Maintain', indonesian: 'Memelihara' },
+    ],
+  },
+  {
+    id: '4',
+    wordPairs: [
+      { id: '4-1', english: 'Analyze', indonesian: 'Menganalisis' },
+      { id: '4-2', english: 'Implement', indonesian: 'Menerapkan' },
+      { id: '4-3', english: 'Optimize', indonesian: 'Mengoptimalkan' },
+      { id: '4-4', english: 'Execute', indonesian: 'Melaksanakan' },
+      { id: '4-5', english: 'Maintain', indonesian: 'Memelihara' },
+    ],
+  },
+  {
+    id: '5',
+    wordPairs: [
+      { id: '5-1', english: 'Fluency', indonesian: 'Kelancaran' },
+      { id: '5-2', english: 'Pronunciation', indonesian: 'Pengucapan' },
+      { id: '5-3', english: 'Vocabulary', indonesian: 'Kosakata' },
+      { id: '5-4', english: 'Grammar', indonesian: 'Tata bahasa' },
+      { id: '5-5', english: 'Comprehension', indonesian: 'Pemahaman' },
+    ],
+  },
+]
+
 export const MOCK_DECKS = [
   {
     id: '1',

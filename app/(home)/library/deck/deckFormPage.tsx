@@ -1,15 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ChevronLeft } from 'lucide-react'
 import { z } from 'zod'
 import { WordPair } from '@/types/library-type'
 import { Button } from '@/components/ui/button'
-import { mockAiResponse } from '@/lib/data'
+import { mockAiResponse, DECK_DETAILS, MOCK_DECKS } from '@/lib/data'
 import DeckDetailsSection from '@/components/home/library/deck-page/DeckDetailsSection'
 import WordPairsSection from '@/components/home/library/deck-page/WordPairsSection'
 import StickyFooter from '@/components/home/library/deck-page/StickyFooter'
+import { useQuery } from '@tanstack/react-query'
+
+interface DeckFormPageProps {
+  mode: 'create' | 'edit'
+  deckId?: string
+}
 
 const MAX_PAIRS = 20
 
@@ -24,7 +30,7 @@ const generateEmptyPairs = (): WordPair[] =>
     indonesian: '',
   }))
 
-export default function DeckPage() {
+export default function DeckFormPage({ mode, deckId }: DeckFormPageProps) {
   const router = useRouter()
 
   const [deckName, setDeckName] = useState('')
@@ -32,6 +38,37 @@ export default function DeckPage() {
   const [pairs, setPairs] = useState<WordPair[]>(generateEmptyPairs())
   const [deckNameError, setDeckNameError] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+  const { data, isLoading } = useQuery({
+    queryKey: ['deck-detail', deckId],
+    queryFn: async () => {
+      // api call
+      // const res = await fetch(`/api/decks/${deckId}`)
+      // if (!res.ok) throw new Error('Failed')
+      // return res.json()
+
+      const deckSummary = MOCK_DECKS.find((d) => d.id === deckId)
+      if (!deckSummary) throw new Error('Deck not found')
+      const deckDetail = DECK_DETAILS.find((d) => d.id === deckId)
+
+      await new Promise((resolve) => setTimeout(resolve, 300))
+      return {
+        id: deckSummary.id,
+        title: deckSummary.title,
+        description: deckSummary.description,
+        totalWords: deckSummary.totalWords,
+        progress: deckSummary.progress,
+        wordPairs: deckDetail?.wordPairs ?? [],
+      }
+    },
+    enabled: mode === 'edit' && !!deckId,
+  })
+
+  useEffect(() => {
+    if (!data) return
+    setDeckName(data.title)
+    setDescription(data.description)
+    setPairs(data.wordPairs.length ? data.wordPairs : generateEmptyPairs())
+  }, [data])
 
   const validateDeckName = (value: string) => {
     const result = deckNameSchema.safeParse({ deckName: value })
@@ -81,6 +118,13 @@ export default function DeckPage() {
 
   const handleSave = () => {
     if (!validateDeckName(deckName)) return
+    if (mode === 'create') {
+      // api call
+      console.log('create deck')
+    } else {
+      // api call
+      console.log('edit deck', deckId)
+    }
     router.push('/library')
   }
 
@@ -102,7 +146,7 @@ export default function DeckPage() {
         </Button>
 
         <h1 className="text-lg font-black text-navy uppercase tracking-widest">
-          New Deck
+          {mode === 'create' ? 'New Deck' : 'Edit Deck'}
         </h1>
 
         <div className="w-10" />

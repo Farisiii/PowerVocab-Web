@@ -77,7 +77,7 @@ export default function DeckDetailsSection({
           placeholder="What is this deck about?"
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
-          className="min-h-25 rounded-2xl border-slate-200 text-base text-navy resize-none"
+          className="min-h-25 h-auto max-h-40 overflow-auto-y rounded-2xl border-2 border-slate-200 focus-visible:border-blue text-base text-navy resize-none no-scrollbar"
         />
       </div>
 
